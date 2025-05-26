@@ -1,0 +1,44 @@
+﻿using MediatR;
+using RentACar.Application.Features.CQRS.Queries.BannerQueries;
+using RentACar.Application.Features.CQRS.Results.BannerResults;
+using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Application.Utilities.Results.Abstract;
+using RentACar.Application.Utilities.Results.Concrete;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RentACar.Application.Features.CQRS.Handlers.Read.BannerReadHandlers
+{
+    public class GetAllBannerQueryHandler : IRequestHandler<GetAllBannerQuery, IDataResult<List<GetAllBannerQueryResult>>>
+    {
+        private readonly IBannerRepository _bannerRepository;
+
+        public GetAllBannerQueryHandler(IBannerRepository bannerRepository)
+        {
+            _bannerRepository = bannerRepository;
+        }
+
+      
+
+        public async Task<IDataResult<List<GetAllBannerQueryResult>>> Handle(GetAllBannerQuery request, CancellationToken cancellationToken)
+        {
+            var values = await _bannerRepository.GetAllAsync();
+            var result = values.Select(b => new GetAllBannerQueryResult
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Description = b.Description,
+                VideoDescription = b.VideoDescription,
+                VideoUrl = b.VideoUrl,
+            }).ToList();
+            if (result.Count > 0 )
+            {
+                return new SuccessDataResult<List<GetAllBannerQueryResult>>(result, "Banner list load successfull!");
+            }
+            else return new ErrorDataResult<List<GetAllBannerQueryResult>>("Banner list is empty!");
+        }
+    }
+}

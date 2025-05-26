@@ -1,0 +1,122 @@
+﻿@using RentACar.Application.DTOs.Concrete.CarDto
+
+@{
+	ViewData["ActivePage"] = "Pricing";
+	ViewData["Title"] = "Index";
+	ViewData["NavUrl"] = "/";
+	Layout = "~/Views/UILayout/Index.cshtml";
+}
+@model List<GetAllCarsToPriceListDto>
+
+<section class="ftco-section ftco-cart">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 ftco-animate">
+				<div class="car-list">
+					<table class="table">
+						<thead class="thead-primary">
+							<tr class="text-center">
+								<th>&nbsp;</th>
+								<th>&nbsp;</th>
+								<th class="bg-primary heading">Per Day Rate</th>
+								<th class="bg-dark heading">Per Week Rate</th>
+								<th class="bg-black heading">Leasing</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach(var item in Model)
+							{
+								<tr class="">
+									<td class="car-image"><div class="img" style="background-image:url(@item.CoverImageUrl);"></div></td>
+									<td class="product-name">
+										<h3>@item.BrandName @item.Model</h3>
+										<p class="mb-0 rated">
+											<span>rated:</span>
+											<span class="ion-ios-star"></span>
+											<span class="ion-ios-star"></span>
+											<span class="ion-ios-star"></span>
+											<span class="ion-ios-star"></span>
+											<span class="ion-ios-star"></span>
+										</p>
+									</td>
+									@{
+										var daily = item.Pricings.FirstOrDefault(p => p.PricingName == "Day");
+										var weekly = item.Pricings.FirstOrDefault(p => p.PricingName == "Week");
+										var monthly = item.Pricings.FirstOrDefault(p => p.PricingName == "Month");
+									}
+
+                                    <td class="price">
+                                        @if (daily != null)
+                                        {
+                                            <p class="btn-custom"><a href="#">Rent a car</a></p>
+                                            <div class="price-rate">
+                                                <h3>
+                                                    <span class="num"><small class="currency">$</small> @daily.Amount</span>
+                                                    <span class="per">/@daily.PricingName</span>
+                                                </h3>
+                                                @* <span class="subheading">$3/hour fuel surcharges</span> *@
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="price-rate text-muted text-center">
+                                                <h3>-</h3>
+                                                <span class="per">Day</span>
+                                            </div>
+                                        }
+                                    </td>
+
+                                    <td class="price">
+                                        @if (weekly != null)
+                                        {
+                                            <p class="btn-custom"><a href="#">Rent a car</a></p>
+                                            <div class="price-rate">
+                                                <h3>
+                                                    <span class="num"><small class="currency">$</small> @weekly.Amount</span>
+                                                    <span class="per">/@weekly.PricingName</span>
+                                                </h3>
+                                              
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="price-rate text-muted text-center">
+                                                <h3>-</h3>
+                                                <span class="per">Week</span>
+                                            </div>
+                                        }
+                                    </td>
+
+                                    <td class="price">
+                                        @if (monthly != null)
+                                        {
+                                            <p class="btn-custom"><a href="#">Rent a car</a></p>
+                                            <div class="price-rate">
+                                                <h3>
+                                                    <span class="num"><small class="currency">$</small> @monthly.Amount</span>
+                                                    <span class="per">/@monthly.PricingName</span>
+                                                </h3>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="price-rate text-muted text-center">
+                                                <h3>-</h3>
+                                                <span class="per">Month</span>
+                                            </div>
+                                        }
+                                    </td>
+
+                                </tr>
+
+								<!-- END TR-->
+							}
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+

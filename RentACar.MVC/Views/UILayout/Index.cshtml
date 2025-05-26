@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+@await Component.InvokeAsync("_HeadUILayoutComponentPartial")
+
+<body>
+
+    @await Component.InvokeAsync("_NavbarUILayoutComponentPartial")
+    <!-- END nav -->
+
+    @* Cover section *@
+    @await Component.InvokeAsync("_MainCoverUILayoutComponentPartial")
+
+    @RenderBody()
+
+    @* Footer component *@
+    @await Component.InvokeAsync("_FooterUILayoutComponentPartial")
+
+    @* scripts *@
+    @await Component.InvokeAsync("_ScriptUILayoutComponentPartial")
+  </body>
+</html>

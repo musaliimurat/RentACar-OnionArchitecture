@@ -1,0 +1,39 @@
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using RentACar.Application.DTOs.Concrete.CarDto;
+using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Domain.Entities.Concrete;
+using RentACar.Persistence.Context;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
+{
+    public class EfCarRepository(RentACarContext context, IMapper mapper) : EfRepositoryBase<Car, RentACarContext>(context, mapper), ICarRepository
+    {
+        public async Task<List<GetAllCarsDto>> GetAllCarsReadAsync()
+        {
+            var result = await context.Cars.Include(c=>c.Brand).Include(c => c.PricingToCars)
+            .ThenInclude(ptc => ptc.Pricing).ToListAsync();
+            return mapper.Map<List<GetAllCarsDto>>(result);
+        }
+
+        public async Task<List<GetAllCarsToPriceListDto>> GetAllCarsToPriceListsReadAsync()
+        {
+            var result = await context.Cars.Include(c => c.Brand).Include(c => c.PricingToCars)
+           .ThenInclude(ptc => ptc.Pricing).ToListAsync();
+            return mapper.Map<List<GetAllCarsToPriceListDto>>(result);
+        }
+
+        public async Task<List<GetAllFeaturedCarsDto>> GetAllFeaturedCarsReadAsync()
+        {
+            var result = await context.Cars.Include(c => c.Brand).Include(c => c.PricingToCars)
+            .ThenInclude(ptc => ptc.Pricing).OrderByDescending(c => c.CreatedDate).Take(6).ToListAsync();
+            return mapper.Map<List<GetAllFeaturedCarsDto>>(result);
+           
+        }
+    }
+}

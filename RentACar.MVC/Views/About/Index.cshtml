@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["ActivePage"] = "About";
+    ViewData["Title"] = "Index";
+    ViewData["NavUrl"] = "/";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+
+@await Component.InvokeAsync("_AboutUsComponentPartial")
+
+@await Component.InvokeAsync("_BecomeADriverComponentPartial")
+
+@await Component.InvokeAsync("_TestimonialComponentPartial")
+
+@await Component.InvokeAsync("_CounterComponentPartial")
+
+
+

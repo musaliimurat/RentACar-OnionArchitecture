@@ -1,0 +1,22 @@
+﻿
+
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	<div class="container">
+		<a class="navbar-brand" href="index.html">Car<span>Book</span></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="oi oi-menu"></span> Menu
+		</button>
+
+		<div class="collapse navbar-collapse" id="ftco-nav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item @(ViewData["ActivePage"] as string == "Home" ? "active" : "")"><a asp-controller="Home" asp-action="Index" class="nav-link">Home</a></li>
+				<li class="nav-item @(ViewData["ActivePage"] as string == "About" ? "active" : "")"><a asp-controller="About" asp-action="Index" class="nav-link">About</a></li>
+				<li class="nav-item @(ViewData["ActivePage"] as string == "Service" ? "active" : "")"><a asp-controller="Service" asp-action="Index" class="nav-link">Services</a></li>
+				<li class="nav-item @(ViewData["ActivePage"] as string == "Pricing" ? "active" : "")"><a asp-controller="Pricing" asp-action="Index" class="nav-link">Pricing</a></li>
+				<li class="nav-item @(ViewData["ActivePage"] as string == "Car" ? "active" : "")"><a asp-controller="Car" asp-action="Index" class="nav-link">Cars</a></li>
+				<li class="nav-item @(ViewData["ActivePage"] as string == "Blog" ? "active" : "")"><a asp-controller="Blog" asp-action="Index" class="nav-link">Blog</a></li>
+				<li class="nav-item @(ViewData["ActivePage"] as string == "Contact" ? "active" : "")"><a asp-controller="Contact" asp-action="Index" class="nav-link">Contact</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>

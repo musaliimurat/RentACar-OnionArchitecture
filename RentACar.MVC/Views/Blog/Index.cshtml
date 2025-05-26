@@ -1,0 +1,65 @@
+﻿@using RentACar.Application.DTOs.Concrete.BlogDto
+@model PaginatedList<GetAllBlogDto>
+@{
+    ViewData["Title"] = "Index";
+    ViewData["ActivePage"] = "Blog";
+    ViewData["NavUrl"] = "/";
+    Layout = "~/Views/UILayout/Index.cshtml";
+}
+
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            @foreach(var blog in Model.Items)
+            {
+                <div class="col-md-12 text-center d-flex ftco-animate">
+                    <div class="blog-entry justify-content-end mb-md-5">
+                        <a href="blog-single.html" class="block-20 img" style="background-image: url(@blog.ImageUrl);">
+                        </a>
+                        <div class="text px-md-5 pt-4">
+                            <div class="meta mb-3">
+                                <div><a href="#">@blog.CreatedDate.Day.@blog.CreatedDate.Month.@blog.CreatedDate.Year</a></div>
+                                <div><a href="#">@blog.FullName</a></div>
+                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> @Model.Items.Where(x=>x.AuthorId == blog.AuthorId).Count()</a></div>
+                            </div>
+                            <h3 class="heading mt-2"><a href="#">@blog.Title</a></h3>
+                            <p>@blog.Content.Substring(0,200)</p>
+                            <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+            
+        </div>
+        <div class="row mt-5">
+            <div class="col text-center">
+                <div class="block-27">
+                    <ul>
+                        @if (Model.HasPrevious)
+                        {
+                            <li><a href="?page=@(Model.CurrentPage - 1)">&lt;</a></li>
+                        }
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            if (i == Model.CurrentPage)
+                            {
+                                <li class="active"><span>@i</span></li>
+                            }
+                            else
+                            {
+                                <li> <a href="?page=@i">@i</a></li>
+                            }
+                        }
+                        @if (Model.HasNext)
+                        {
+                            <li><a href="?page=@(Model.CurrentPage + 1)">&gt;</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
