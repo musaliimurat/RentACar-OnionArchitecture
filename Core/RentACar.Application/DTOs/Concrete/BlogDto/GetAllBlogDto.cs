@@ -20,6 +20,7 @@ namespace RentACar.Application.DTOs.Concrete.BlogDto
         public string Content { get; set; }
         public string ImageUrl { get; set; }
         public bool IsNew { get; set; }
+        public int AuthorBlogCount { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
     }

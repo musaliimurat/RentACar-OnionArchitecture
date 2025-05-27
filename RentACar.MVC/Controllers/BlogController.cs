@@ -27,6 +27,22 @@ namespace RentACar.MVC.Controllers
             }
         }
 
+        [HttpGet("blog/category/{categoryId}")]
+        public async Task<IActionResult> ByCategory(Guid categoryId, int page = 1, int pageSize = 3 )
+        {
+            ViewBag.MyTitle = "Blog";
+            ViewBag.Description = "Filter Blog list by Category";
+            var result = await _blogService.GetAllBlogByCategoryAsync(categoryId, page, pageSize);
+            if (result.Success)
+            {
+                return View("Index", result.Data);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
         public async Task<IActionResult> Detail(Guid id)
         {
             ViewBag.MyTitleOne = "Blog";

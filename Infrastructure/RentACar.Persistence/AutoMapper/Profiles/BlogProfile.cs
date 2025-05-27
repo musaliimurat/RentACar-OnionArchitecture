@@ -19,6 +19,9 @@ namespace RentACar.Persistence.AutoMapper.Profiles
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.Author.FullName))
                 .ForMember(dest => dest.AuthorImageUrl, opt => opt.MapFrom(src => src.Author.ImageUrl))
                 .ForMember(dest => dest.AuthorDescription, opt => opt.MapFrom(src => src.Author.Description));
+
+            CreateMap<Blog, GetAllBlogWithCategoryNameDto>()
+              .ForMember(dest => dest.CategoryTitle, opt => opt.MapFrom(src => src.Category.Name));
         }
     }
 }

@@ -15,15 +15,15 @@
             {
                 <div class="col-md-12 text-center d-flex ftco-animate">
                     <div class="blog-entry justify-content-end mb-md-5">
-                        <a href="blog-single.html" class="block-20 img" style="background-image: url(@blog.ImageUrl);">
+                        <a asp-controller="Blog" asp-action="Detail" asp-route-id="@blog.Id" class="block-20 img" style="background-image: url(@blog.ImageUrl);">
                         </a>
                         <div class="text px-md-5 pt-4">
                             <div class="meta mb-3">
                                 <div><a href="#">@blog.CreatedDate.Day.@blog.CreatedDate.Month.@blog.CreatedDate.Year</a></div>
                                 <div><a href="#">@blog.FullName</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> @Model.Items.Where(x=>x.AuthorId == blog.AuthorId).Count()</a></div>
+                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> @blog.AuthorBlogCount</a></div>
                             </div>
-                            <h3 class="heading mt-2"><a href="#">@blog.Title</a></h3>
+                            <h3 class="heading mt-2"><a asp-controller="Blog" asp-action="Detail" asp-route-id="@blog.Id">@blog.Title</a></h3>
                             <p>@blog.Content.Substring(0,200)</p>
                             <p><a asp-controller="Blog" asp-action="Detail" asp-route-id="@blog.Id" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
                         </div>

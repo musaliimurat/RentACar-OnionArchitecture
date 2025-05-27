@@ -27,6 +27,18 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
             return mapper.Map<List<GetAllBlogDto>>(result);
         }
 
+        public async  Task<List<GetAllBlogDto>> GetAllBlogsByCategoryAsync(Guid categoryId)
+        {
+            var result = await context.Blogs.Include(b => b.Category).Include(b => b.Author).Where(c=>c.CategoryId == categoryId).ToListAsync();
+            return mapper.Map<List<GetAllBlogDto>>(result);
+        }
+
+        public async Task<List<GetAllBlogWithCategoryNameDto>> GetAllBlogWithCategoryNameDtosAsync()
+        {
+            var result = await context.Blogs.Include(b => b.Category).ToListAsync();
+            return mapper.Map<List<GetAllBlogWithCategoryNameDto>>(result);
+        }
+
         public async Task<GetBlogByIdDto> GetBlogByIdDtoAsync(Guid id)
         {
             var result = await context.Blogs.Include(b => b.Category).Include(b => b.Author).Where(b => b.Id == id).SingleOrDefaultAsync();

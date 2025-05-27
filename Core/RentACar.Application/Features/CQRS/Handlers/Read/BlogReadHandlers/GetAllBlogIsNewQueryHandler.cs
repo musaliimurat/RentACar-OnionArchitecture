@@ -16,10 +16,15 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.BlogReadHandlers
         }
         public async Task<IDataResult<List<GetAllBlogDto>>> Handle(GetAllBlogIsNewQuery request, CancellationToken cancellationToken)
         {
-            var allBlogs = await _blogRepository.GetAllBlogIsNewDtosAsync();
-            if (allBlogs.Count > 0)
+            var allBlogsIsNew = await _blogRepository.GetAllBlogIsNewDtosAsync();
+            var allBlogs = await _blogRepository.GetAllBlogDtosAsync();
+            if (allBlogsIsNew.Count > 0)
             {
-                return new SuccessDataResult<List<GetAllBlogDto>>(allBlogs, "Blog list is load successfull!");
+                foreach (var item in allBlogsIsNew)
+                {
+                    item.AuthorBlogCount = allBlogs.Count(b => b.AuthorId == item.AuthorId);
+                }
+                return new SuccessDataResult<List<GetAllBlogDto>>(allBlogsIsNew, "Blog list is load successfull!");
             }
             else return new ErrorDataResult<List<GetAllBlogDto>>("Blog list is empty!");
         }

@@ -42,9 +42,24 @@ namespace RentACar.Application.Features.Services
             return await _mediator.Send(query);
         }
 
+        public async Task<IDataResult<PaginatedList<GetAllBlogDto>>> GetAllBlogByCategoryAsync(Guid categoryId, int page, int pageSize)
+        {
+            var query = new GetAllBlogByCategoryQuery(categoryId)
+            {
+                Page = page,
+                PageSize = pageSize
+            };
+            return await _mediator.Send(query);
+        }
+
         public async Task<IDataResult<List<GetAllBlogDto>>> GetAllBlogIsNewAsync()
         {
             return await _mediator.Send(new GetAllBlogIsNewQuery());
+        }
+
+        public async Task<IDataResult<List<GetAllBlogWithCategoryNameDto>>> GetAllBlogWithCategoryNameAsync()
+        {
+            return await _mediator.Send(new GetAllBlogWithCategoryNameQuery());
         }
 
         public async Task<IDataResult<GetBlogByIdDto>> GetBlogByIdAsync(Guid id)

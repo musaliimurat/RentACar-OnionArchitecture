@@ -13,7 +13,9 @@ namespace RentACar.Application.Interfaces.Services
     public interface IBlogService
     {
         Task<IDataResult<PaginatedList<GetAllBlogDto>>> GetAllBlogAsync(int page, int pageSize);
+        Task<IDataResult<PaginatedList<GetAllBlogDto>>> GetAllBlogByCategoryAsync(Guid categoryId, int page, int pageSize);
         Task<IDataResult<List<GetAllBlogDto>>> GetAllBlogIsNewAsync();
+        Task<IDataResult<List<GetAllBlogWithCategoryNameDto>>> GetAllBlogWithCategoryNameAsync();
         Task<IDataResult<GetBlogByIdDto>> GetBlogByIdAsync(Guid id);
         Task<IResult> CreateBlogAsync(CreateBlogCommand command);
         Task<IResult> UpdateBlogAsync(UpdateBlogCommand command);

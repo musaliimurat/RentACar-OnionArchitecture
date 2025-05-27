@@ -177,16 +177,16 @@
                 {
                     <div class="col-md-4 d-flex ftco-animate">
                         <div class="blog-entry justify-content-end">
-                            <a href="blog-single.html" class="block-20" style="background-image: url(@item.ImageUrl);">
+                            <a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id" class="block-20" style="background-image: url(@item.ImageUrl);">
                             </a>
                             <div class="text pt-4">
                                 <div class="meta mb-3">
                                     <div><a href="#">@item.CreatedDate.Day.@item.CreatedDate.Month.@item.CreatedDate.Year</a></div>
                                     <div><a href="#">@item.FullName</a></div>
-                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> @Model.GetAllBlogIsNew.Where(x => x.AuthorId == item.AuthorId).Count()</a></div>
+                                    <div><a href="#" class="meta-chat"><span class="icon-chat"></span> @item.AuthorBlogCount</a></div>
                                 </div>
-                                <h3 class="heading mt-2"><a href="#">@item.Title</a></h3>
-                                <p><a href="#" class="btn btn-primary">Read more</a></p>
+                                <h3 class="heading mt-2"><a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@item.Title</a></h3>
+                                <p><a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-primary">Read more</a></p>
                             </div>
                         </div>
                     </div>

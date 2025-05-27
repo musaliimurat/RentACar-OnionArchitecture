@@ -1,0 +1,14 @@
+﻿@model List<RentACar.Application.DTOs.Concrete.BlogDto.GetAllBlogWithCategoryNameDto>
+
+<div class="sidebar-box ftco-animate">
+    <div class="categories">
+        <h3>Categories</h3>
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li><a asp-controller="Blog" asp-action="ByCategory" asp-route-categoryId="@item.CategoryId">@item.CategoryTitle <span> (@item.BlogWithCatgoryCount)</span></a></li>
+            }
+           
+        </ul>
+    </div>
+</div>
