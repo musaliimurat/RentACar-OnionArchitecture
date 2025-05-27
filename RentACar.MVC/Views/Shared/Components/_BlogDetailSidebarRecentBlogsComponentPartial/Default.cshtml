@@ -1,37 +1,21 @@
-﻿
+﻿@using System.Globalization
+@model List<RentACar.Application.DTOs.Concrete.BlogDto.GetAllBlogDto>
+
 <div class="sidebar-box ftco-animate">
     <h3>Recent Blog</h3>
-    <div class="block-21 mb-4 d-flex">
-        <a class="blog-img mr-4" style="background-image: url(/assets/images/image_1.jpg);"></a>
-        <div class="text">
-            <h3 class="heading"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-            <div class="meta">
-                <div><a href="#"><span class="icon-calendar"></span>Oct. 29, 2019</a></div>
-                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+    @foreach(var item in Model)
+    {
+        <div class="block-21 mb-4 d-flex">
+            <a class="blog-img mr-4" style="background-image: url(@item.ImageUrl);"></a>
+            <div class="text">
+                <h3 class="heading"><a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@item.Title</a></h3>
+                <div class="meta">
+                    <div><a href="#"><span class="icon-calendar"></span>@item.CreatedDate.ToString("MMM. dd, yyyy", CultureInfo.InvariantCulture)</a></div>
+                    <div><a href="#"><span class="icon-person"></span> @item.FullName</a></div>
+                    <div><a href="#"><span class="icon-chat"></span> @item.AuthorBlogCount</a></div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="block-21 mb-4 d-flex">
-        <a class="blog-img mr-4" style="background-image: url(/assets/images/image_2.jpg);"></a>
-        <div class="text">
-            <h3 class="heading"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-            <div class="meta">
-                <div><a href="#"><span class="icon-calendar"></span>Oct. 29, 2019</a></div>
-                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-            </div>
-        </div>
-    </div>
-    <div class="block-21 mb-4 d-flex">
-        <a class="blog-img mr-4" style="background-image: url(/assets/images/image_3.jpg);"></a>
-        <div class="text">
-            <h3 class="heading"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-            <div class="meta">
-                <div><a href="#"><span class="icon-calendar"></span>Oct. 29, 2019</a></div>
-                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-            </div>
-        </div>
-    </div>
+
+    }
 </div>
