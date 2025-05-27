@@ -26,5 +26,21 @@ namespace RentACar.MVC.Controllers
                 return View();
             }
         }
+
+        public async Task<IActionResult> Detail(Guid id)
+        {
+            ViewBag.MyTitleOne = "Blog";
+            ViewBag.MyTitle = "Blog Detail";
+            ViewBag.Description = "Read our blog";
+            var result = await _blogService.GetBlogByIdAsync(id);
+            if (result.Success)
+            {
+                return View(result.Data);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }

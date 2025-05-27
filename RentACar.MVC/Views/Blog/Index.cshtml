@@ -25,7 +25,7 @@
                             </div>
                             <h3 class="heading mt-2"><a href="#">@blog.Title</a></h3>
                             <p>@blog.Content.Substring(0,200)</p>
-                            <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+                            <p><a asp-controller="Blog" asp-action="Detail" asp-route-id="@blog.Id" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
                         </div>
                     </div>
                 </div>
