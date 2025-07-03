@@ -1,0 +1,72 @@
+﻿@using RentACar.Application.Features.CQRS.Results.BrandResults
+@using RentACar.MVC.Areas.Admin.ViewModels
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@model CarVM
+
+<div class="card">
+    <div class="card-body">
+
+        <h4 class="card-title">Create new car</h4>
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="model">Model</label>
+                <input type="text" class="form-control" id="model" asp-for="CreateCarDto.Model" aria-describedby="modelHelp" placeholder="Enter model name">
+            </div>
+            <div class="form-group">
+                <label for="brandId">Select brand</label>
+                <select class="form-control" id="brandId" asp-for="CreateCarDto.BrandId" asp-items="@(new SelectList(Model.GetAllBrandQueryResults, "Id", "Name"))">
+                    <option hidden >Select brand name</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="transmission">Transmission</label>
+                <input type="text" class="form-control" id="transmission" asp-for="CreateCarDto.Transmission" placeholder="Enter transmission type">
+            </div>
+            <div class="form-group">
+                <label for="fuel">Fuel</label>
+                <input type="text" class="form-control" id="fuel" asp-for="CreateCarDto.Fuel" placeholder="Enter fuel type">
+            </div>
+            <div class="form-group">
+                <label for="km">Km</label>
+                <input type="number" class="form-control" id="km" asp-for="CreateCarDto.Km" placeholder="Enter car's mileage">
+            </div>
+            <div class="form-group">
+                <label for="luggage">Luggage</label>
+                <input type="number" class="form-control" id="luggage" asp-for="CreateCarDto.Luggage" placeholder="Enter luggage capacity">
+            </div>
+            <div class="form-group">
+                <label for="seat">Seat</label>
+                <input type="number" class="form-control" id="seat" asp-for="CreateCarDto.Seat" placeholder="Enter seat capacity">
+            </div>
+            <div class="form-group">
+                <label for="coverImageUrl">Cover Image</label>
+                    <div class="card">
+                        <div class="card-body">
+                        <input type="file" id="coverImageUrl" asp-for="CreateCarDto.CoverImageUrl" class="dropify" data-height="300" />
+                        </div> 
+                    </div> 
+            </div>
+            <div class="form-group">
+                <label for="detailImageUrl">Detail Image</label>
+                <div class="card">
+                    <div class="card-body">
+                        <input type="file" id="detailImageUrl" asp-for="CreateCarDto.DetailImageUrl" class="dropify" data-height="300" />
+                    </div>
+                </div>
+            </div>
+          @*   <div class="form-group mb-3">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="checkmeout0">
+                    <label class="custom-control-label" for="checkmeout0">Check me out !</label>
+                </div>
+            </div> *@
+            <button type="submit" class="btn btn-success waves-effect waves-light">Create</button>
+        </form>
+
+    </div> 
+</div> 
+

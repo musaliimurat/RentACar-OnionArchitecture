@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.Features.CQRS.Commands.BrandCommands;
-using RentACar.Application.Features.CQRS.Queries.BrandQueries;
+using RentACar.Application.Interfaces.Services;
 
 namespace RentACar.WebApi.Controllers
 {
@@ -9,17 +9,17 @@ namespace RentACar.WebApi.Controllers
     [ApiController]
     public class BrandsController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly IBrandService _service;
 
-        public BrandsController(IMediator mediator)
+        public BrandsController(IBrandService service)
         {
-            _mediator = mediator;
+            _service = service;
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetAllBrandQuery());
+            var result = await _service.GetAllBrandsAsync();
             if (result.Success)
             {
                 return Ok(result);
@@ -31,7 +31,7 @@ namespace RentACar.WebApi.Controllers
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var result = await _mediator.Send(new GetBrandByIdQuery(id));
+            var result = await _service.GetBrandByIdAsync(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -43,7 +43,7 @@ namespace RentACar.WebApi.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> Create(CreateBrandCommand createBrandCommand)
         {
-            var result = await _mediator.Send(createBrandCommand);
+            var result = await _service.CreateBrandAsync(createBrandCommand);
             if (result.Success)
             {
                 return Created();
@@ -55,7 +55,7 @@ namespace RentACar.WebApi.Controllers
         [HttpDelete("Remove")]
         public async Task<IActionResult> Remove(Guid id)
         {
-            var result = await _mediator.Send(new RemoveBrandCommand(id));
+            var result = await _service.DeleteBrandAsync(id);
             if (result.Success)
             {
                 return Ok("Delete Successfully!");
@@ -66,13 +66,12 @@ namespace RentACar.WebApi.Controllers
         [HttpPut("Update")]
         public async Task<IActionResult> Update(UpdateBrandCommand updateBrandCommand)
         {
-            var result = await _mediator.Send(updateBrandCommand);
+            var result = await _service.UpdateBrandAsync(updateBrandCommand);
             if (result.Success)
             {
                 return Ok("Update Successfully!");
             }
             else return BadRequest(result.Message);
         }
-
     }
 }

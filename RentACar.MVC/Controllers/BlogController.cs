@@ -48,6 +48,7 @@ namespace RentACar.MVC.Controllers
             ViewBag.MyTitleOne = "Blog";
             ViewBag.MyTitle = "Blog Detail";
             ViewBag.Description = "Read our blog";
+            ViewBag.BlogId = id;
             var result = await _blogService.GetBlogByIdAsync(id);
             if (result.Success)
             {

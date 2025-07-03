@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html>
+@await Component.InvokeAsync("_HeadAdminLayoutComponentPartial")
+<body>
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        @* ========== Header Component Start ========== *@
+        @await Component.InvokeAsync("_HeaderAdminLayoutComponentPartial")
+        @* ========== Header Component End ========== *@
+
+        @* ========== Left Sidebar Component Start ========== *@
+        @await Component.InvokeAsync("_LeftSideBarAdminLayoutComponentPartial")
+        @* ========== Left Sidebar Component End ========== *@
+
+        @* ========== Main Content Start ========== *@
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        @* ========== Main Content End ========== *@
+
+    </div>
+    <!-- END layout-wrapper -->
+  
+    @* ========== Scripts Component Start ========== *@
+    @await Component.InvokeAsync("_ScriptsAdminLayoutComponentPartial")
+    @* ========== Scripts Component End ========== *@
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
