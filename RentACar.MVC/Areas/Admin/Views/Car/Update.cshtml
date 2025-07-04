@@ -1,0 +1,101 @@
+﻿@using RentACar.MVC.Areas.Admin.ViewModels
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@model UpdateCarVM
+<h1>Update</h1>
+
+<div class="card">
+    <div class="card-body">
+
+        <h4 class="card-title">Update car</h4>
+
+        <form asp-action="Update" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UpdateCarDto.Id" />
+            <div class="form-group">
+                <div class="card">
+                  <div class="card-body">
+                            <img style="width:200px; height:200px;" src="@Model.UpdateCarDto.CoverImageUrl" id="coverImageUrl" />
+                            <img style="width:200px; height:200px;" src="@Model.UpdateCarDto.DetailImageUrl" id="detailImageUrl" />
+                        <input type="hidden" asp-for="UpdateCarDto.CoverImageUrl" />
+                        <input type="hidden" asp-for="UpdateCarDto.DetailImageUrl" />
+                  </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="model">Model</label>
+                <input type="text" class="form-control" id="model" asp-for="UpdateCarDto.Model" aria-describedby="modelHelp" placeholder="Enter model name">
+                <span asp-validation-for="UpdateCarDto.Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="brandId">Select brand</label>
+                <select class="form-control" id="brandId" asp-for="UpdateCarDto.BrandId" asp-items="@(new SelectList(Model.GetAllBrandQueryResults, "Id", "Name"))">
+                    <option hidden>Select brand name</option>
+                </select>
+                <span asp-validation-for="UpdateCarDto.BrandId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="transmission">Transmission</label>
+                <input type="text" class="form-control" id="transmission" asp-for="UpdateCarDto.Transmission" placeholder="Enter transmission type">
+                <span asp-validation-for="UpdateCarDto.Transmission" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="fuel">Fuel</label>
+                <input type="text" class="form-control" id="fuel" asp-for="UpdateCarDto.Fuel" placeholder="Enter fuel type">
+                <span asp-validation-for="UpdateCarDto.Fuel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="km">Km</label>
+                <input type="number" class="form-control" id="km" asp-for="UpdateCarDto.Km" placeholder="Enter car's mileage">
+                <span asp-validation-for="UpdateCarDto.Km" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="luggage">Luggage</label>
+                <input type="number" class="form-control" id="luggage" asp-for="UpdateCarDto.Luggage" placeholder="Enter luggage capacity">
+                <span asp-validation-for="UpdateCarDto.Luggage" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label for="seat">Seat</label>
+                <input type="number" class="form-control" id="seat" asp-for="UpdateCarDto.Seat" placeholder="Enter seat capacity">
+                <span asp-validation-for="UpdateCarDto.Seat" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label for="coverImageUrl">Cover Image</label>
+                <div class="card">
+                    <div class="card-body">
+                        <input type="file" id="coverImageUpload" asp-for="UpdateCarDto.CoverImageUpload" class="dropify" data-height="300" />
+                        <span asp-validation-for="UpdateCarDto.CoverImageUpload" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="detailImageUrl">Detail Image</label>
+                <div class="card">
+                    <div class="card-body">
+                        <input type="file" id="detailImageUpload" asp-for="UpdateCarDto.DetailImageUpload" class="dropify" data-height="300" />
+                        <span asp-validation-for="UpdateCarDto.DetailImageUpload" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+            @*   <div class="form-group mb-3">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="checkmeout0">
+                    <label class="custom-control-label" for="checkmeout0">Check me out !</label>
+                </div>
+            </div> *@
+            <button type="submit" class="btn btn-success waves-effect waves-light">Update</button>
+        </form>
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </div>
+</div>

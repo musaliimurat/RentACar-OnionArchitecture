@@ -109,5 +109,85 @@ namespace RentACar.MVC.Areas.Admin.Controllers
                 return View("Error", new { message = result.Message });
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var car = await _carService.GetCarByIdAsync(id);
+            if (car.Success)
+            {
+                UpdateCarVM updateCarVM = new()
+                {
+                    UpdateCarDto = new UpdateCarDto()
+                    {
+                        Id = car.Data.Id,
+                        BrandId = car.Data.BrandId,
+                        Model = car.Data.Model,
+                        CoverImageUrl = car.Data.CoverImageUrl,
+                        DetailImageUrl = car.Data.DetailImageUrl,
+                        Km = car.Data.Km,
+                        Transmission = car.Data.Transmission,
+                        Seat = car.Data.Seat,
+                        Luggage = car.Data.Luggage,
+                        Fuel = car.Data.Fuel
+                    },
+                    GetAllBrandQueryResults = (await _brandService.GetAllBrandsAsync()).Data
+                };
+                return View(updateCarVM);
+            }
+            else
+            {
+                return View("Error", new { message = car.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateCarVM updateCarVM)
+        {
+
+            string? coverImageUrl = updateCarVM.UpdateCarDto.CoverImageUrl;
+            if (updateCarVM.UpdateCarDto.CoverImageUpload != null)
+            {
+                var coverImagePathList = await _uploadImageService.UploadImagesAsync(
+                    new FormFileCollection { updateCarVM.UpdateCarDto.CoverImageUpload }, "assets/images/car", _env);
+                coverImageUrl = "/" + coverImagePathList.FirstOrDefault();
+            }
+
+            string? detailImageUrl = updateCarVM.UpdateCarDto.DetailImageUrl;
+            if (updateCarVM.UpdateCarDto.DetailImageUpload != null)
+            {
+                var detailImagePathList = await _uploadImageService.UploadImagesAsync(
+                    new FormFileCollection { updateCarVM.UpdateCarDto.DetailImageUpload }, "assets/images/car", _env);
+                detailImageUrl = "/" + detailImagePathList.FirstOrDefault();
+            }
+            var command = new UpdateCarCommand
+            {
+                Id = updateCarVM.UpdateCarDto.Id,
+                BrandId = updateCarVM.UpdateCarDto.BrandId,
+                Model = updateCarVM.UpdateCarDto.Model,
+                CoverImageUrl = updateCarVM.UpdateCarDto.CoverImageUpload != null ? coverImageUrl : updateCarVM.UpdateCarDto.CoverImageUrl,
+                DetailImageUrl = updateCarVM.UpdateCarDto.DetailImageUpload != null ? detailImageUrl : updateCarVM.UpdateCarDto.DetailImageUrl,
+                Km = updateCarVM.UpdateCarDto.Km,
+                Fuel = updateCarVM.UpdateCarDto.Fuel,
+                Luggage = updateCarVM.UpdateCarDto.Luggage,
+                Seat = updateCarVM.UpdateCarDto.Seat,
+                Transmission = updateCarVM.UpdateCarDto.Transmission,
+            };
+            var result = await _carService.UpdateCarAsync(command);
+            if (!result.Success)
+            {
+                if (result is ValidationErrorResult validationError)
+                {
+                    foreach (var error in validationError.Errors)
+                    {
+                        var key = $"UpdateCarDto.{error.PropertyName}";
+                        ModelState.AddModelError(key, error.ErrorMessage);
+                    }
+                }
+                updateCarVM.GetAllBrandQueryResults = (await _brandService.GetAllBrandsAsync()).Data;
+                return View(updateCarVM);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,6 +1,10 @@
-﻿using RentACar.Application.Features.CQRS.Queries.CarQueries;
+﻿using MediatR;
+using RentACar.Application.Features.CQRS.Queries.CarQueries;
+using RentACar.Application.Features.CQRS.Results.BrandResults;
 using RentACar.Application.Features.CQRS.Results.CarResults;
 using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Application.Utilities.Results.Abstract;
+using RentACar.Application.Utilities.Results.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.CarReadHandlers
 {
-    public class GetCarByIdQueryHandler
+    public class GetCarByIdQueryHandler : IRequestHandler<GetCarByIdQuery, IDataResult<GetCarByIdQueryResult>>
     {
         private readonly ICarRepository _carRepository;
 
@@ -18,10 +22,10 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.CarReadHandlers
             _carRepository = carRepository;
         }
 
-        public async Task<GetCarByIdQueryResult> Handle(GetCarByIdQuery getCarByIdQuery)
+        public async Task<IDataResult<GetCarByIdQueryResult>> Handle(GetCarByIdQuery request, CancellationToken cancellationToken)
         {
-            var value = await _carRepository.GetAsync(c=>c.Id == getCarByIdQuery.Id);
-            if (value == null) return null;
+            var value = await _carRepository.GetAsync(c => c.Id == request.Id);
+            if (value == null) return new ErrorDataResult<GetCarByIdQueryResult>("Car not found!"); ;
             var result = new GetCarByIdQueryResult
             {
                 Id = value.Id,
@@ -36,7 +40,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.CarReadHandlers
                 DetailImageUrl = value.DetailImageUrl
             };
 
-            return result;
+            return new SuccessDataResult<GetCarByIdQueryResult>(result, "Car load is successfull!");
         }
     }
 }
