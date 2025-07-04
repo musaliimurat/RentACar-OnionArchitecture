@@ -31,7 +31,7 @@ namespace RentACar.DependencyResolvers.DependencyResolvers
             // DbContext Connection string 
             builder.Register(context =>
             {
-                var configuration = context.Resolve<IConfiguration>(); // IConfiguration çözümle
+                var configuration = context.Resolve<IConfiguration>(); // IConfiguration 
                 var optionsBuilder = new DbContextOptionsBuilder<RentACarContext>();
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection")); // Connection String al
                 return new RentACarContext(optionsBuilder.Options);

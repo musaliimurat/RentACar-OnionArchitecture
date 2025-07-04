@@ -6,47 +6,60 @@
 }
 @model CarVM
 
+
 <div class="card">
     <div class="card-body">
 
         <h4 class="card-title">Create new car</h4>
 
-        <form method="post" enctype="multipart/form-data">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label for="model">Model</label>
                 <input type="text" class="form-control" id="model" asp-for="CreateCarDto.Model" aria-describedby="modelHelp" placeholder="Enter model name">
+                <span asp-validation-for="CreateCarDto.Model" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="brandId">Select brand</label>
                 <select class="form-control" id="brandId" asp-for="CreateCarDto.BrandId" asp-items="@(new SelectList(Model.GetAllBrandQueryResults, "Id", "Name"))">
                     <option hidden >Select brand name</option>
                 </select>
+                <span asp-validation-for="CreateCarDto.BrandId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="transmission">Transmission</label>
                 <input type="text" class="form-control" id="transmission" asp-for="CreateCarDto.Transmission" placeholder="Enter transmission type">
+                <span asp-validation-for="CreateCarDto.Transmission" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="fuel">Fuel</label>
                 <input type="text" class="form-control" id="fuel" asp-for="CreateCarDto.Fuel" placeholder="Enter fuel type">
+                <span asp-validation-for="CreateCarDto.Fuel" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="km">Km</label>
                 <input type="number" class="form-control" id="km" asp-for="CreateCarDto.Km" placeholder="Enter car's mileage">
+                <span asp-validation-for="CreateCarDto.Km" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="luggage">Luggage</label>
                 <input type="number" class="form-control" id="luggage" asp-for="CreateCarDto.Luggage" placeholder="Enter luggage capacity">
+                <span asp-validation-for="CreateCarDto.Luggage" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <label for="seat">Seat</label>
                 <input type="number" class="form-control" id="seat" asp-for="CreateCarDto.Seat" placeholder="Enter seat capacity">
+                <span asp-validation-for="CreateCarDto.Seat" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <label for="coverImageUrl">Cover Image</label>
                     <div class="card">
                         <div class="card-body">
                         <input type="file" id="coverImageUrl" asp-for="CreateCarDto.CoverImageUrl" class="dropify" data-height="300" />
+                        <span asp-validation-for="CreateCarDto.CoverImageUrl" class="text-danger"></span>
+
                         </div> 
                     </div> 
             </div>
@@ -55,6 +68,8 @@
                 <div class="card">
                     <div class="card-body">
                         <input type="file" id="detailImageUrl" asp-for="CreateCarDto.DetailImageUrl" class="dropify" data-height="300" />
+                        <span asp-validation-for="CreateCarDto.DetailImageUrl" class="text-danger"></span>
+
                     </div>
                 </div>
             </div>
@@ -66,7 +81,11 @@
             </div> *@
             <button type="submit" class="btn btn-success waves-effect waves-light">Create</button>
         </form>
-
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
     </div> 
 </div> 
 

@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using RentACar.DependencyResolvers.DependencyResolvers;
 using RentACar.Infrastructure.Middlewares;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,15 +10,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddServiceRegistration(builder.Configuration);
 
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddHttpContextAccessor();
+
+
+
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
     containerBuilder.RegisterModule(new AutofacBusinessModule());
 });
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
 
 
 

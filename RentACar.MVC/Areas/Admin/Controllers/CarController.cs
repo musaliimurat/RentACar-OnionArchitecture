@@ -2,6 +2,7 @@
 using RentACar.Application.DTOs.Concrete.CarDto;
 using RentACar.Application.Features.CQRS.Commands.CarCommands;
 using RentACar.Application.Interfaces.Services;
+using RentACar.Application.Utilities.Results.Concrete;
 using RentACar.MVC.Areas.Admin.ViewModels;
 
 namespace RentACar.MVC.Areas.Admin.Controllers
@@ -52,41 +53,61 @@ namespace RentACar.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CarVM carVM)
         {
+
             var coverImagePathList = await _uploadImageService.UploadImagesAsync(
-                                       new FormFileCollection { carVM.CreateCarDto.CoverImageUrl }, "/assets/images/car", _env);
+                          new FormFileCollection { carVM.CreateCarDto.CoverImageUrl }, "assets/images/car", _env);
             var coverImageUrl = coverImagePathList.FirstOrDefault();
 
             var detailImagePathList = await _uploadImageService.UploadImagesAsync(
-                                       new FormFileCollection { carVM.CreateCarDto.DetailImageUrl }, "/assets/images/car", _env);
+                                       new FormFileCollection { carVM.CreateCarDto.DetailImageUrl }, "assets/images/car", _env);
 
             var detailImageUrl = detailImagePathList.FirstOrDefault();
 
             CreateCarDto car = carVM.CreateCarDto;
-
-
-            if (car !=null)
+            var command = new CreateCarCommand
             {
-                var createCarCommand = new CreateCarCommand
+                BrandId = car.BrandId,
+                Model = car.Model,
+                Fuel = car.Fuel,
+                Km = car.Km,
+                Luggage = car.Luggage,
+                Seat = car.Seat,
+                Transmission = car.Transmission,
+                CoverImageUrl = "/" + coverImageUrl,
+                DetailImageUrl = "/" + detailImageUrl,
+            };
+
+            var result = await _carService.CreateCarAsync(command);
+            if (!result.Success)
+            {
+                if (result is ValidationErrorResult validationError)
                 {
-                    BrandId = car.BrandId,
-                    Model = car.Model,
-                    Fuel = car.Fuel,
-                    Km = car.Km,
-                    Luggage = car.Luggage,
-                    Seat = car.Seat,
-                    Transmission = car.Transmission,
-                    CoverImageUrl = coverImageUrl,
-                    DetailImageUrl = detailImageUrl,
-                };
-                var result = await _carService.CreateCarAsync(createCarCommand);
-                if (result.Success)
-                {
-                    return RedirectToAction("Index");
+                    foreach (var error in validationError.Errors)
+                    {
+                        var key = $"CreateCarDto.{error.PropertyName}";
+                        ModelState.AddModelError(key, error.ErrorMessage);
+                    }
                 }
+                var brands = await _brandService.GetAllBrandsAsync();
+                carVM.GetAllBrandQueryResults = brands.Data;
+
+                return View(carVM);
             }
-            var brands = await _brandService.GetAllBrandsAsync();
-            carVM.GetAllBrandQueryResults = brands.Data;
-            return View(carVM);
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _carService.DeleteCarAsync(id);
+            if (result.Success)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Error", new { message = result.Message });
+            }
         }
     }
 }
