@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@model UpdateFeatureDto
+
+
+<div class="card">
+    <div class="card-body">
+
+        <h4 class="card-title">Update new feature</h4>
+
+        <form asp-action="Update" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label for="featureName">Feature name</label>
+                <input type="text" class="form-control" id="featureName" asp-for="Name" placeholder="Enter feature name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-secondary waves-effect waves-light">Update</button>
+        </form>
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </div>
+</div>
+

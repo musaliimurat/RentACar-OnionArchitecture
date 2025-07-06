@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Features.CQRS.Queries.CarQueries
 {
-    public class GetAllCarWithBrandNameQuery : PaginatedRequest, IRequest<IDataResult<PaginatedList<GetAllCarsDto>>>
+    public class GetAllCarWithBrandNameQuery : PaginatedRequest, IRequest<IDataResult<PaginatedList<GetAllCarsWithBrandNameDto>>>
     {
     }
     

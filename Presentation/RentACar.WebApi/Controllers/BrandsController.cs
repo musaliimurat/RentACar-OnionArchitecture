@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.DTOs.Concrete.BrandDto;
 using RentACar.Application.Features.CQRS.Commands.BrandCommands;
 using RentACar.Application.Interfaces.Services;
 
@@ -41,9 +42,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreateBrandCommand createBrandCommand)
+        public async Task<IActionResult> Create(CreateBrandDto createBrandDto)
         {
-            var result = await _service.CreateBrandAsync(createBrandCommand);
+            var result = await _service.CreateBrandAsync(createBrandDto);
             if (result.Success)
             {
                 return Created();
@@ -64,9 +65,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(UpdateBrandCommand updateBrandCommand)
+        public async Task<IActionResult> Update(UpdateBrandDto updateBrandDto)
         {
-            var result = await _service.UpdateBrandAsync(updateBrandCommand);
+            var result = await _service.UpdateBrandAsync(updateBrandDto);
             if (result.Success)
             {
                 return Ok("Update Successfully!");

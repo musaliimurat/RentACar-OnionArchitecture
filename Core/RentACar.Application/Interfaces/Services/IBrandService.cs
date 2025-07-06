@@ -1,4 +1,5 @@
-﻿using RentACar.Application.Features.CQRS.Commands.BrandCommands;
+﻿using RentACar.Application.DTOs.Concrete.BrandDto;
+using RentACar.Application.Features.CQRS.Commands.BrandCommands;
 using RentACar.Application.Features.CQRS.Results.BrandResults;
 using RentACar.Application.Utilities.Results.Abstract;
 using System;
@@ -11,10 +12,10 @@ namespace RentACar.Application.Interfaces.Services
 {
     public interface IBrandService
     {
-        Task<IDataResult<List<GetAllBrandQueryResult>>> GetAllBrandsAsync();
-        Task<IDataResult<GetBrandByIdQueryResult>> GetBrandByIdAsync(Guid id);
-        Task<IResult> CreateBrandAsync(CreateBrandCommand command);
-        Task<IResult> UpdateBrandAsync(UpdateBrandCommand command);
+        Task<IDataResult<List<GetAllBrandDto>>> GetAllBrandsAsync();
+        Task<IDataResult<GetBrandByIdDto>> GetBrandByIdAsync(Guid id);
+        Task<IResult> CreateBrandAsync(CreateBrandDto createBrandDto);
+        Task<IResult> UpdateBrandAsync(UpdateBrandDto updateBrandDto);
         Task<IResult> DeleteBrandAsync(Guid id);
     }
 }

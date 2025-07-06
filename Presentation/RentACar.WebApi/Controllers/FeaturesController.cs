@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.DTOs.Concrete.FeatureDto;
 using RentACar.Application.Features.CQRS.Commands.FeatureCommands;
 using RentACar.Application.Features.CQRS.Queries.FeatureQueries;
+using RentACar.Application.Interfaces.Services;
 
 namespace RentACar.WebApi.Controllers
 {
@@ -10,17 +12,17 @@ namespace RentACar.WebApi.Controllers
     [ApiController]
     public class FeaturesController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly IFeatureService _featureService;
 
-        public FeaturesController(IMediator mediator)
+        public FeaturesController(IFeatureService featureService)
         {
-            _mediator = mediator;
+            _featureService = featureService;
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetAllFeatureQuery());
+            var result = await _featureService.GetAllFeaturesAsync();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,7 +34,7 @@ namespace RentACar.WebApi.Controllers
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var result = await _mediator.Send(new GetFeatureByIdQuery(id));
+            var result = await _featureService.GetFeatureByIdAsync(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -42,9 +44,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreateFeatureCommand createFeatureCommand)
+        public async Task<IActionResult> Create(CreateFeatureDto createFeatureDto)
         {
-            var result = await _mediator.Send(createFeatureCommand);
+            var result = await _featureService.CreateFeatureAsync(createFeatureDto);
             if (result.Success)
             {
                 return Created();
@@ -56,7 +58,7 @@ namespace RentACar.WebApi.Controllers
         [HttpDelete("Remove")]
         public async Task<IActionResult> Remove(Guid id)
         {
-            var result = await _mediator.Send(new RemoveFeatureCommand(id));
+            var result = await _featureService.DeleteFeatureAsync(id);
             if (result.Success)
             {
                 return Ok("Delete Successfully!");
@@ -65,9 +67,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(UpdateFeatureCommand updateFeatureCommand)
+        public async Task<IActionResult> Update(UpdateFeatureDto updateFeatureDto)
         {
-            var result = await _mediator.Send(updateFeatureCommand);
+            var result = await _featureService.UpdateFeatureAsync(updateFeatureDto);
             if (result.Success)
             {
                 return Ok("Update Successfully!");

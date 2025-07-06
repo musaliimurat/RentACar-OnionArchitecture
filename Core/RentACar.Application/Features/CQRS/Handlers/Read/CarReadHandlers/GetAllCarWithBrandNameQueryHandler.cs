@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.CarReadHandlers
 {
-    public class GetAllCarWithBrandNameQueryHandler : IRequestHandler<GetAllCarWithBrandNameQuery, IDataResult<PaginatedList<GetAllCarsDto>>>
+    public class GetAllCarWithBrandNameQueryHandler : IRequestHandler<GetAllCarWithBrandNameQuery, IDataResult<PaginatedList<GetAllCarsWithBrandNameDto>>>
     {
         private readonly ICarRepository _carRepository;
 
@@ -22,7 +22,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.CarReadHandlers
             _carRepository = carRepository;
         }
 
-        public async Task<IDataResult<PaginatedList<GetAllCarsDto>>> Handle(GetAllCarWithBrandNameQuery request, CancellationToken cancellationToken)
+        public async Task<IDataResult<PaginatedList<GetAllCarsWithBrandNameDto>>> Handle(GetAllCarWithBrandNameQuery request, CancellationToken cancellationToken)
         {
             var allCars = await _carRepository.GetAllCarsReadAsync();
 
@@ -32,7 +32,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.CarReadHandlers
                 .Take(request.PageSize)
                 .ToList();
 
-            var result = new PaginatedList<GetAllCarsDto>
+            var result = new PaginatedList<GetAllCarsWithBrandNameDto>
             {
                 Items = items,
                 TotalCount = count,
@@ -41,9 +41,9 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.CarReadHandlers
             };
             if (result.TotalCount > 0)
             {
-                return new SuccessDataResult<PaginatedList<GetAllCarsDto>>(result, "Car list is load successfull!");
+                return new SuccessDataResult<PaginatedList<GetAllCarsWithBrandNameDto>>(result, "Car list is load successfull!");
             }
-            else return new ErrorDataResult<PaginatedList<GetAllCarsDto>>("Car list is empty!");
+            else return new ErrorDataResult<PaginatedList<GetAllCarsWithBrandNameDto>>("Car list is empty!");
         }
     }
 }

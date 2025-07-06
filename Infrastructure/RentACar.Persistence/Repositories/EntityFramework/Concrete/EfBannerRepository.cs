@@ -12,7 +12,7 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
 {
     public class EfBannerRepository : EfRepositoryBase<Banner, RentACarContext>, IBannerRepository
     {
-        public EfBannerRepository(RentACarContext context, IMapper mapper) : base(context, mapper)
+        public EfBannerRepository(RentACarContext context) : base(context)
         {
         }
     }

@@ -26,6 +26,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.FeatureWriteHandlers
             if (value !=null)
             {
                 value.Name = request.Name;
+                value.UpdateDate = DateTime.Today;
                 await _featureRepository.UpdateAsync(value);
                 return new SuccessResult("Feature is updated successfull!");
             }

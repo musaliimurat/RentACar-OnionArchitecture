@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using RentACar.Application.Features.CQRS.Queries.FeatureQueries;
 using RentACar.Application.Features.CQRS.Results.FeatureResults;
 using RentACar.Application.Interfaces.Repository.Abstract;
@@ -15,24 +16,22 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.FeatureReadHandlers
     public class GetFeatureByIdQueryHandler : IRequestHandler<GetFeatureByIdQuery, IDataResult<GetFeatureByIdQueryResult>>
     {
         private readonly IFeatureRepository _featureRepository;
+        private readonly IMapper _mapper;
 
-        public GetFeatureByIdQueryHandler(IFeatureRepository featureRepository)
+        public GetFeatureByIdQueryHandler(IFeatureRepository featureRepository, IMapper mapper)
         {
             _featureRepository = featureRepository;
+            _mapper = mapper;
         }
 
         public async Task<IDataResult<GetFeatureByIdQueryResult>> Handle(GetFeatureByIdQuery request, CancellationToken cancellationToken)
         {
             var value = await _featureRepository.GetAsync(f => f.Id == request.Id);
-                
-            if (value !=null)
+            var result = _mapper.Map<GetFeatureByIdQueryResult>(value);
+
+            if (result !=null)
             {
-                GetFeatureByIdQueryResult getFeatureByIdQueryResult = new()
-                {
-                    Id = value.Id,
-                    Name = value.Name,
-                };
-                return new SuccessDataResult<GetFeatureByIdQueryResult>(getFeatureByIdQueryResult, "Feature is load successfull!");
+                return new SuccessDataResult<GetFeatureByIdQueryResult>(result, "Feature is load successfull!");
             }
             else return new ErrorDataResult<GetFeatureByIdQueryResult>("Feature is not found!");
         }

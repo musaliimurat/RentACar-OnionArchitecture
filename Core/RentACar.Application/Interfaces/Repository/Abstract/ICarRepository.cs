@@ -5,7 +5,9 @@ namespace RentACar.Application.Interfaces.Repository.Abstract
 {
     public interface ICarRepository : IRepositoryBase<Car>
     {
-        Task<List<GetAllCarsDto>> GetAllCarsReadAsync();
+        Task<List<GetAllCarsWithBrandNameDto>> GetAllCarsReadAsync();
+        Task<List<GetAllCarsWithBrandNameForAdminDto>> GetAllCarsReadForAdminAsync();
+
         Task<List<GetAllFeaturedCarsDto>> GetAllFeaturedCarsReadAsync();
         Task<List<GetAllCarsToPriceListDto>> GetAllCarsToPriceListsReadAsync();
     }

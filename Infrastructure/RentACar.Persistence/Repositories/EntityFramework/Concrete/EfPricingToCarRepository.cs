@@ -12,7 +12,7 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
 {
     public class EfPricingToCarRepository : EfRepositoryBase<PricingToCar, RentACarContext>, IPricingToCarRepository
     {
-        public EfPricingToCarRepository(RentACarContext context, IMapper mapper) : base(context, mapper)
+        public EfPricingToCarRepository(RentACarContext context) : base(context)
         {
         }
     }

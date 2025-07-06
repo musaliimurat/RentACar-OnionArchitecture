@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.DTOs.Concrete.CarDto;
 using RentACar.Application.Features.CQRS.Commands.CarCommands;
 using RentACar.Application.Features.CQRS.Commands.CarCommands;
 using RentACar.Application.Features.CQRS.Queries.CarQueries;
@@ -69,9 +70,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreateCarCommand createCarCommand)
+        public async Task<IActionResult> Create(CreateCarDto createCarDto)
         {
-            var result = await _service.CreateCarAsync(createCarCommand);
+            var result = await _service.CreateCarAsync(createCarDto);
             if (result.Success)
             {
                 return Created();
@@ -92,9 +93,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(UpdateCarCommand updateCarCommand)
+        public async Task<IActionResult> Update(UpdateCarDto updateCarDto)
         {
-            var result = await _service.UpdateCarAsync(updateCarCommand);
+            var result = await _service.UpdateCarAsync(updateCarDto);
             if (result.Success)
             {
                 return Ok("Update Successfully!");

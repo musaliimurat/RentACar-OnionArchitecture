@@ -12,8 +12,10 @@ namespace RentACar.Application.DTOs.Concrete.CarDto
     {
         public Guid BrandId { get; set; }
         public string Model { get; set; }
-        public IFormFile CoverImageUrl { get; set; }
-        public IFormFile DetailImageUrl { get; set; }
+        public IFormFile CoverImageUpload { get; set; }
+        public IFormFile DetailImageUpload { get; set; }
+        public string CoverImageUrl { get; set; }
+        public string DetailImageUrl { get; set; }
         public decimal Km { get; set; }
         public string Transmission { get; set; }
         public byte Seat { get; set; }

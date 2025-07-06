@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Features.CQRS.Queries.FeatureQueries
 {
-    public class GetAllFeatureQuery : IRequest<IDataResult<List<GetAllFeautureQueryResult>>>
+    public class GetAllFeatureQuery : IRequest<IDataResult<List<GetAllFeatureQueryResult>>>
     {
     }
 }

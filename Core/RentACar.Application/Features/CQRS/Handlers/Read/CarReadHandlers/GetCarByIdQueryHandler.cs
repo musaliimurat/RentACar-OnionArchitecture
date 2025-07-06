@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using RentACar.Application.Features.CQRS.Queries.CarQueries;
 using RentACar.Application.Features.CQRS.Results.BrandResults;
 using RentACar.Application.Features.CQRS.Results.CarResults;
@@ -16,29 +17,21 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.CarReadHandlers
     public class GetCarByIdQueryHandler : IRequestHandler<GetCarByIdQuery, IDataResult<GetCarByIdQueryResult>>
     {
         private readonly ICarRepository _carRepository;
+        private readonly IMapper _mapper;
 
-        public GetCarByIdQueryHandler(ICarRepository carRepository)
+        public GetCarByIdQueryHandler(ICarRepository carRepository, IMapper mapper)
         {
             _carRepository = carRepository;
+            _mapper = mapper;
         }
 
         public async Task<IDataResult<GetCarByIdQueryResult>> Handle(GetCarByIdQuery request, CancellationToken cancellationToken)
         {
             var value = await _carRepository.GetAsync(c => c.Id == request.Id);
-            if (value == null) return new ErrorDataResult<GetCarByIdQueryResult>("Car not found!"); ;
-            var result = new GetCarByIdQueryResult
-            {
-                Id = value.Id,
-                BrandId = value.BrandId,
-                Model = value.Model,
-                Fuel = value.Fuel,
-                Km = value.Km,
-                Seat = value.Seat,
-                Transmission = value.Transmission,
-                Luggage = value.Luggage,
-                CoverImageUrl = value.CoverImageUrl,
-                DetailImageUrl = value.DetailImageUrl
-            };
+
+            if (value == null) return new ErrorDataResult<GetCarByIdQueryResult>("Car not found!");
+
+            var result = _mapper.Map<GetCarByIdQueryResult>(value);
 
             return new SuccessDataResult<GetCarByIdQueryResult>(result, "Car load is successfull!");
         }

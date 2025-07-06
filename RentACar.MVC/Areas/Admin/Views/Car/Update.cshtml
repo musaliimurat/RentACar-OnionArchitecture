@@ -1,5 +1,4 @@
-﻿@using RentACar.MVC.Areas.Admin.ViewModels
-
+﻿
 @{
     ViewData["Title"] = "Update";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -32,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label for="brandId">Select brand</label>
-                <select class="form-control" id="brandId" asp-for="UpdateCarDto.BrandId" asp-items="@(new SelectList(Model.GetAllBrandQueryResults, "Id", "Name"))">
+                <select class="form-control" id="brandId" asp-for="UpdateCarDto.BrandId" asp-items="@(new SelectList(Model.GetAllBrandDto, "Id", "Name"))">
                     <option hidden>Select brand name</option>
                 </select>
                 <span asp-validation-for="UpdateCarDto.BrandId" class="text-danger"></span>
@@ -90,7 +89,7 @@
                     <label class="custom-control-label" for="checkmeout0">Check me out !</label>
                 </div>
             </div> *@
-            <button type="submit" class="btn btn-success waves-effect waves-light">Update</button>
+            <button type="submit" class="btn btn-secondary waves-effect waves-light">Update</button>
         </form>
         @section Scripts {
             @{

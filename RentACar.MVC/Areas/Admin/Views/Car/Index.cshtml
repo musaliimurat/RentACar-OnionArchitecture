@@ -1,9 +1,8 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-@model PaginatedList<GetAllCarsDto>
+@model List<GetAllCarsWithBrandNameForAdminDto>
 
 <div class="row">
     <div class="col-12">
@@ -23,27 +22,34 @@
                             <th>Brand Name</th>
                             <th>Model</th>
                             <th>Transmission</th>
+                            <th>Price list</th>
                             <th>Actions</th>
                             <th>Seat</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(var car in Model.Items)
+                        @foreach(var car in Model)
                         {
                             <tr>
                                 <td>
                                     <div style="width:150px; height:100px;">
                                         <img src="@car.CoverImageUrl" class="img-fluid" />
-                                </div>
+                                    </div>
                                 </td>
                                 <td>@car.BrandName</td>
                                 <td>@car.Model</td>
                                 <td>@car.Transmission</td>
                                 <td>
+                                    @foreach(var item in car.Pricings)
+                                    {
+                                        <p>@item.PricingName - @item.Amount AZN</p>
+                                    }
+                                </td>
+                                <td>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <a asp-area="Admin" asp-controller="Car" asp-action="Update" asp-route-id="@car.Id" class="btn btn-secondary btn-sm mr-2">Edit</a>
                                         <a asp-area="Admin" asp-controller="Car" asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger btn-sm mr-2">Delete</a>
-                                        <a asp-area="Admin" asp-controller="Car" asp-action="Read" asp-route-id="@car.Id" class="btn btn-dark btn-sm ">Details</a>
+                                        <a asp-controller="Car" asp-action="Detail" asp-route-id="@car.Id" class="btn btn-dark btn-sm ">Visit this website</a>
                                     </div>
                                 </td>
                                 <td>@car.Seat</td>
@@ -57,6 +63,7 @@
                             <th>Brand Name</th>
                             <th>Model</th>
                             <th>Transmission</th>
+                            <th>Price list</th>
                             <th>Actions</th>
                             <th>Seat</th>
                         </tr>

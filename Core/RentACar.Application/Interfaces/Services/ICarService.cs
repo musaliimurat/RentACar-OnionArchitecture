@@ -8,13 +8,14 @@ namespace RentACar.Application.Interfaces.Services
 {
     public interface ICarService
     {
-        Task<IDataResult<List<GetAllCarQueryResult>>> GetAllCarsAsync();
-        Task<IDataResult<PaginatedList<GetAllCarsDto>>> GetAllCarsWithBrandsAsync(int page, int pageSize);
+        Task<IDataResult<List<GetAllCarsDto>>> GetAllCarsAsync();
+        Task<IDataResult<List<GetAllCarsWithBrandNameForAdminDto>>> GetAllCarsWithBrandsForAdminAsync();
+        Task<IDataResult<PaginatedList<GetAllCarsWithBrandNameDto>>> GetAllCarsWithBrandsAsync(int page, int pageSize);
         Task<IDataResult<List<GetAllFeaturedCarsDto>>> GetAllFeaturedCarsAsync();
         Task<IDataResult<List<GetAllCarsToPriceListDto>>> GetAllCarsToPriceListsAsync();
-        Task<IDataResult<GetCarByIdQueryResult>> GetCarByIdAsync(Guid id);
-        Task<IResult> CreateCarAsync(CreateCarCommand command);
-        Task<IResult> UpdateCarAsync(UpdateCarCommand command);
+        Task<IDataResult<GetCarByIdDto>> GetCarByIdAsync(Guid id);
+        Task<IResult> CreateCarAsync(CreateCarDto createCarDto);
+        Task<IResult> UpdateCarAsync(UpdateCarDto updateCarDto);
         Task<IResult> DeleteCarAsync(Guid id);
     }
 }

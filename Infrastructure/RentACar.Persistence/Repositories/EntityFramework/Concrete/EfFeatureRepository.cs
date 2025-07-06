@@ -12,7 +12,7 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
 {
     public class EfFeatureRepository : EfRepositoryBase<Feature, RentACarContext>, IFeatureRepository
     {
-        public EfFeatureRepository(RentACarContext context, IMapper mapper) : base(context, mapper)
+        public EfFeatureRepository(RentACarContext context) : base(context)
         {
         }
     }

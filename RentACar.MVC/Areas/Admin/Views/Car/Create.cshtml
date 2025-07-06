@@ -1,6 +1,4 @@
-﻿@using RentACar.Application.Features.CQRS.Results.BrandResults
-@using RentACar.MVC.Areas.Admin.ViewModels
-@{
+﻿@{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
@@ -21,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label for="brandId">Select brand</label>
-                <select class="form-control" id="brandId" asp-for="CreateCarDto.BrandId" asp-items="@(new SelectList(Model.GetAllBrandQueryResults, "Id", "Name"))">
+                <select class="form-control" id="brandId" asp-for="CreateCarDto.BrandId" asp-items="@(new SelectList(Model.GetAllBrandDto, "Id", "Name"))">
                     <option hidden >Select brand name</option>
                 </select>
                 <span asp-validation-for="CreateCarDto.BrandId" class="text-danger"></span>
@@ -54,21 +52,21 @@
 
             </div>
             <div class="form-group">
-                <label for="coverImageUrl">Cover Image</label>
+                <label for="coverImageUpload">Cover Image</label>
                     <div class="card">
                         <div class="card-body">
-                        <input type="file" id="coverImageUrl" asp-for="CreateCarDto.CoverImageUrl" class="dropify" data-height="300" />
-                        <span asp-validation-for="CreateCarDto.CoverImageUrl" class="text-danger"></span>
+                        <input type="file" id="coverImageUpload" asp-for="CreateCarDto.CoverImageUpload" class="dropify" data-height="300" />
+                        <span asp-validation-for="CreateCarDto.CoverImageUpload" class="text-danger"></span>
 
                         </div> 
                     </div> 
             </div>
             <div class="form-group">
-                <label for="detailImageUrl">Detail Image</label>
+                <label for="detailImageUpload">Detail Image</label>
                 <div class="card">
                     <div class="card-body">
-                        <input type="file" id="detailImageUrl" asp-for="CreateCarDto.DetailImageUrl" class="dropify" data-height="300" />
-                        <span asp-validation-for="CreateCarDto.DetailImageUrl" class="text-danger"></span>
+                        <input type="file" id="detailImageUpload" asp-for="CreateCarDto.DetailImageUpload" class="dropify" data-height="300" />
+                        <span asp-validation-for="CreateCarDto.DetailImageUpload" class="text-danger"></span>
 
                     </div>
                 </div>

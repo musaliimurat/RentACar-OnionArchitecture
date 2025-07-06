@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using RentACar.Application.Features.CQRS.Commands.BrandCommands;
 using RentACar.Application.Interfaces.Repository.Abstract;
 using RentACar.Application.Utilities.Results.Abstract;
@@ -15,10 +16,12 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.BrandWriteHandlers
     public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, IResult>
     {
         private readonly IBrandRepository _brandRepository;
+        private readonly IMapper _mapper;
 
-        public CreateBrandCommandHandler(IBrandRepository brandRepository)
+        public CreateBrandCommandHandler(IBrandRepository brandRepository, IMapper mapper)
         {
             _brandRepository = brandRepository;
+            _mapper = mapper;
         }
 
 

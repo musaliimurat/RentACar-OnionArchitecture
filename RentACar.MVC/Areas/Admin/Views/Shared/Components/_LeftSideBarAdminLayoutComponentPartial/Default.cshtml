@@ -23,13 +23,32 @@
                 </li>
 
                 <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="fas fa-certificate"></i><span>Brand</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a asp-area="Admin" asp-controller="Brand" asp-action="Index"><i class="fas fa-list"></i>Brand list</a></li>
+                        <li><a asp-area="Admin" asp-controller="Brand" asp-action="Create"><i class="fas fa-plus-circle"></i> Add new brand</a></li>
+                    </ul>
+                </li>
+
+                <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect"><i class="fas fa-car"></i><span>Car</span></a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a asp-area="Admin" asp-controller="Car" asp-action="Index"><i class="fas fa-list"></i> Car list</a></li>
                         <li><a asp-area="Admin" asp-controller="Car" asp-action="Create"><i class="fas fa-plus-circle"></i> Add new car</a></li>
                     </ul>
                 </li>
-
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="fas fa-tags"></i><span>Feature</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a asp-area="Admin" asp-controller="Feature" asp-action="Index"><i class="fas fa-list"></i>Feature list</a></li>
+                        <li><a asp-area="Admin" asp-controller="Feature" asp-action="Create"><i class="fas fa-plus-circle"></i> Add new feature</a></li>
+                    </ul>
+                </li>
+                
             </ul>
         </div>
         <!-- Sidebar -->

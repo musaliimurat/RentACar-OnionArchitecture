@@ -7,16 +7,27 @@ using RentACar.Persistence.Context;
 
 namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
 {
-    public class EfCarRepository(RentACarContext context, IMapper mapper) : EfRepositoryBase<Car, RentACarContext>(context, mapper), ICarRepository
+    public class EfCarRepository(RentACarContext context, IMapper mapper) : EfRepositoryBase<Car, RentACarContext>(context), ICarRepository
     {
-        public async Task<List<GetAllCarsDto>> GetAllCarsReadAsync()
+        private readonly IMapper _mapper = mapper;
+        public async Task<List<GetAllCarsWithBrandNameDto>> GetAllCarsReadAsync()
         {
             var result = await context.Cars
                 .Include(c => c.Brand)
                 .Include(c => c.PricingToCars)
                 .ThenInclude(ptc => ptc.Pricing)
                 .ToListAsync();
-            return mapper.Map<List<GetAllCarsDto>>(result);
+            return _mapper.Map<List<GetAllCarsWithBrandNameDto>>(result);
+        }
+
+        public async Task<List<GetAllCarsWithBrandNameForAdminDto>> GetAllCarsReadForAdminAsync()
+        {
+            var result = await context.Cars
+                .Include(c => c.Brand)
+                .Include(c => c.PricingToCars)
+                .ThenInclude(ptc => ptc.Pricing)
+                .ToListAsync();
+            return _mapper.Map<List<GetAllCarsWithBrandNameForAdminDto>>(result);
         }
 
         public async Task<List<GetAllCarsToPriceListDto>> GetAllCarsToPriceListsReadAsync()
@@ -26,7 +37,7 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
                 .Include(c => c.PricingToCars)
                 .ThenInclude(ptc => ptc.Pricing)
                 .ToListAsync();
-            return mapper.Map<List<GetAllCarsToPriceListDto>>(result);
+            return _mapper.Map<List<GetAllCarsToPriceListDto>>(result);
         }
 
         public async Task<List<GetAllFeaturedCarsDto>> GetAllFeaturedCarsReadAsync()
@@ -38,7 +49,7 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
                 .OrderByDescending(c => c.CreatedDate)
                 .Take(6)
                 .ToListAsync();
-            return mapper.Map<List<GetAllFeaturedCarsDto>>(result);
+            return _mapper.Map<List<GetAllFeaturedCarsDto>>(result);
 
         }
     }

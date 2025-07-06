@@ -12,7 +12,7 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
 {
     public class EfContactRepository : EfRepositoryBase<ContactForm, RentACarContext>, IContactRepository
     {
-        public EfContactRepository(RentACarContext context, IMapper mapper) : base(context, mapper)
+        public EfContactRepository(RentACarContext context) : base(context)
         {
         }
     }

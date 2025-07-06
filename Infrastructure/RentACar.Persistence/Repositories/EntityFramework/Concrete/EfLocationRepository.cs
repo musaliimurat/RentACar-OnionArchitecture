@@ -12,7 +12,7 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
 {
     public class EfLocationRepository : EfRepositoryBase<Location, RentACarContext>, ILocationRepository
     {
-        public EfLocationRepository(RentACarContext context, IMapper mapper) : base(context, mapper)
+        public EfLocationRepository(RentACarContext context) : base(context)
         {
         }
     }
