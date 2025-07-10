@@ -24,12 +24,12 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         var bannerValues = await _bannerService.GetAllBannerAsync();
-        var featuredCars = await _carService.GetAllFeaturedCarsAsync();
+        var featuredCars = await _carService.GetAllIsSliderCarsAsync();
         var newBlogs = await _blogService.GetAllBlogIsNewAsync();
 
         HomeVM vm = new()
         {
-            GetBanner = bannerValues.Data.FirstOrDefault(),
+            GetBanner = bannerValues.Data.First(),
             GetAllFeaturedCars = featuredCars.Data,
             GetAllBlogIsNew = newBlogs.Data,
         };

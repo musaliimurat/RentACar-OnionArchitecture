@@ -8,7 +8,7 @@ namespace RentACar.Application.Interfaces.Repository.Abstract
         Task<List<GetAllCarsWithBrandNameDto>> GetAllCarsReadAsync();
         Task<List<GetAllCarsWithBrandNameForAdminDto>> GetAllCarsReadForAdminAsync();
 
-        Task<List<GetAllFeaturedCarsDto>> GetAllFeaturedCarsReadAsync();
+        Task<List<GetAllCarsSliderDto>> GetAllFeaturedCarsReadAsync();
         Task<List<GetAllCarsToPriceListDto>> GetAllCarsToPriceListsReadAsync();
     }
 }

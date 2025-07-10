@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model List<GetAllFeatureToCarDto>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Admin Panel feature to car list</h4>
+
+                <table id="complex-header-datatable" class="table dt-responsive nowrap">
+                    <thead class="thead-light">
+
+                        <tr>
+                            <th>Car Name</th>
+                            <th>Feature Name</th>
+                            <th>Available</th>
+                            <th>Created Date</th>
+                            <th>Updated Date</th>
+                            <th>Actions</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@item.BrandName - @item.Model</td>
+                                <td>@item.FeatureName</td>
+                                <td>
+                                    <i style="font-size:20px; @(item.IsAvailable ? "color: darkGreen;" : "color: darkRed;")" class="@(item.IsAvailable ? "fas fa-check" : "fas fa-times")"></i>
+                                </td>
+                                <td>@DateTime.Parse(item.CreatedDate.ToString()).ToLongDateString()</td>
+                                <td>@DateTime.Parse(item.UpdateDate.ToString()).ToLongDateString()</td>
+                                <td>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a asp-area="Admin" asp-controller="CarFeature" asp-action="Update" asp-route-id="@item.Id" class="btn btn-secondary btn-sm mr-2">Edit</a>
+                                        <a asp-area="Admin" asp-controller="CarFeature" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm mr-2">Delete</a>
+                                        @* <a asp-area="Admin" asp-controller="Feature" asp-action="Read" asp-route-id="@item.Id" class="btn btn-dark btn-sm ">Details</a> *@
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Car Name</th>
+                            <th>Feature Name</th>
+                            <th>Available</th>
+                            <th>Created Date</th>
+                            <th>Updated Date</th>
+                            <th>Actions</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>
+

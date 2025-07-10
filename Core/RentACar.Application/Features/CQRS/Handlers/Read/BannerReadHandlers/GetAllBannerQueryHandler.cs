@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using RentACar.Application.Features.CQRS.Queries.BannerQueries;
 using RentACar.Application.Features.CQRS.Results.BannerResults;
 using RentACar.Application.Interfaces.Repository.Abstract;
@@ -15,25 +16,20 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.BannerReadHandlers
     public class GetAllBannerQueryHandler : IRequestHandler<GetAllBannerQuery, IDataResult<List<GetAllBannerQueryResult>>>
     {
         private readonly IBannerRepository _bannerRepository;
+        private readonly IMapper _mapper;
 
-        public GetAllBannerQueryHandler(IBannerRepository bannerRepository)
+        public GetAllBannerQueryHandler(IBannerRepository bannerRepository, IMapper mapper)
         {
             _bannerRepository = bannerRepository;
+            _mapper = mapper;
         }
 
-      
+
 
         public async Task<IDataResult<List<GetAllBannerQueryResult>>> Handle(GetAllBannerQuery request, CancellationToken cancellationToken)
         {
             var values = await _bannerRepository.GetAllAsync();
-            var result = values.Select(b => new GetAllBannerQueryResult
-            {
-                Id = b.Id,
-                Title = b.Title,
-                Description = b.Description,
-                VideoDescription = b.VideoDescription,
-                VideoUrl = b.VideoUrl,
-            }).ToList();
+            var result = _mapper.Map<List<GetAllBannerQueryResult>>(values);
             if (result.Count > 0 )
             {
                 return new SuccessDataResult<List<GetAllBannerQueryResult>>(result, "Banner list load successfull!");

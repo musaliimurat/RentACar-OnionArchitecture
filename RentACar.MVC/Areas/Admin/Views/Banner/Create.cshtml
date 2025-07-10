@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model CreateBannerDto
+
+<div class="card">
+    <div class="card-body">
+
+        <h4 class="card-title">Create new banner</h4>
+
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="bannerTitle">Banner title</label>
+                <input type="text" class="form-control" id="bannerTitle" asp-for="Title" placeholder="Enter banner title">
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="videoDescription">Video description</label>
+                <input type="text" class="form-control" id="videoDescription" asp-for="VideoDescription" placeholder="Enter video description">
+                <span asp-validation-for="VideoDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="videoUrl">Video url</label>
+                <input type="text" class="form-control" id="videoUrl" asp-for="VideoUrl" placeholder="Enter video url">
+                <span asp-validation-for="VideoUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="description">Banner Description</label>
+                <input type="text" class="form-control" id="description" asp-for="Description" placeholder="Enter banner description">
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success waves-effect waves-light">Create</button>
+        </form>
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </div>
+</div>
+
+

@@ -13,5 +13,7 @@ namespace RentACar.Application.Features.CQRS.Results.BannerResults
         public string Description { get; set; }
         public string VideoDescription { get; set; }
         public string VideoUrl { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdateDate { get; set; }
     }
 }

@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model FeatureToCarVM
+
+<div class="card">
+    <div class="card-body">
+
+        <h4 class="card-title">Create new feature to car</h4>
+
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="carId">Select car</label>
+                <select  class="form-control" id="carId" asp-for="CreateFeatureToCarDto.CarId" asp-items="@(new SelectList(Model.GetAllCarsWithBrandNameForAdminDtos, "Id", "DisplayName"))">
+                    <option hidden>Select car</option>
+                </select>
+                <span asp-validation-for="CreateFeatureToCarDto.CarId" class="text-danger"></span>
+            </div>
+         
+            <div class="form-group">
+                <label for="featureId">Select feature</label>
+
+                <select id="featureId" asp-for="CreateFeatureToCarDto.SelectedFeatureIds" asp-items="@(new SelectList(Model.GetAllFeatureDtos, "Id", "Name"))" class="form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose ...">
+                </select>
+                <span asp-validation-for="CreateFeatureToCarDto.SelectedFeatureIds" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label for="available">Is Available</label>
+                <br />
+                <input id="available" asp-for="CreateFeatureToCarDto.IsAvailable" type="checkbox" checked data-toggle="switchery" data-color="#00c2b2" />
+            </div>
+            
+
+            <button type="submit" class="btn btn-success waves-effect waves-light">Create</button>
+        </form>
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </div>
+</div>
+

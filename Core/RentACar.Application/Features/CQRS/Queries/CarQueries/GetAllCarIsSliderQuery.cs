@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Features.CQRS.Queries.CarQueries
 {
-    public class GetAllCarIsFeaturedQuery : IRequest<IDataResult<List<GetAllFeaturedCarsDto>>>
+    public class GetAllCarIsSliderQuery : IRequest<IDataResult<List<GetAllCarsSliderDto>>>
     {
     }
 }

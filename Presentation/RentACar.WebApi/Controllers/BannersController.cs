@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.DTOs.Concrete.BannerDTOs;
 using RentACar.Application.Features.CQRS.Commands.BannerCommands;
 using RentACar.Application.Interfaces.Services;
 
@@ -40,9 +41,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreateBannerCommand createBannerCommand)
+        public async Task<IActionResult> Create(CreateBannerDto createBannerDto)
         {
-            var result = await _service.CreateBannerAsync(createBannerCommand);
+            var result = await _service.CreateBannerAsync(createBannerDto);
             if (result.Success)
             {
                 return Created();
@@ -63,9 +64,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(UpdateBannerCommand updateBannerCommand)
+        public async Task<IActionResult> Update(UpdateBannerDto updateBannerDto)
         {
-            var result = await _service.UpdateBannerAsync(updateBannerCommand);
+            var result = await _service.UpdateBannerAsync(updateBannerDto);
             if (result.Success)
             {
                 return Ok("Update Successfully!");

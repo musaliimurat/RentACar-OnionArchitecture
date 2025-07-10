@@ -77,12 +77,12 @@ namespace RentACar.Application.Features.Services
                 : new ErrorDataResult<List<GetAllCarsWithBrandNameForAdminDto>>(result.Message);
         }
 
-        public async Task<IDataResult<List<GetAllFeaturedCarsDto>>> GetAllFeaturedCarsAsync()
+        public async Task<IDataResult<List<GetAllCarsSliderDto>>> GetAllIsSliderCarsAsync()
         {
-            var result = await _mediator.Send(new GetAllCarIsFeaturedQuery());
+            var result = await _mediator.Send(new GetAllCarIsSliderQuery());
             return result.Success
-                ? new SuccessDataResult<List<GetAllFeaturedCarsDto>>(result.Data, result.Message)
-                : new ErrorDataResult<List<GetAllFeaturedCarsDto>>(result.Message);
+                ? new SuccessDataResult<List<GetAllCarsSliderDto>>(result.Data, result.Message)
+                : new ErrorDataResult<List<GetAllCarsSliderDto>>(result.Message);
         }
 
         public async Task<IDataResult<GetCarByIdDto>> GetCarByIdAsync(Guid id)

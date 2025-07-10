@@ -12,23 +12,23 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.CarReadHandlers
 {
-    public class GetAllCarIsFeaturedQueryHandler : IRequestHandler<GetAllCarIsFeaturedQuery, IDataResult<List<GetAllFeaturedCarsDto>>>
+    public class GetAllCarIsSliderQueryHandler : IRequestHandler<GetAllCarIsSliderQuery, IDataResult<List<GetAllCarsSliderDto>>>
     {
         private readonly ICarRepository _carRepository;
 
-        public GetAllCarIsFeaturedQueryHandler(ICarRepository carRepository)
+        public GetAllCarIsSliderQueryHandler(ICarRepository carRepository)
         {
             _carRepository = carRepository;
         }
 
-        public async Task<IDataResult<List<GetAllFeaturedCarsDto>>> Handle(GetAllCarIsFeaturedQuery request, CancellationToken cancellationToken)
+        public async Task<IDataResult<List<GetAllCarsSliderDto>>> Handle(GetAllCarIsSliderQuery request, CancellationToken cancellationToken)
         {
             var values = await _carRepository.GetAllFeaturedCarsReadAsync();
             if (values.Count > 0)
             {
-                return new SuccessDataResult<List<GetAllFeaturedCarsDto>>(values, "Car list is load successfull!");
+                return new SuccessDataResult<List<GetAllCarsSliderDto>>(values, "Car list is load successfull!");
             }
-            else return new ErrorDataResult<List<GetAllFeaturedCarsDto>>("Car list is empty!");
+            else return new ErrorDataResult<List<GetAllCarsSliderDto>>("Car list is empty!");
         }
     }
 }

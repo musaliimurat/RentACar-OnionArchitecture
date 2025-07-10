@@ -5,22 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RentACar.Application.DTOs.Concrete.CarDto
+namespace RentACar.Application.DTOs.Concrete.FeatureToCarDTOs
 {
-    public class GetAllFeaturedCarsDto : IDto
+    public class GetAllFeatureToCarDto : IDto
     {
         public Guid Id { get; set; }
+        public Guid CarId { get; set; }
+        public Guid FeatureId { get; set; }
         public Guid BrandId { get; set; }
         public string BrandName { get; set; }
         public string Model { get; set; }
         public string CoverImageUrl { get; set; }
-        public string DetailImageUrl { get; set; }
-        public decimal Km { get; set; }
-        public string Transmission { get; set; }
-        public byte Seat { get; set; }
-        public byte Luggage { get; set; }
-        public string Fuel { get; set; }
+        public string FeatureName { get; set; }
+        public bool IsAvailable { get; set; }
         public DateTime CreatedDate { get; set; }
-        public List<PricingToCarsDto> Pricings { get; set; }
+        public DateTime UpdateDate { get; set; }
     }
 }

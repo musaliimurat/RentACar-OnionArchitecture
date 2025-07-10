@@ -48,6 +48,27 @@
                         <li><a asp-area="Admin" asp-controller="Feature" asp-action="Create"><i class="fas fa-plus-circle"></i> Add new feature</a></li>
                     </ul>
                 </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="fas fa-tags"></i><span>Feature to car</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a asp-area="Admin" asp-controller="CarFeature" asp-action="Index"><i class="fas fa-list"></i>Feature to car list</a></li>
+                        <li><a asp-area="Admin" asp-controller="CarFeature" asp-action="Create"><i class="fas fa-plus-circle"></i> Add new feature to car</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="fas fa-file-video"></i><span>Banner</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a asp-area="Admin" asp-controller="Banner" asp-action="Index"><i class="fas fa-list"></i>Banner list</a></li>
+                        <li><a asp-area="Admin" asp-controller="Banner" asp-action="Create"><i class="fas fa-plus-circle"></i> Add new banner</a></li>
+                    </ul>
+                </li>
+
                 
             </ul>
         </div>

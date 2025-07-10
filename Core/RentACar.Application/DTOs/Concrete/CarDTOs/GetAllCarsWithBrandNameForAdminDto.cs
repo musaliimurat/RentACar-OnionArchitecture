@@ -1,5 +1,4 @@
 ﻿using RentACar.Application.DTOs.Abstract;
-using RentACar.Domain.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.DTOs.Concrete.CarDto
 {
-    public class GetAllCarsWithBrandNameDto : IDto
+    public class GetAllCarsWithBrandNameForAdminDto : IDto
     {
         public Guid Id { get; set; }
         public Guid BrandId { get; set; }
@@ -22,5 +21,7 @@ namespace RentACar.Application.DTOs.Concrete.CarDto
         public byte Luggage { get; set; }
         public string Fuel { get; set; }
         public List<PricingToCarsDto> Pricings { get; set; }
+
+        public string DisplayName => $"{BrandName} - {Model}";
     }
 }

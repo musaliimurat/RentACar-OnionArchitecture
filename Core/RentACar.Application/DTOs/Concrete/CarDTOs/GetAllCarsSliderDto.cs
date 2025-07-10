@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.DTOs.Concrete.CarDto
 {
-    public class GetAllCarsWithBrandNameForAdminDto : IDto
+    public class GetAllCarsSliderDto : IDto
     {
         public Guid Id { get; set; }
         public Guid BrandId { get; set; }
@@ -20,6 +20,7 @@ namespace RentACar.Application.DTOs.Concrete.CarDto
         public byte Seat { get; set; }
         public byte Luggage { get; set; }
         public string Fuel { get; set; }
+        public DateTime CreatedDate { get; set; }
         public List<PricingToCarsDto> Pricings { get; set; }
     }
 }

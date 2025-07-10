@@ -1,4 +1,5 @@
-﻿using RentACar.Application.Features.CQRS.Commands.BannerCommands;
+﻿using RentACar.Application.DTOs.Concrete.BannerDTOs;
+using RentACar.Application.Features.CQRS.Commands.BannerCommands;
 using RentACar.Application.Features.CQRS.Results.BannerResults;
 using RentACar.Application.Utilities.Results.Abstract;
 using System;
@@ -11,10 +12,10 @@ namespace RentACar.Application.Interfaces.Services
 {
     public interface IBannerService
     {
-        Task<IDataResult<List<GetAllBannerQueryResult>>> GetAllBannerAsync();
-        Task<IDataResult<GetBannerByIdQueryResult>> GetBannerByIdAsync(Guid id);
-        Task<IResult> CreateBannerAsync(CreateBannerCommand command);
-        Task<IResult> UpdateBannerAsync(UpdateBannerCommand command);
+        Task<IDataResult<List<GetAllBannerDto>>> GetAllBannerAsync();
+        Task<IDataResult<GetBannerByIdDto>> GetBannerByIdAsync(Guid id);
+        Task<IResult> CreateBannerAsync(CreateBannerDto createBannerDto);
+        Task<IResult> UpdateBannerAsync(UpdateBannerDto updateBannerDto);
         Task<IResult> DeleteBannerAsync(Guid id);
     }
 }

@@ -5,11 +5,6 @@ using RentACar.Application.Interfaces.Repository.Abstract;
 using RentACar.Application.Utilities.Results.Abstract;
 using RentACar.Application.Utilities.Results.Concrete;
 using RentACar.Domain.Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Write.BrandWriteHandlers
 {
@@ -27,20 +22,13 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.BrandWriteHandlers
 
         public async Task<IResult> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
         {
+            var brand = new Brand
+            {
+                Name = request.Name,
+            };
 
-            if (request != null)
-            {
-                Brand brand = new()
-                {
-                    Name = request.Name,
-                };
-                await _brandRepository.CreateAsync(brand);
-                return new SuccessResult("Brand added successfully!");
-            }
-            else
-            {
-                return new ErrorResult("Brand not added!");
-            }
+            await _brandRepository.CreateAsync(brand);
+            return new SuccessResult("Brand added successfully!");
         }
     }
 }

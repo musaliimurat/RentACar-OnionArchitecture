@@ -45,10 +45,10 @@ namespace RentACar.WebApi.Controllers
         }
 
 
-        [HttpGet("GetAllIsFeatured")]
-        public async Task<IActionResult> GetAllCarIsFeatured()
+        [HttpGet("GetAllIsSlider")]
+        public async Task<IActionResult> GetAllCarIsSlider()
         {
-            var result = await _service.GetAllFeaturedCarsAsync();
+            var result = await _service.GetAllIsSliderCarsAsync();
             if (result.Success)
             {
                 return Ok(result);

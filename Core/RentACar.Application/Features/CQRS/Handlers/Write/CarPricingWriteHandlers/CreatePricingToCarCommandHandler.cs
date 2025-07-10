@@ -30,7 +30,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.CarPricingWriteHandl
                 PricingId = request.PricingId,
                 Amount = request.Amount
             };
-            if (request != null)
+            if (pricingToCar !=null)
             {
                 await _pricingToCarRepository.CreateAsync(pricingToCar);
                 return new SuccessResult("Pricing to car is created successfully!");
