@@ -85,10 +85,18 @@ namespace RentACar.MVC.Areas.Admin.Controllers
         public async Task<IActionResult> Update(Guid id)
         {
             var featureToCar = await _featureToCarService.GetFeatureToCarByIdAsync(id);
+            var cars = await _carService.GetAllCarsWithBrandsForAdminAsync();
+            var features = await _featureService.GetAllFeaturesAsync();
             if (featureToCar.Success)
             {
                 var mappedData = _mapper.Map<UpdateFeatureToCarDto>(featureToCar.Data);
-                return View(mappedData);
+                UpdateFeatureToCarVM updateFeatureToCarVM = new()
+                {
+                    UpdateFeatureToCarDto = mappedData,
+                    GetAllCarsWithBrandNameForAdminDtos = cars.Data,
+                    GetAllFeatureDtos = features.Data
+                };
+                return View(updateFeatureToCarVM);
             }
             else
             {
@@ -97,9 +105,9 @@ namespace RentACar.MVC.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(UpdateFeatureToCarDto updateFeatureToCarDto)
+        public async Task<IActionResult> Update(UpdateFeatureToCarVM updateFeatureToCarVM)
         {
-            var result = await _featureToCarService.UpdateFeatureToCarAsync(updateFeatureToCarDto);
+            var result = await _featureToCarService.UpdateFeatureToCarAsync(updateFeatureToCarVM.UpdateFeatureToCarDto);
             if (!result.Success)
             {
                 if (result is ValidationErrorResult validationError)
@@ -110,7 +118,11 @@ namespace RentACar.MVC.Areas.Admin.Controllers
                         ModelState.AddModelError(key, error.ErrorMessage);
                     }
                 }
-                return View(updateFeatureToCarDto);
+                var cars = await _carService.GetAllCarsWithBrandsForAdminAsync();
+                var features = await _featureService.GetAllFeaturesAsync();
+                updateFeatureToCarVM.GetAllCarsWithBrandNameForAdminDtos = cars.Data;
+                updateFeatureToCarVM.GetAllFeatureDtos = features.Data;
+                return View(updateFeatureToCarVM);
             }
             return RedirectToAction("Index");
 

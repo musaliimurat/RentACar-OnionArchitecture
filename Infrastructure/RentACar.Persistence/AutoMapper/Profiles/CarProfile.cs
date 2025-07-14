@@ -30,7 +30,7 @@ namespace RentACar.Persistence.AutoMapper.Profiles
                .ForMember(dest => dest.Pricings, opt => opt.MapFrom(src => src.PricingToCars))
                .ForMember(dest => dest.Features, opt => opt.MapFrom(src => src.FeatureToCars));
 
-            CreateMap<FeatureToCar, GetAllFeatureToCarFirCarListDto>()
+            CreateMap<FeatureToCar, GetAllFeatureToCarForCarListDto>()
                 .ForMember(dest => dest.FeatureName, opt => opt.MapFrom(src => src.Feature.Name));
 
             CreateMap<PricingToCar, PricingToCarsDto>()

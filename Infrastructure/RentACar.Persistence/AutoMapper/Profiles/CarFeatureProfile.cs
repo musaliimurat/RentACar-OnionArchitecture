@@ -28,6 +28,7 @@ namespace RentACar.Persistence.AutoMapper.Profiles
             CreateMap<GetCarFeatureByIdQueryResult, GetFeatureToCarByIdDto>();
 
             CreateMap<CreateFeatureToCarDto, CreateFeatureToCarCommand>();
+            CreateMap<GetFeatureToCarByIdDto, UpdateFeatureToCarDto>();
             CreateMap<UpdateFeatureToCarDto, UpdateFeatureToCarCommand>();
 
 

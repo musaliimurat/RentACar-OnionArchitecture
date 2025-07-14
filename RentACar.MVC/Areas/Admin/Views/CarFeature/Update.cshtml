@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model UpdateFeatureToCarVM
+
+<div class="card">
+    <div class="card-body">
+
+        <h4 class="card-title">Update feature to car</h4>
+
+        <form asp-action="Update" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UpdateFeatureToCarDto.Id" />
+            <div class="form-group">
+                <label for="carId">Select car</label>
+                <select class="form-control" id="carId" asp-for="UpdateFeatureToCarDto.CarId" asp-items="@(new SelectList(Model.GetAllCarsWithBrandNameForAdminDtos, "Id", "DisplayName"))">
+                    <option hidden>Select car</option>
+                </select>
+                <span asp-validation-for="UpdateFeatureToCarDto.CarId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="featureId">Select feature</label>
+
+                <select id="featureId" asp-for="UpdateFeatureToCarDto.FeatureId" asp-items="@(new SelectList(Model.GetAllFeatureDtos, "Id", "Name"))" class="form-control" data-toggle="select2" data-placeholder="Choose ...">
+                </select>
+                <span asp-validation-for="UpdateFeatureToCarDto.FeatureId" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label for="available">Is Available</label>
+                <br />
+                <input id="available" asp-for="UpdateFeatureToCarDto.IsAvailable" type="checkbox"  data-toggle="switchery" data-color="#00c2b2" />
+            </div>
+
+
+            <button type="submit" class="btn btn-secondary waves-effect waves-light">Update</button>
+        </form>
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </div>
+</div>
+

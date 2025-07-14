@@ -24,7 +24,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.CarFeatureWriteHandl
             }
 
                 existingFeatures.CarId = request.CarId;
-                existingFeatures.FeatureId = request.SelectedFeatureId;
+                existingFeatures.FeatureId = request.FeatureId;
                 existingFeatures.IsAvailable = request.IsAvailable;
                 existingFeatures.UpdateDate = DateTime.Today;
 

@@ -23,6 +23,6 @@ namespace RentACar.Application.DTOs.Concrete.CarDto
         public byte Luggage { get; set; }
         public string Fuel { get; set; }
         public List<PricingToCarsDto> Pricings { get; set; }
-        public List<GetAllFeatureToCarFirCarListDto> Features { get; set; }
+        public List<GetAllFeatureToCarForCarListDto> Features { get; set; }
     }
 }

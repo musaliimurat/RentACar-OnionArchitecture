@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Application.DTOs.Concrete.FeatureToCarDTOs
 {
-    public class GetAllFeatureToCarFirCarListDto : IDto
+    public class GetAllFeatureToCarForCarListDto : IDto
     {
         public Guid Id { get; set; }
         public Guid CarId { get; set; }
