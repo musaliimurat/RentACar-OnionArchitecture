@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using RentACar.Application.Features.CQRS.Queries.PricingQueries;
 using RentACar.Application.Features.CQRS.Results.PricingResults;
 using RentACar.Application.Interfaces.Repository.Abstract;
@@ -15,20 +16,18 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.PricingReadHandlers
     public class GetAllPricingQueryHandler : IRequestHandler<GetAllPricingQuery, IDataResult<List<GetAllPricingQueryResult>>>
     {
         private readonly IPricingRepository _pricingRepository;
+        private readonly IMapper _mapper;
 
-        public GetAllPricingQueryHandler(IPricingRepository pricingRepository)
+        public GetAllPricingQueryHandler(IPricingRepository pricingRepository, IMapper mapper)
         {
             _pricingRepository = pricingRepository;
+            _mapper = mapper;
         }
 
         public async Task<IDataResult<List<GetAllPricingQueryResult>>> Handle(GetAllPricingQuery request, CancellationToken cancellationToken)
         {
             var values = await _pricingRepository.GetAllAsync();
-            var result = values.Select(f => new GetAllPricingQueryResult
-            {
-                Id = f.Id,
-                Name = f.Name,
-            }).ToList();
+            var result = _mapper.Map<List<GetAllPricingQueryResult>>(values);
             if (result.Count > 0)
             {
                 return new SuccessDataResult<List<GetAllPricingQueryResult>>(result, "Pricing list is load successfull!");

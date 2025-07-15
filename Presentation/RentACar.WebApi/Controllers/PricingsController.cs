@@ -1,8 +1,6 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using RentACar.Application.Features.CQRS.Commands.PricingCommands;
-using RentACar.Application.Features.CQRS.Queries.PricingQueries;
+﻿using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.DTOs.Concrete.PricingDTOs;
+using RentACar.Application.Interfaces.Services;
 
 namespace RentACar.WebApi.Controllers
 {
@@ -10,17 +8,16 @@ namespace RentACar.WebApi.Controllers
     [ApiController]
     public class PricingsController : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public PricingsController(IMediator mediator)
+        private readonly IPricingService _pricingService;
+        public PricingsController(IPricingService pricingService)
         {
-            _mediator = mediator;
+            _pricingService = pricingService;
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetAllPricingQuery());
+            var result = await _pricingService.GetAllPricingAsync();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,7 +29,7 @@ namespace RentACar.WebApi.Controllers
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var result = await _mediator.Send(new GetPricingByIdQuery(id));
+            var result = await _pricingService.GetPricingByIdAsync(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -42,9 +39,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreatePricingCommand createPricingCommand)
+        public async Task<IActionResult> Create(CreatePricingDto createPricingDto)
         {
-            var result = await _mediator.Send(createPricingCommand);
+            var result = await _pricingService.CreatePricingAsync(createPricingDto);
             if (result.Success)
             {
                 return Created();
@@ -56,7 +53,7 @@ namespace RentACar.WebApi.Controllers
         [HttpDelete("Remove")]
         public async Task<IActionResult> Remove(Guid id)
         {
-            var result = await _mediator.Send(new RemovePricingCommand(id));
+            var result = await _pricingService.DeletePricingAsync(id);
             if (result.Success)
             {
                 return Ok("Delete Successfully!");
@@ -65,9 +62,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(UpdatePricingCommand updatePricingCommand)
+        public async Task<IActionResult> Update(UpdatePricingDto updatePricingDto)
         {
-            var result = await _mediator.Send(updatePricingCommand);
+            var result = await _pricingService.UpdatePricingAsync(updatePricingDto);
             if (result.Success)
             {
                 return Ok("Update Successfully!");

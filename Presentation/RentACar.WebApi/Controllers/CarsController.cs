@@ -68,6 +68,17 @@ namespace RentACar.WebApi.Controllers
             }
             else return BadRequest(result.Message);
         }
+        [HttpGet("GetCarWithDetailById/{id}")]
+        public async Task<IActionResult> GetCarWithDetailById(Guid id)
+        {
+            var result = await _service.GetCarDetailByIdAsync(id);
+            if (result.Success)
+            {
+                return Ok(result);
+
+            }
+            else return BadRequest(result.Message);
+        }
 
         [HttpPost("Create")]
         public async Task<IActionResult> Create(CreateCarDto createCarDto)

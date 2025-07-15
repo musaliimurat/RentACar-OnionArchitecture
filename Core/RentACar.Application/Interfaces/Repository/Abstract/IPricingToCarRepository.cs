@@ -9,5 +9,7 @@ namespace RentACar.Application.Interfaces.Repository.Abstract
 {
     public interface IPricingToCarRepository: IRepositoryBase<PricingToCar>
     {
+        Task<List<PricingToCar>> GetAllWithDetailsAsync();
+        Task<PricingToCar> GetWithDetailByIdAsync(Guid id);
     }
 }

@@ -14,6 +14,7 @@ namespace RentACar.Application.Interfaces.Services
         Task<IDataResult<List<GetAllCarsSliderDto>>> GetAllIsSliderCarsAsync();
         Task<IDataResult<List<GetAllCarsToPriceListDto>>> GetAllCarsToPriceListsAsync();
         Task<IDataResult<GetCarByIdDto>> GetCarByIdAsync(Guid id);
+        Task<IDataResult<GetCarByIdDto>> GetCarDetailByIdAsync(Guid id);
         Task<IResult> CreateCarAsync(CreateCarDto createCarDto);
         Task<IResult> UpdateCarAsync(UpdateCarDto updateCarDto);
         Task<IResult> DeleteCarAsync(Guid id);

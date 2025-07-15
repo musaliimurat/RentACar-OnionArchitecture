@@ -21,6 +21,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.PricingWriteHandlers
             if (value != null)
             {
                 value.Name = request.Name;
+                value.UpdateDate = DateTime.Today;
                 await _pricingRepository.UpdateAsync(value);
                 return new SuccessResult("Pricing is updated successfull!");
             }

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using RentACar.Application.DTOs.Concrete.CarDto;
 using RentACar.Application.Features.CQRS.Queries.CarPricingQueries;
 using RentACar.Application.Features.CQRS.Results.CarPricingResults;
@@ -32,6 +33,30 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.CarPricingReadHandler
                 Amount = pricingToCar.Amount
             };
             return new SuccessDataResult<GetCarPricingByIdQueryResult>(pricingToCarResult, "Pricing is load successfull!");
+        }
+    }
+
+    public class GetPricingToCarByIdForAdminQueryHandler : IRequestHandler<GetCarPricingByIdForAdminQuery, IDataResult<GetCarPricingByIdForAdminQueryResult>>
+    {
+        private readonly IPricingToCarRepository _pricingToCarRepository;
+        private readonly IMapper _mapper;
+
+        public GetPricingToCarByIdForAdminQueryHandler(IPricingToCarRepository pricingToCarRepository, IMapper mapper)
+        {
+            _pricingToCarRepository = pricingToCarRepository;
+            _mapper = mapper;
+        }
+
+        public async Task<IDataResult<GetCarPricingByIdForAdminQueryResult>> Handle(GetCarPricingByIdForAdminQuery request, CancellationToken cancellationToken)
+        {
+            var pricingToCar = await _pricingToCarRepository.GetWithDetailByIdAsync(request.Id);
+            if (pricingToCar == null)
+            {
+                return new ErrorDataResult<GetCarPricingByIdForAdminQueryResult>("Pricing not found!");
+            }
+            var pricingToCarResult = _mapper.Map<GetCarPricingByIdForAdminQueryResult>(pricingToCar);
+
+            return new SuccessDataResult<GetCarPricingByIdForAdminQueryResult>(pricingToCarResult, "Pricing is load successfull!");
         }
     }
 }

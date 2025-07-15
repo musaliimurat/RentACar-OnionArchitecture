@@ -10,5 +10,7 @@ namespace RentACar.Application.Interfaces.Repository.Abstract
 
         Task<List<GetAllCarsSliderDto>> GetAllFeaturedCarsReadAsync();
         Task<List<GetAllCarsToPriceListDto>> GetAllCarsToPriceListsReadAsync();
+
+        Task<GetCarByIdDto> GetCarDetailByIdReadAsync(Guid id);
     }
 }

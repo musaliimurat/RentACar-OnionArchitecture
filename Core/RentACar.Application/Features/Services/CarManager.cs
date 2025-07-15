@@ -96,6 +96,16 @@ namespace RentACar.Application.Features.Services
 
         }
 
+        public async Task<IDataResult<GetCarByIdDto>> GetCarDetailByIdAsync(Guid id)
+        {
+            var result = await _mediator.Send(new GetCarDetailByIdQuery(id));
+            if (!result.Success)
+                return new ErrorDataResult<GetCarByIdDto>(result.Message);
+
+            var mappedData = _mapper.Map<GetCarByIdDto>(result.Data);
+            return new SuccessDataResult<GetCarByIdDto>(mappedData, result.Message);
+        }
+
         public async Task<IResult> UpdateCarAsync(UpdateCarDto updateCarDto)
         {
             var command = _mapper.Map<UpdateCarCommand>(updateCarDto);

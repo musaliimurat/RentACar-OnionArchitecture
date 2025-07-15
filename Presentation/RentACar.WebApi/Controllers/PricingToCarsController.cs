@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.DTOs.Concrete.PricingToCarDTOs;
 using RentACar.Application.Features.CQRS.Commands.CarPricingCommands;
 using RentACar.Application.Interfaces.Services;
 
@@ -39,9 +40,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreatePricingToCarCommand command)
+        public async Task<IActionResult> Create(CreatePricingToCarDto createPricingToCarDto)
         {
-            var result = await _pricingToCarService.AddAsync(command);
+            var result = await _pricingToCarService.AddAsync(createPricingToCarDto);
             if (result.Success)
             {
                 return Created();
@@ -50,9 +51,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(UpdatePricingToCarCommand command)
+        public async Task<IActionResult> Update(UpdatePricingToCarDto updatePricingToCarDto)
         {
-            var result = await _pricingToCarService.UpdateAsync(command);
+            var result = await _pricingToCarService.UpdateAsync(updatePricingToCarDto);
             if (result.Success)
             {
                 return Ok(result.Message);

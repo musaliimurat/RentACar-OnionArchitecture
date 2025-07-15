@@ -23,8 +23,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.BlogWriteHandlers
 
         public async Task<IResult> Handle(CreateBlogCommand request, CancellationToken cancellationToken)
         {
-            if (request == null) return new ErrorResult("Blog is null!");
-            Blog blog = new Blog
+            Blog blog = new ()
             {
                 AuthorId = request.AuthorId,
                 CategoryId = request.CategoryId,

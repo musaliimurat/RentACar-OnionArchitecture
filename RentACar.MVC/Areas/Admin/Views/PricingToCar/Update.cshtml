@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model UpdatePricingToCarVM
+
+<div class="card">
+    <div class="card-body">
+
+        <h4 class="card-title">Update  pricing to car</h4>
+
+        <form asp-action="Update" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UpdatePricingToCarDto.Id" />
+            <div class="form-group">
+                <label for="carId">Select car</label>
+                <select class="form-control" id="carId" asp-for="UpdatePricingToCarDto.CarId" asp-items="@(new SelectList(Model.GetAllCarsWithBrandNameForAdminDtos, "Id", "DisplayName"))">
+                    <option hidden>Select car</option>
+                </select>
+                <span asp-validation-for="UpdatePricingToCarDto.CarId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="pricingId">Select price</label>
+                <select class="form-control" id="pricingId" asp-for="UpdatePricingToCarDto.PricingId" asp-items="@(new SelectList(Model.GetAllPricingDtos, "Id", "Name"))">
+                    <option hidden>Select price name</option>
+                </select>
+                <span asp-validation-for="UpdatePricingToCarDto.PricingId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" class="form-control" id="amount" asp-for="UpdatePricingToCarDto.Amount" placeholder="Enter amount">
+                <span asp-validation-for="UpdatePricingToCarDto.Amount" class="text-danger"></span>
+            </div>
+
+
+            <button type="submit" class="btn btn-secondary waves-effect waves-light">Update</button>
+        </form>
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </div>
+</div>
+

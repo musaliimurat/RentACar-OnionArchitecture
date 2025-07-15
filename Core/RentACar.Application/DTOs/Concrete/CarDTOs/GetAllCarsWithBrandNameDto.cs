@@ -1,4 +1,5 @@
 ﻿using RentACar.Application.DTOs.Abstract;
+using RentACar.Application.DTOs.Concrete.CarDescriptionDTOs;
 using RentACar.Application.DTOs.Concrete.FeatureToCarDTOs;
 using RentACar.Domain.Entities.Concrete;
 using System;
@@ -24,5 +25,6 @@ namespace RentACar.Application.DTOs.Concrete.CarDto
         public string Fuel { get; set; }
         public List<PricingToCarsDto> Pricings { get; set; }
         public List<GetAllFeatureToCarForCarListDto> Features { get; set; }
+        public List<GetAllCarDescriptionForCarListDto> CarDescriptions { get; set; }
     }
 }

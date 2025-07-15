@@ -18,6 +18,7 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
                 .ThenInclude(ptc => ptc.Pricing)
                 .Include(c => c.FeatureToCars)
                 .ThenInclude(ftc => ftc.Feature)
+                .Include(c => c.CarDescriptions)
                 .ToListAsync();
             return _mapper.Map<List<GetAllCarsWithBrandNameDto>>(result);
         }
@@ -38,6 +39,9 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
                 .Include(c => c.Brand)
                 .Include(c => c.PricingToCars)
                 .ThenInclude(ptc => ptc.Pricing)
+                .Include(c => c.FeatureToCars)
+                .ThenInclude(ftc => ftc.Feature)
+                .Include(c => c.CarDescriptions)
                 .ToListAsync();
             return _mapper.Map<List<GetAllCarsToPriceListDto>>(result);
         }
@@ -53,6 +57,19 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
                 .ToListAsync();
             return _mapper.Map<List<GetAllCarsSliderDto>>(result);
 
+        }
+
+        public async Task<GetCarByIdDto> GetCarDetailByIdReadAsync(Guid id)
+        {
+            var result = await context.Cars
+                .Include(c => c.Brand)
+                .Include(c => c.PricingToCars)
+                .ThenInclude(ptc => ptc.Pricing)
+                .Include(c => c.FeatureToCars)
+                .ThenInclude(ftc => ftc.Feature)
+                .Include(c => c.CarDescriptions)
+                .FirstOrDefaultAsync(c => c.Id == id);
+            return _mapper.Map<GetCarByIdDto>(result);
         }
     }
 }

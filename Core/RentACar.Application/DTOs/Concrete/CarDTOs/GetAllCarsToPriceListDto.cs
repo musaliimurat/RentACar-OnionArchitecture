@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RentACar.Application.DTOs.Concrete.CarDescriptionDTOs;
+using RentACar.Application.DTOs.Concrete.FeatureToCarDTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +16,7 @@ namespace RentACar.Application.DTOs.Concrete.CarDto
         public string Model { get; set; }
         public string CoverImageUrl { get; set; }
         public List<PricingToCarsDto> Pricings { get; set; }
+        public List<GetAllFeatureToCarForCarListDto> Features { get; set; }
+        public List<GetAllCarDescriptionForCarListDto> CarDescriptions { get; set; }
     }
 }

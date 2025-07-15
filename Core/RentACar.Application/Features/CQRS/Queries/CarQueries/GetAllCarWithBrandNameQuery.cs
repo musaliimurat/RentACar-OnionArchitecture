@@ -13,5 +13,5 @@ namespace RentACar.Application.Features.CQRS.Queries.CarQueries
     public class GetAllCarWithBrandNameQuery : PaginatedRequest, IRequest<IDataResult<PaginatedList<GetAllCarsWithBrandNameDto>>>
     {
     }
-    
+
 }

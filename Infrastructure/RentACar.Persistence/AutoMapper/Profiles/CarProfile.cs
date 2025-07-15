@@ -30,6 +30,11 @@ namespace RentACar.Persistence.AutoMapper.Profiles
                .ForMember(dest => dest.Pricings, opt => opt.MapFrom(src => src.PricingToCars))
                .ForMember(dest => dest.Features, opt => opt.MapFrom(src => src.FeatureToCars));
 
+            CreateMap<Car, GetCarByIdDto>()
+                .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name))
+                .ForMember(dest => dest.Pricings, opt => opt.MapFrom(src => src.PricingToCars))
+                .ForMember(dest => dest.Features, opt => opt.MapFrom(src => src.FeatureToCars));
+
             CreateMap<FeatureToCar, GetAllFeatureToCarForCarListDto>()
                 .ForMember(dest => dest.FeatureName, opt => opt.MapFrom(src => src.Feature.Name));
 
@@ -43,7 +48,8 @@ namespace RentACar.Persistence.AutoMapper.Profiles
 
             CreateMap<Car, GetAllCarsToPriceListDto>()
                  .ForMember(dest => dest.BrandName, opt => opt.MapFrom(src => src.Brand.Name))
-                 .ForMember(dest => dest.Pricings, opt => opt.MapFrom(src => src.PricingToCars));
+                 .ForMember(dest => dest.Pricings, opt => opt.MapFrom(src => src.PricingToCars))
+                 .ForMember(dest => dest.Features, opt => opt.MapFrom(src => src.FeatureToCars));
         }
     }
 }
