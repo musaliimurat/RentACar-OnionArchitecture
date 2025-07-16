@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using RentACar.Application.DTOs.Concrete.BlogDto;
+using RentACar.Application.DTOs.Concrete.BlogDTOs;
+using RentACar.Application.Features.CQRS.Commands.BlogCommands;
 using RentACar.Domain.Entities.Concrete;
 
 namespace RentACar.Persistence.AutoMapper.Profiles
@@ -22,6 +24,10 @@ namespace RentACar.Persistence.AutoMapper.Profiles
 
             CreateMap<Blog, GetAllBlogWithCategoryNameDto>()
               .ForMember(dest => dest.CategoryTitle, opt => opt.MapFrom(src => src.Category.Name));
+
+            CreateMap<CreateBlogDto, CreateBlogCommand>();
+            CreateMap<GetBlogByIdDto, UpdateBlogDto>();
+            CreateMap<UpdateBlogDto, UpdateBlogCommand>();
         }
     }
 }

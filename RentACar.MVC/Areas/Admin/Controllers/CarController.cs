@@ -101,9 +101,10 @@ namespace RentACar.MVC.Areas.Admin.Controllers
         public async Task<IActionResult> Update(Guid id)
         {
             var car = await _carService.GetCarByIdAsync(id);
-            var brands = await _brandService.GetAllBrandsAsync();
             if (car.Success)
             {
+                var brands = await _brandService.GetAllBrandsAsync();
+
                 var mappedCar = _mapper.Map<UpdateCarDto>(car.Data);
                 UpdateCarVM updateCarVM = new()
                 {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.DTOs.Concrete.BlogDTOs;
 using RentACar.Application.Features.CQRS.Commands.BlogCommands;
 using RentACar.Application.Interfaces.Services;
 
@@ -28,6 +29,19 @@ namespace RentABlog.WebApi.Controllers
             else return BadRequest(result.Message);
         }
 
+        [HttpGet("GetAllForAdmin")]
+        public async Task<IActionResult> GetAllForAdmin()
+        {
+            var result = await _service.GetAllBlogForAdminAsync();
+            if (result.Success)
+            {
+                return Ok(result);
+
+            }
+            else return BadRequest(result.Message);
+        }
+
+
         [HttpGet("GetAllIsNew")]
         public async Task<IActionResult> GetAllBlogIsNew()
         {
@@ -53,9 +67,9 @@ namespace RentABlog.WebApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreateBlogCommand createBlogCommand)
+        public async Task<IActionResult> Create(CreateBlogDto createBlogDto)
         {
-            var result = await _service.CreateBlogAsync(createBlogCommand);
+            var result = await _service.CreateBlogAsync(createBlogDto);
             if (result.Success)
             {
                 return Created();
@@ -76,9 +90,9 @@ namespace RentABlog.WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(UpdateBlogCommand updateBlogCommand)
+        public async Task<IActionResult> Update(UpdateBlogDto updateBlogDto)
         {
-            var result = await _service.UpdateBlogAsync(updateBlogCommand);
+            var result = await _service.UpdateBlogAsync(updateBlogDto);
             if (result.Success)
             {
                 return Ok("Update Successfully!");

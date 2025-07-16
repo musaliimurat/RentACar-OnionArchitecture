@@ -81,7 +81,7 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreateCarDto createCarDto)
+        public async Task<IActionResult> Create([FromForm] CreateCarDto createCarDto)
         {
             var result = await _service.CreateCarAsync(createCarDto);
             if (result.Success)
@@ -104,7 +104,7 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(UpdateCarDto updateCarDto)
+        public async Task<IActionResult> Update([FromForm] UpdateCarDto updateCarDto)
         {
             var result = await _service.UpdateCarAsync(updateCarDto);
             if (result.Success)

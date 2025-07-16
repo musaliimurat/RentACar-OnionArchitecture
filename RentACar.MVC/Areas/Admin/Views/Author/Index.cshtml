@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model List<GetAllAuthorDto>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Admin Panel author list</h4>
+
+                <table id="complex-header-datatable" class="table dt-responsive nowrap">
+                    <thead class="thead-light">
+
+                        <tr>
+                            <th>Image</th>
+                            <th>FullName</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div style="width:150px; height:200px;">
+                                        <img src="@item.ImageUrl" class="img-fluid" />
+                                    </div>
+                                </td>
+                                <td>@item.FullName</td>
+                                <td>@(item.Description.Length > 20 ? item.Description.Substring(0, 50) : item.Description)...</td>
+                              
+                                <td>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a asp-area="Admin" asp-controller="Author" asp-action="Update" asp-route-id="@item.Id" class="btn btn-secondary btn-sm mr-2">Edit</a>
+                                        <a asp-area="Admin" asp-controller="Author" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm mr-2">Delete</a>
+                                        @* <a asp-area="Admin" asp-controller="Author" asp-action="Read" asp-route-id="@item.Id" class="btn btn-dark btn-sm ">Details</a> *@
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Image</th>
+                            <th>FullName</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>
+
+

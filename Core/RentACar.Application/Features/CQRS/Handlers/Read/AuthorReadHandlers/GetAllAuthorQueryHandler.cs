@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using RentACar.Application.Features.CQRS.Queries.AuthorQueries;
 using RentACar.Application.Features.CQRS.Results.AuthorResults;
 using RentACar.Application.Interfaces.Repository.Abstract;
@@ -15,24 +16,18 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.AuthorReadHandlers
     public class GetAllAuthorQueryHandler : IRequestHandler<GetAllAuthorQuery, IDataResult<List<GetAllAuthorQueryResult>>>
     {
         private readonly IAuthorRepository _authorRepository;
+        private readonly IMapper _mapper;
 
-        public GetAllAuthorQueryHandler(IAuthorRepository authorRepository)
+        public GetAllAuthorQueryHandler(IAuthorRepository authorRepository, IMapper mapper)
         {
             _authorRepository = authorRepository;
+            _mapper = mapper;
         }
 
         public async Task<IDataResult<List<GetAllAuthorQueryResult>>> Handle(GetAllAuthorQuery request, CancellationToken cancellationToken)
         {
             var values = await _authorRepository.GetAllAsync();
-            var result = values.Select(a => new GetAllAuthorQueryResult
-            {
-                Id = a.Id,
-                FullName = a.FullName,
-                Description = a.Description,
-                ImageUrl = a.ImageUrl,
-                CreatedDate = a.CreatedDate,
-                UpdateDate = a.UpdateDate
-            }).ToList();
+            var result = _mapper.Map<List<GetAllAuthorQueryResult>>(values);
             if (result.Count > 0)
             {
                 return new SuccessDataResult<List<GetAllAuthorQueryResult>>(result, "Author list load successfull!");

@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model UpdateBlogVM
+
+<div class="card">
+    <div class="card-body">
+
+        <h4 class="card-title">Update blog</h4>
+
+        <form asp-action="Update" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UpdateBlogDto.Id" />
+            <div class="form-group">
+                <div class="card">
+                    <div class="card-body">
+                        <img style="width:200px; height:200px;" src="@Model.UpdateBlogDto.ImageUrl" id="imageUrl" />
+                        <input type="hidden" asp-for="UpdateBlogDto.ImageUrl" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="model">Model</label>
+                <input type="text" class="form-control" id="model" asp-for="UpdateBlogDto.Title" aria-describedby="modelHelp" placeholder="Enter blog title">
+                <span asp-validation-for="UpdateBlogDto.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="categoryId">Select category</label>
+                <select class="form-control" id="categoryId" asp-for="UpdateBlogDto.CategoryId" asp-items="@(new SelectList(Model.GetAllCategoryDtos, "Id", "Name"))">
+                    <option hidden>Select category name</option>
+                </select>
+                <span asp-validation-for="UpdateBlogDto.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="authorId">Select author</label>
+                <select class="form-control" id="authorId" asp-for="UpdateBlogDto.AuthorId" asp-items="@(new SelectList(Model.GetAllAuthorDtos, "Id", "FullName"))">
+                    <option hidden>Select author name</option>
+                </select>
+                <span asp-validation-for="UpdateBlogDto.AuthorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="content">Blog content</label>
+                <textarea rows="3" class="form-control" id="content" asp-for="UpdateBlogDto.Content" placeholder="Enter blog content"></textarea>
+                <span asp-validation-for="UpdateBlogDto.Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="new">Is New</label>
+                <br />
+                <input id="new" asp-for="UpdateBlogDto.IsNew" type="checkbox" data-toggle="switchery" data-color="#00c2b2" />
+            </div>
+            <div class="form-group">
+                <label for="imageUpload">Blog Image</label>
+                <div class="card">
+                    <div class="card-body">
+                        <input type="file" id="imageUpload" asp-for="UpdateBlogDto.ImageFile" class="dropify" data-height="300" />
+                        <span asp-validation-for="UpdateBlogDto.ImageFile" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+
+            @*   <div class="form-group mb-3">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="checkmeout0">
+                    <label class="custom-control-label" for="checkmeout0">Check me out !</label>
+                </div>
+            </div> *@
+            <button type="submit" class="btn btn-secondary waves-effect waves-light">Update</button>
+        </form>
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </div>
+</div>
+

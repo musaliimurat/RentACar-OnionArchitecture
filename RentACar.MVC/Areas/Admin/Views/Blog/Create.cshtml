@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model BlogVM
+
+
+<div class="card">
+    <div class="card-body">
+
+        <h4 class="card-title">Create new blog</h4>
+
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="model">Model</label>
+                <input type="text" class="form-control" id="model" asp-for="CreateBlogDto.Title" aria-describedby="modelHelp" placeholder="Enter blog title">
+                <span asp-validation-for="CreateBlogDto.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="categoryId">Select category</label>
+                <select class="form-control" id="categoryId" asp-for="CreateBlogDto.CategoryId" asp-items="@(new SelectList(Model.GetAllCategoryDtos, "Id", "Name"))">
+                    <option hidden>Select category name</option>
+                </select>
+                <span asp-validation-for="CreateBlogDto.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="authorId">Select author</label>
+                <select class="form-control" id="authorId" asp-for="CreateBlogDto.AuthorId" asp-items="@(new SelectList(Model.GetAllAuthorDtos, "Id", "FullName"))">
+                    <option hidden>Select author name</option>
+                </select>
+                <span asp-validation-for="CreateBlogDto.AuthorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="content">Blog content</label>
+                <textarea rows="3" class="form-control" id="content" asp-for="CreateBlogDto.Content" placeholder="Enter blog content"></textarea>
+                <span asp-validation-for="CreateBlogDto.Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="new">Is New</label>
+                <br />
+                <input id="new" asp-for="CreateBlogDto.IsNew" type="checkbox" checked data-toggle="switchery" data-color="#00c2b2" />
+            </div>
+            <div class="form-group">
+                <label for="imageUpload">Blog Image</label>
+                <div class="card">
+                    <div class="card-body">
+                        <input type="file" id="imageUpload" asp-for="CreateBlogDto.ImageFile" class="dropify" data-height="300" />
+                        <span asp-validation-for="CreateBlogDto.ImageFile" class="text-danger"></span>
+
+                    </div>
+                </div>
+            </div>
+        
+            @*   <div class="form-group mb-3">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="checkmeout0">
+                    <label class="custom-control-label" for="checkmeout0">Check me out !</label>
+                </div>
+            </div> *@
+            <button type="submit" class="btn btn-success waves-effect waves-light">Create</button>
+        </form>
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+    </div>
+</div>
+
+

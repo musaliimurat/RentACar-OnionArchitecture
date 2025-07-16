@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.DTOs.Concrete.AuthorDTOs;
 using RentACar.Application.Features.CQRS.Commands.AuthorCommands;
 using RentACar.Application.Interfaces.Services;
 
@@ -41,9 +42,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreateAuthorCommand createAuthorCommand)
+        public async Task<IActionResult> Create([FromForm] CreateAuthorDto createAuthorDto)
         {
-            var result = await _service.CreateAuthorAsync(createAuthorCommand);
+            var result = await _service.CreateAuthorAsync(createAuthorDto);
             if (result.Success)
             {
                 return Created();
@@ -64,9 +65,9 @@ namespace RentACar.WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(UpdateAuthorCommand updateAuthorCommand)
+        public async Task<IActionResult> Update([FromForm] UpdateAuthorDto updateAuthorDto)
         {
-            var result = await _service.UpdateAuthorAsync(updateAuthorCommand);
+            var result = await _service.UpdateAuthorAsync(updateAuthorDto);
             if (result.Success)
             {
                 return Ok("Update Successfully!");

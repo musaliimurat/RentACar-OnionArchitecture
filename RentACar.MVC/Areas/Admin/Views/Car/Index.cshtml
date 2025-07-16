@@ -49,7 +49,7 @@
                                     <div class="d-flex align-items-center justify-content-center">
                                         <a asp-area="Admin" asp-controller="Car" asp-action="Update" asp-route-id="@car.Id" class="btn btn-secondary btn-sm mr-2">Edit</a>
                                         <a asp-area="Admin" asp-controller="Car" asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger btn-sm mr-2">Delete</a>
-                                        <a asp-controller="Car" asp-action="Detail" asp-route-id="@car.Id" class="btn btn-dark btn-sm ">Visit this website</a>
+                                        <a asp-area="" asp-controller="Car" asp-action="Detail" asp-route-id="@car.Id" target="_blank" class="btn btn-dark btn-sm ">Visit this website</a>
                                     </div>
                                 </td>
                                 <td>@car.Seat</td>

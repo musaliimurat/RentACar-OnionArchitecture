@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RentACar.Application.DTOs.Concrete.CaregoryDTOs;
 using RentACar.Application.Features.CQRS.Commands.CategoryCommands;
 using RentACar.Application.Features.CQRS.Queries.CategoryQueries;
+using RentACar.Application.Interfaces.Services;
 
 namespace RentACategory.WebApi.Controllers
 {
@@ -10,17 +12,17 @@ namespace RentACategory.WebApi.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly ICategoryService _categoryService;
 
-        public CategoriesController(IMediator mediator)
+        public CategoriesController(ICategoryService categoryService)
         {
-            _mediator = mediator;
+            _categoryService = categoryService;
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetAllCategoryQuery());
+            var result = await _categoryService.GetAllCategoryAsync();
             if (result.Success)
             {
                 return Ok(result);
@@ -32,7 +34,7 @@ namespace RentACategory.WebApi.Controllers
         [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var result = await _mediator.Send(new GetCategoryByIdQuery(id));
+            var result = await _categoryService.GetCategoryByIdAsync(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -42,9 +44,9 @@ namespace RentACategory.WebApi.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(CreateCategoryCommand createCategoryCommand)
+        public async Task<IActionResult> Create(CreateCategoryDto createCategoryDto)
         {
-            var result = await _mediator.Send(createCategoryCommand);
+            var result = await _categoryService.CreateCategoryAsync(createCategoryDto);
             if (result.Success)
             {
                 return Created();
@@ -56,7 +58,7 @@ namespace RentACategory.WebApi.Controllers
         [HttpDelete("Remove")]
         public async Task<IActionResult> Remove(Guid id)
         {
-            var result = await _mediator.Send(new RemoveCategoryCommand(id));
+            var result = await _categoryService.DeleteCategoryAsync(id);
             if (result.Success)
             {
                 return Ok("Delete Successfully!");
@@ -65,9 +67,9 @@ namespace RentACategory.WebApi.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(UpdateCategoryCommand updateCategoryCommand)
+        public async Task<IActionResult> Update(UpdateCategoryDto updateCategoryDto)
         {
-            var result = await _mediator.Send(updateCategoryCommand);
+            var result = await _categoryService.UpdateCategoryAsync(updateCategoryDto);
             if (result.Success)
             {
                 return Ok("Update Successfully!");
