@@ -23,7 +23,6 @@ namespace RentACar.Persistence.Repositories.EntityFramework.Concrete
             return _mapper.Map<List<GetAllCarsWithBrandNameDto>>(result);
         }
 
-        //testtest
         public async Task<List<GetAllCarsWithBrandNameForAdminDto>> GetAllCarsReadForAdminAsync()
         {
             var result = await context.Cars
