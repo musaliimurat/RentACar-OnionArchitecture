@@ -38,6 +38,7 @@ namespace RentACar.DependencyResolvers.DependencyResolvers
             }).AsSelf().InstancePerLifetimeScope();
 
 
+
             //Generic Repository DAL => Data Access Layer register
             builder.RegisterAssemblyTypes(typeof(EfRepositoryBase<,>).Assembly)
               .Where(t => t.Name.EndsWith("Repository"))
