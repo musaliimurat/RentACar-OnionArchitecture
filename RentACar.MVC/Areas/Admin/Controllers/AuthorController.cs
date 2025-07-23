@@ -11,15 +11,11 @@ namespace RentACar.MVC.Areas.Admin.Controllers
     {
         private readonly IAuthorService _authorService;
         private readonly IMapper _mapper;
-        private readonly IUploadImageService _uploadImageService;
-        private readonly IWebHostEnvironment _env;
 
-        public AuthorController(IMapper mapper, IAuthorService authorService, IUploadImageService uploadImageService, IWebHostEnvironment env)
+        public AuthorController(IMapper mapper, IAuthorService authorService)
         {
             _mapper = mapper;
             _authorService = authorService;
-            _uploadImageService = uploadImageService;
-            _env = env;
         }
 
         public async Task<IActionResult> Index()
@@ -42,10 +38,6 @@ namespace RentACar.MVC.Areas.Admin.Controllers
         public async Task<IActionResult> Create(CreateAuthorDto createAuthorDto)
         {
 
-            var imagePathList = await _uploadImageService.UploadImagesAsync(
-                new FormFileCollection { createAuthorDto.ImageFile }, "assets/images/author", _env);
-            var imageUrl = imagePathList.FirstOrDefault();
-            createAuthorDto.ImageUrl = "/" + imageUrl;
             var result = await _authorService.CreateAuthorAsync(createAuthorDto);
             if (!result.Success)
             {
@@ -82,14 +74,6 @@ namespace RentACar.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateAuthorDto updateAuthorDto)
         {
-            string? imageUrl = updateAuthorDto.ImageUrl;
-            if (updateAuthorDto.ImageFile != null)
-            {
-                var imagePathList = await _uploadImageService.UploadImagesAsync(
-                    new FormFileCollection { updateAuthorDto.ImageFile }, "assets/images/author", _env);
-                imageUrl = "/" + imagePathList.FirstOrDefault();
-            }
-            updateAuthorDto.ImageUrl = updateAuthorDto.ImageFile != null ? imageUrl : updateAuthorDto.ImageUrl;
 
             var result = await _authorService.UpdateAuthorAsync(updateAuthorDto);
             if (!result.Success) 

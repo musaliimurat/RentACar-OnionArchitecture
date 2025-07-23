@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using RentACar.Application.DTOs.Concrete.BlogDto;
 using RentACar.Application.DTOs.Concrete.BlogDTOs;
 using RentACar.Application.Features.CQRS.Commands.BlogCommands;
@@ -7,6 +8,7 @@ using RentACar.Application.Features.CQRS.Queries.BlogQueries;
 using RentACar.Application.Interfaces.Services;
 using RentACar.Application.Pagination;
 using RentACar.Application.Utilities.Results.Abstract;
+using RentACar.Domain.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,15 +21,23 @@ namespace RentACar.Application.Features.Services
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IUploadImageService _uploadImageService;
+        private readonly IWebHostEnvironment _env;
 
-        public BlogManager(IMediator mediator, IMapper mapper)
+        public BlogManager(IMediator mediator, IMapper mapper, IWebHostEnvironment env, IUploadImageService uploadImageService)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _env = env;
+            _uploadImageService = uploadImageService;
         }
 
         public async Task<IResult> CreateBlogAsync(CreateBlogDto createBlogDto)
         {
+            var blogImagePathList = await _uploadImageService.UploadImagesAsync(
+               new Microsoft.AspNetCore.Http.FormFileCollection { createBlogDto.ImageFile }, "assets/images/blog", _env);
+            var blogImageUrl = blogImagePathList.FirstOrDefault();
+            createBlogDto.ImageUrl = "/" + blogImageUrl;
             var command = _mapper.Map<CreateBlogCommand>(createBlogDto);
             return await _mediator.Send(command);
         }
@@ -79,6 +89,16 @@ namespace RentACar.Application.Features.Services
 
         public async Task<IResult> UpdateBlogAsync(UpdateBlogDto updateBlogDto)
         {
+            string? blogImageUrl = updateBlogDto.ImageUrl;
+
+            if (updateBlogDto.ImageFile != null)
+            {
+                var blogImagePathList = await _uploadImageService.UploadImagesAsync(
+                new Microsoft.AspNetCore.Http.FormFileCollection { updateBlogDto.ImageFile }, "assets/images/blog", _env);
+                blogImageUrl = "/" + blogImagePathList.FirstOrDefault();
+            }
+
+            updateBlogDto.ImageUrl = updateBlogDto.ImageFile != null ? blogImageUrl : updateBlogDto.ImageUrl;
             var command = _mapper.Map<UpdateBlogCommand>(updateBlogDto);
             return await _mediator.Send(command);
         }

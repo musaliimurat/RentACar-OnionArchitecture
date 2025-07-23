@@ -13,17 +13,13 @@ namespace RentACar.MVC.Areas.Admin.Controllers
         private readonly IBlogService _blogService;
         private readonly IAuthorService _authorService;
         private readonly ICategoryService _categoryService;
-        private readonly IUploadImageService _uploadImageService;
-        private readonly IWebHostEnvironment _env;
         private readonly IMapper _mapper;
 
-        public BlogController(IBlogService blogService, ICategoryService categoryService, IAuthorService authorService, IUploadImageService uploadImageService, IWebHostEnvironment env, IMapper mapper)
+        public BlogController(IBlogService blogService, ICategoryService categoryService, IAuthorService authorService, IMapper mapper)
         {
             _blogService = blogService;
             _categoryService = categoryService;
             _authorService = authorService;
-            _uploadImageService = uploadImageService;
-            _env = env;
             _mapper = mapper;
         }
 
@@ -60,11 +56,6 @@ namespace RentACar.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BlogVM blogVM)
         {
-            var blogImagePathList = await _uploadImageService.UploadImagesAsync(
-                new FormFileCollection { blogVM.CreateBlogDto.ImageFile }, "assets/images/blog", _env);
-            var blogImageUrl = blogImagePathList.FirstOrDefault();
-            blogVM.CreateBlogDto.ImageUrl = "/" + blogImageUrl;
-
             var result = await _blogService.CreateBlogAsync(blogVM.CreateBlogDto);
             if (!result.Success)
             {
@@ -113,16 +104,6 @@ namespace RentACar.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateBlogVM updateBlogVM)
         {
-            string? blogImageUrl = updateBlogVM.UpdateBlogDto.ImageUrl;
-
-            if (updateBlogVM.UpdateBlogDto.ImageFile != null)
-            {
-                var blogImagePathList = await _uploadImageService.UploadImagesAsync(
-                new FormFileCollection { updateBlogVM.UpdateBlogDto.ImageFile }, "assets/images/blog", _env);
-                blogImageUrl = "/" + blogImagePathList.FirstOrDefault();
-            }
-
-            updateBlogVM.UpdateBlogDto.ImageUrl = updateBlogVM.UpdateBlogDto.ImageFile != null ? blogImageUrl : updateBlogVM.UpdateBlogDto.ImageUrl;
 
             var result = await _blogService.UpdateBlogAsync(updateBlogVM.UpdateBlogDto);
             if (!result.Success)

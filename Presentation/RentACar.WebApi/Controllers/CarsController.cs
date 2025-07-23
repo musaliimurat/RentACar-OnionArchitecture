@@ -11,14 +11,11 @@ namespace RentACar.WebApi.Controllers
     public class CarsController : ControllerBase
     {
         private readonly ICarService _service;
-        private readonly IUploadImageService _uploadImageService;
-        private readonly IWebHostEnvironment _env;
 
-        public CarsController(ICarService service, IUploadImageService uploadImageService, IWebHostEnvironment env)
+
+        public CarsController(ICarService service)
         {
             _service = service;
-            _uploadImageService = uploadImageService;
-            _env = env;
         }
 
         [HttpGet("GetAll")]
@@ -85,16 +82,7 @@ namespace RentACar.WebApi.Controllers
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Create([FromForm] CreateCarDto createCarDto)
         {
-            var coverImagePathList = await _uploadImageService.UploadImagesAsync(
-                         new FormFileCollection { createCarDto.CoverImageUpload }, "assets/images/car", _env);
-            var coverImageUrl = coverImagePathList.FirstOrDefault();
-
-            var detailImagePathList = await _uploadImageService.UploadImagesAsync(
-                                       new FormFileCollection { createCarDto.DetailImageUpload }, "assets/images/car", _env);
-            var detailImageUrl = detailImagePathList.FirstOrDefault();
-
-            createCarDto.CoverImageUrl = "/" + coverImageUrl;
-            createCarDto.DetailImageUrl = "/" + detailImageUrl;
+            
             var result = await _service.CreateCarAsync(createCarDto);
             if (result.Success)
             {
