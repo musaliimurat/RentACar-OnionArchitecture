@@ -13,7 +13,7 @@ namespace RentACar.Application.Features.Validators.CarValidators
         public CreateCarCommandValidator() 
         {
             RuleFor(c => c.BrandId).NotEmpty();
-            RuleFor(c=>c.Model).NotEmpty().WithMessage("Bosh gonderile bilmez!");
+            RuleFor(c=>c.Model).MinimumLength(2).WithMessage("minimum 2 uzunluqlu olmalidir!").NotEmpty().WithMessage("Bosh gonderile bilmez!");
             RuleFor(c=>c.Transmission).NotEmpty().ToString();
             RuleFor(c=>c.Fuel).NotEmpty().ToString();
             RuleFor(c=>c.Seat).Must(val => val > 0).NotEmpty();
