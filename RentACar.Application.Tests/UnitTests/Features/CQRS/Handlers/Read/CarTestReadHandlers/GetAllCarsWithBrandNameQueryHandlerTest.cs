@@ -14,7 +14,7 @@ using Xunit;
 
 namespace RentACar.Application.Tests.UnitTests.Features.CQRS.Handlers.Read.CarTestReadHandlers
 {
-    public class GetAllCarsWithBrandNameQueryHandlerTests : HandlerTestBase
+    public class GetAllCarsWithBrandNameQueryHandlerTest : HandlerTestBase
     {
         private readonly Mock<ICarRepository> _carRepositoryMock = new();
 
