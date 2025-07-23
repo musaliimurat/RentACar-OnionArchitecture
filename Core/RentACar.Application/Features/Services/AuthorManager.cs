@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using RentACar.Application.DTOs.Concrete.AuthorDTOs;
 using RentACar.Application.Features.CQRS.Commands.AuthorCommands;
 using RentACar.Application.Features.CQRS.Queries.AuthorQueries;
@@ -19,15 +20,23 @@ namespace RentACar.Application.Features.Services
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IUploadImageService _uploadImageService;
+        private readonly IWebHostEnvironment _env;
 
-        public AuthorManager(IMediator mediator, IMapper mapper)
+        public AuthorManager(IMediator mediator, IMapper mapper, IUploadImageService uploadImageService, IWebHostEnvironment env)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _uploadImageService = uploadImageService;
+            _env = env;
         }
 
         public async Task<IResult> CreateAuthorAsync(CreateAuthorDto createAuthorDto)
         {
+            var imagePathList = await _uploadImageService.UploadImagesAsync(
+             new Microsoft.AspNetCore.Http.FormFileCollection { createAuthorDto.ImageFile }, "assets/images/author", _env);
+            var imageUrl = imagePathList.FirstOrDefault();
+            createAuthorDto.ImageUrl = "/" + imageUrl;
             var request = _mapper.Map<CreateAuthorCommand>(createAuthorDto);
             return await _mediator.Send(request);
         }
@@ -61,6 +70,14 @@ namespace RentACar.Application.Features.Services
 
         public async Task<IResult> UpdateAuthorAsync(UpdateAuthorDto updateAuthorDto)
         {
+            string? imageUrl = updateAuthorDto.ImageUrl;
+            if (updateAuthorDto.ImageFile != null)
+            {
+                var imagePathList = await _uploadImageService.UploadImagesAsync(
+                    new Microsoft.AspNetCore.Http.FormFileCollection { updateAuthorDto.ImageFile }, "assets/images/author", _env);
+                imageUrl = "/" + imagePathList.FirstOrDefault();
+            }
+            updateAuthorDto.ImageUrl = updateAuthorDto.ImageFile != null ? imageUrl : updateAuthorDto.ImageUrl;
             var request = _mapper.Map<UpdateAuthorCommand>(updateAuthorDto);
             return await _mediator.Send(request);
         }

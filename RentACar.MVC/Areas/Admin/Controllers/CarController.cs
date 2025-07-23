@@ -12,16 +12,12 @@ namespace RentACar.MVC.Areas.Admin.Controllers
     {
         private readonly ICarService _carService;
         private readonly IBrandService _brandService;
-        private readonly IUploadImageService _uploadImageService;
-        private readonly IWebHostEnvironment _env;
         private readonly IMapper _mapper;
 
-        public CarController(ICarService carService, IBrandService brandService, IWebHostEnvironment env, IUploadImageService uploadImageService, IMapper mapper)
+        public CarController(ICarService carService, IBrandService brandService, IMapper mapper)
         {
             _carService = carService;
             _brandService = brandService;
-            _env = env;
-            _uploadImageService = uploadImageService;
             _mapper = mapper;
         }
 
@@ -53,16 +49,7 @@ namespace RentACar.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CarVM carVM)
         {
-            var coverImagePathList = await _uploadImageService.UploadImagesAsync(
-                          new FormFileCollection { carVM.CreateCarDto.CoverImageUpload }, "assets/images/car", _env);
-            var coverImageUrl = coverImagePathList.FirstOrDefault();
-
-            var detailImagePathList = await _uploadImageService.UploadImagesAsync(
-                                       new FormFileCollection { carVM.CreateCarDto.DetailImageUpload }, "assets/images/car", _env);
-            var detailImageUrl = detailImagePathList.FirstOrDefault();
-
-            carVM.CreateCarDto.CoverImageUrl = "/" + coverImageUrl;
-            carVM.CreateCarDto.DetailImageUrl = "/" + detailImageUrl;
+          
 
             var result = await _carService.CreateCarAsync(carVM.CreateCarDto);
             if (!result.Success)
@@ -123,24 +110,7 @@ namespace RentACar.MVC.Areas.Admin.Controllers
         public async Task<IActionResult> Update(UpdateCarVM updateCarVM)
         {
             var brands = await _brandService.GetAllBrandsAsync();
-            string? coverImageUrl = updateCarVM.UpdateCarDto.CoverImageUrl;
-            if (updateCarVM.UpdateCarDto.CoverImageUpload != null)
-            {
-                var coverImagePathList = await _uploadImageService.UploadImagesAsync(
-                    new FormFileCollection { updateCarVM.UpdateCarDto.CoverImageUpload }, "assets/images/car", _env);
-                coverImageUrl = "/" + coverImagePathList.FirstOrDefault();
-            }
-
-            string? detailImageUrl = updateCarVM.UpdateCarDto.DetailImageUrl;
-            if (updateCarVM.UpdateCarDto.DetailImageUpload != null)
-            {
-                var detailImagePathList = await _uploadImageService.UploadImagesAsync(
-                    new FormFileCollection { updateCarVM.UpdateCarDto.DetailImageUpload }, "assets/images/car", _env);
-                detailImageUrl = "/" + detailImagePathList.FirstOrDefault();
-            }
-            updateCarVM.UpdateCarDto.CoverImageUrl = updateCarVM.UpdateCarDto.CoverImageUpload != null ? coverImageUrl : updateCarVM.UpdateCarDto.CoverImageUrl;
-            updateCarVM.UpdateCarDto.DetailImageUrl = updateCarVM.UpdateCarDto.DetailImageUpload != null ? detailImageUrl : updateCarVM.UpdateCarDto.DetailImageUrl;
-
+            
             var result = await _carService.UpdateCarAsync(updateCarVM.UpdateCarDto);
             if (!result.Success)
             {

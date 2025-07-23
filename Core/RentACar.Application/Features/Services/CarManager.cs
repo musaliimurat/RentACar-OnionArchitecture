@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using RentACar.Application.DTOs.Concrete.CarDto;
 using RentACar.Application.Features.CQRS.Commands.CarCommands;
 using RentACar.Application.Features.CQRS.Queries.CarQueries;
@@ -8,6 +9,7 @@ using RentACar.Application.Interfaces.Services;
 using RentACar.Application.Pagination;
 using RentACar.Application.Utilities.Results.Abstract;
 using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Domain.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +22,28 @@ namespace RentACar.Application.Features.Services
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IUploadImageService _uploadImageService;
+        private readonly IWebHostEnvironment _env;
 
-        public CarManager(IMediator mediator, IMapper mapper)
+        public CarManager(IMediator mediator, IMapper mapper, IWebHostEnvironment env, IUploadImageService uploadImageService)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _env = env;
+            _uploadImageService = uploadImageService;
         }
 
         public async Task<IResult> CreateCarAsync(CreateCarDto createCarDto)
         {
+            var coverImagePathList = await _uploadImageService.UploadImagesAsync(
+                        new Microsoft.AspNetCore.Http.FormFileCollection { createCarDto.CoverImageUpload }, "assets/images/car", _env);
+            var coverImageUrl = coverImagePathList.FirstOrDefault();
+            var detailImagePathList = await _uploadImageService.UploadImagesAsync(
+                                       new Microsoft.AspNetCore.Http.FormFileCollection { createCarDto.DetailImageUpload }, "assets/images/car", _env);
+            var detailImageUrl = detailImagePathList.FirstOrDefault();
+
+            createCarDto.CoverImageUrl = "/" + coverImageUrl;
+            createCarDto.DetailImageUrl = "/" + detailImageUrl;
             var command = _mapper.Map<CreateCarCommand>(createCarDto);
             return await _mediator.Send(command);
         }
@@ -108,6 +123,24 @@ namespace RentACar.Application.Features.Services
 
         public async Task<IResult> UpdateCarAsync(UpdateCarDto updateCarDto)
         {
+            string? coverImageUrl = updateCarDto.CoverImageUrl;
+            if (updateCarDto.CoverImageUpload != null)
+            {
+                var coverImagePathList = await _uploadImageService.UploadImagesAsync(
+                    new Microsoft.AspNetCore.Http.FormFileCollection { updateCarDto.CoverImageUpload }, "assets/images/car", _env);
+                coverImageUrl = "/" + coverImagePathList.FirstOrDefault();
+            }
+
+            string? detailImageUrl = updateCarDto.DetailImageUrl;
+            if (updateCarDto.DetailImageUpload != null)
+            {
+                var detailImagePathList = await _uploadImageService.UploadImagesAsync(
+                    new Microsoft.AspNetCore.Http.FormFileCollection { updateCarDto.DetailImageUpload }, "assets/images/car", _env);
+                detailImageUrl = "/" + detailImagePathList.FirstOrDefault();
+            }
+            updateCarDto.CoverImageUrl = updateCarDto.CoverImageUpload != null ? coverImageUrl : updateCarDto.CoverImageUrl;
+            updateCarDto.DetailImageUrl = updateCarDto.DetailImageUpload != null ? detailImageUrl : updateCarDto.DetailImageUrl;
+
             var command = _mapper.Map<UpdateCarCommand>(updateCarDto);
             return await _mediator.Send(command);
         }
