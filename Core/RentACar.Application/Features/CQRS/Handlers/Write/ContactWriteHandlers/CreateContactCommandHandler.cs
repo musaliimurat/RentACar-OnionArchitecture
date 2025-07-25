@@ -1,14 +1,14 @@
-﻿using MediatR;
-using RentACar.Application.Features.CQRS.Commands.ContactCommands;
-using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using RentACar.Domain.Entities.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
+using RentACar.Application.Features.CQRS.Commands.ContactCommands;
+using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
+using RentACar.Domain.Entities.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Write.ContactWriteHandlers
 {
@@ -34,7 +34,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.ContactWriteHandlers
             if (request !=null)
             {
                 await _contactRepository.CreateAsync(contactForm);
-                return new SuccessResult("Contact is created successfull!");
+                return new SuccessResult("Contact is created successfully!");
             }
             else return new ErrorResult("Contact is not created!");
         }

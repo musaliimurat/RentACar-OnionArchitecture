@@ -1,10 +1,10 @@
-﻿using RentACar.Application.DTOs.Concrete.PricingDTOs;
-using RentACar.Application.Utilities.Results.Abstract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RentACar.Application.DTOs.Concrete.PricingDTOs;
+using RentACar.Common.Utilities.Results.Abstract;
 
 namespace RentACar.Application.Interfaces.Services
 {

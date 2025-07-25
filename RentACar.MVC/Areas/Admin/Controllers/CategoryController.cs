@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.DTOs.Concrete.CaregoryDTOs;
 using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Concrete;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RentACar.MVC.Areas.Admin.Controllers

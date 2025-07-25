@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using RentACar.Application.Features.CQRS.Commands.PricingCommands;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Write.PricingWriteHandlers
 {
@@ -23,7 +23,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.PricingWriteHandlers
                 value.Name = request.Name;
                 value.UpdateDate = DateTime.Today;
                 await _pricingRepository.UpdateAsync(value);
-                return new SuccessResult("Pricing is updated successfull!");
+                return new SuccessResult("Pricing is updated successfully!");
             }
             else return new ErrorResult("Pricing is not updated!");
         }

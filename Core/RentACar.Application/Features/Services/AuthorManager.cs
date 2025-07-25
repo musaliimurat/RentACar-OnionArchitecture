@@ -1,18 +1,21 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.AspNetCore.Hosting;
-using RentACar.Application.DTOs.Concrete.AuthorDTOs;
-using RentACar.Application.Features.CQRS.Commands.AuthorCommands;
-using RentACar.Application.Features.CQRS.Queries.AuthorQueries;
-using RentACar.Application.Features.CQRS.Results.AuthorResults;
-using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
+using RentACar.Application.DTOs.Concrete.AuthorDTOs;
+using RentACar.Application.Features.CQRS.Commands.AuthorCommands;
+using RentACar.Application.Features.CQRS.Queries.AuthorQueries;
+using RentACar.Application.Features.Validators.AuthorValidators;
+using RentACar.Application.Features.Validators.BrandValidators;
+using RentACar.Application.Interfaces.Services;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
+
+
 
 namespace RentACar.Application.Features.Services
 {
@@ -21,9 +24,9 @@ namespace RentACar.Application.Features.Services
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
         private readonly IUploadImageService _uploadImageService;
-        private readonly IWebHostEnvironment _env;
+        private readonly Microsoft.AspNetCore.Hosting.IWebHostEnvironment _env;
 
-        public AuthorManager(IMediator mediator, IMapper mapper, IUploadImageService uploadImageService, IWebHostEnvironment env)
+        public AuthorManager(IMediator mediator, IMapper mapper, IUploadImageService uploadImageService, Microsoft.AspNetCore.Hosting.IWebHostEnvironment env)
         {
             _mediator = mediator;
             _mapper = mapper;
@@ -31,6 +34,7 @@ namespace RentACar.Application.Features.Services
             _env = env;
         }
 
+        [ValidationAspect(typeof(CreateAuthorDtoValidator))]
         public async Task<IResult> CreateAuthorAsync(CreateAuthorDto createAuthorDto)
         {
             var imagePathList = await _uploadImageService.UploadImagesAsync(
@@ -68,6 +72,7 @@ namespace RentACar.Application.Features.Services
             else return new ErrorDataResult<GetAuthorByIdDto>(result.Message);
         }
 
+        [ValidationAspect(typeof(UpdateAuthorDtoValidator))]
         public async Task<IResult> UpdateAuthorAsync(UpdateAuthorDto updateAuthorDto)
         {
             string? imageUrl = updateAuthorDto.ImageUrl;

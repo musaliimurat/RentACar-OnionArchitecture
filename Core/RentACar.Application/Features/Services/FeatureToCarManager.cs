@@ -1,16 +1,19 @@
-﻿using AutoMapper;
-using MediatR;
-using RentACar.Application.DTOs.Concrete.FeatureToCarDTOs;
-using RentACar.Application.Features.CQRS.Commands.CarFeatureCommands;
-using RentACar.Application.Features.CQRS.Queries.CarFeatureQueries;
-using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
+using RentACar.Application.DTOs.Concrete.FeatureToCarDTOs;
+using RentACar.Application.Features.CQRS.Commands.CarFeatureCommands;
+using RentACar.Application.Features.CQRS.Queries.CarFeatureQueries;
+using RentACar.Application.Features.Validators.FeatureToCarValidators;
+using RentACar.Application.Features.Validators.FeatureValidators;
+using RentACar.Application.Interfaces.Services;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.Services
 {
@@ -25,6 +28,7 @@ namespace RentACar.Application.Features.Services
             _mapper = mapper;
         }
 
+        [ValidationAspect(typeof(CreateFeatureToCarDtoValidator))]
         public async Task<IResult> CreateFeatureToCarAsync(CreateFeatureToCarDto createFeatureToCarDto)
         {
             var command = _mapper.Map<CreateFeatureToCarCommand>(createFeatureToCarDto);
@@ -57,6 +61,7 @@ namespace RentACar.Application.Features.Services
             return new SuccessDataResult<GetFeatureToCarByIdDto>(mappedData, result.Message);
         }
 
+        [ValidationAspect(typeof(UpdateFeatureDtoValidator))]
         public async Task<IResult> UpdateFeatureToCarAsync(UpdateFeatureToCarDto updateFeatureToCarDto)
         {
             var command = _mapper.Map<UpdateFeatureToCarCommand>(updateFeatureToCarDto);

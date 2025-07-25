@@ -11,6 +11,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.3.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.12">
       <PrivateAssets>all</PrivateAssets>
@@ -22,7 +23,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\RentACar.Application\RentACar.Application.csproj" />
     <ProjectReference Include="..\..\DependencyResolvers\RentACar.DependencyResolvers.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\RentACar.Persistence\RentACar.Persistence.csproj" />
     <ProjectReference Include="..\..\RentACar.Infrastructure\RentACar.Infrastructure.csproj" />
   </ItemGroup>
 

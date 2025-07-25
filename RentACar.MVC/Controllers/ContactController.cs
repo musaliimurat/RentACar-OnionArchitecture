@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.DTOs.Concrete.ContactDto;
 using RentACar.Application.Interfaces.Services;
-using System.Threading.Tasks;
 
 namespace RentACar.MVC.Controllers
 {

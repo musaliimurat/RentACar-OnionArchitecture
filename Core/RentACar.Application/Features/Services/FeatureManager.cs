@@ -3,9 +3,12 @@ using MediatR;
 using RentACar.Application.DTOs.Concrete.FeatureDto;
 using RentACar.Application.Features.CQRS.Commands.FeatureCommands;
 using RentACar.Application.Features.CQRS.Queries.FeatureQueries;
+using RentACar.Application.Features.Validators.CategoryValidators;
+using RentACar.Application.Features.Validators.FeatureValidators;
 using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.Services
 {
@@ -20,6 +23,7 @@ namespace RentACar.Application.Features.Services
             _mapper = mapper;
         }
 
+        [ValidationAspect(typeof(CreateFeatureDtoValidator))]
         public async Task<IResult> CreateFeatureAsync(CreateFeatureDto createFeatureDto)
         {
             var command =_mapper.Map<CreateFeatureCommand>(createFeatureDto);
@@ -53,6 +57,7 @@ namespace RentACar.Application.Features.Services
 
         }
 
+        [ValidationAspect(typeof(UpdateFeatureDtoValidator))]
         public async Task<IResult> UpdateFeatureAsync(UpdateFeatureDto updateFeatureDto)
         {
             var command = _mapper.Map<UpdateFeatureCommand>(updateFeatureDto);

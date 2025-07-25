@@ -1,7 +1,5 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.DTOs.Concrete.BrandDto;
-using RentACar.Application.Features.CQRS.Commands.BrandCommands;
 using RentACar.Application.Interfaces.Services;
 
 namespace RentACar.WebApi.Controllers

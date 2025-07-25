@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
 using RentACar.Application.Features.CQRS.Commands.BrandCommands;
+using RentACar.Application.Features.Validators.BrandValidators;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 using RentACar.Domain.Entities.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Write.BrandWriteHandlers
@@ -18,7 +20,6 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.BrandWriteHandlers
             _brandRepository = brandRepository;
             _mapper = mapper;
         }
-
 
         public async Task<IResult> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
         {

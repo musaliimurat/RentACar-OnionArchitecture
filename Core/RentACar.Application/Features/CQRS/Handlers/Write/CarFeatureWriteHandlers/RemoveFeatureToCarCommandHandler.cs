@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using RentACar.Application.Features.CQRS.Commands.CarFeatureCommands;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 public class RemoveFeatureToCarCommandHandler : IRequestHandler<RemoveFeatureToCarCommand, IResult>
 {

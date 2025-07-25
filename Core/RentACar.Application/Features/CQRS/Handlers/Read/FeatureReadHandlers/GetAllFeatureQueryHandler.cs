@@ -1,16 +1,16 @@
-﻿using AutoMapper;
-using MediatR;
-using RentACar.Application.Features.CQRS.Queries.FeatureQueries;
-using RentACar.Application.Features.CQRS.Results.FeatureResults;
-using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using AutoMapper;
+using MediatR;
+using RentACar.Application.Features.CQRS.Queries.FeatureQueries;
+using RentACar.Application.Features.CQRS.Results.FeatureResults;
+using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
+// Ignore Spelling: CQRS
 namespace RentACar.Application.Features.CQRS.Handlers.Read.FeatureReadHandlers
 {
     public class GetAllFeatureQueryHandler : IRequestHandler<GetAllFeatureQuery, IDataResult<List<GetAllFeatureQueryResult>>>
@@ -31,7 +31,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.FeatureReadHandlers
 
             if (result.Count >0)
             {
-                return new SuccessDataResult<List<GetAllFeatureQueryResult>>(result, "Feature list is load successfull!");
+                return new SuccessDataResult<List<GetAllFeatureQueryResult>>(result, "Feature list is load successfully!");
             }
             else return new ErrorDataResult<List<GetAllFeatureQueryResult>>("Feature list is not found!");
         }

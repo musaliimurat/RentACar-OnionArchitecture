@@ -1,15 +1,27 @@
-
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using RentACar.Application.Features.CQRS.Handlers.Read.AboutReadHandlers;
+using RentACar.Common.CrossCuttingConcerns.Validation;
 using RentACar.DependencyResolvers.DependencyResolvers;
-using RentACar.Domain.Entities.Concrete;
+using RentACar.Infrastructure.Extensions;
+using RentACar.Infrastructure.IoC;
 using RentACar.Infrastructure.Middlewares;
-using RentACar.Persistence.Context;
-using RentACar.Persistence.Repositories.EntityFramework.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
+    containerBuilder.RegisterModule(new AutofacBusinessModule());
+});
+
+
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+            {
+
+                new CoreModule(),
+
+            });
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -36,11 +48,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 
-builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
-{
-    containerBuilder.RegisterModule(new AutofacBusinessModule());
-});
+
 
 var app = builder.Build();
 
@@ -53,6 +61,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+var httpContextAccessor = app.Services.GetRequiredService<IHttpContextAccessor>();
+ValidationTool.Configure(httpContextAccessor);
 
 app.UseHttpsRedirection();
 

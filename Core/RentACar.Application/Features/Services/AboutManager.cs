@@ -2,10 +2,13 @@
 using RentACar.Application.Features.CQRS.Commands.AboutCommands;
 using RentACar.Application.Features.CQRS.Queries.AboutQueries;
 using RentACar.Application.Features.CQRS.Results.AboutResults;
+using RentACar.Application.Features.Validators.AboutValidators;
+using RentACar.Application.Features.Validators.BrandValidators;
 using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.BusinessRules;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.BusinessRules;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.Services
 {
@@ -18,6 +21,7 @@ namespace RentACar.Application.Features.Services
             _mediator = mediator;
         }
 
+        [ValidationAspect(typeof(CreateAboutDtoValidator))]
         public async Task<IResult> CreateAboutAsync(CreateAboutCommand command)
         {
             var result = await BusinessRules.Run(CheckIfAboutCountLimitExceded());

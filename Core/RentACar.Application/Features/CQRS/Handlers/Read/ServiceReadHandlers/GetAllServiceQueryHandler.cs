@@ -1,14 +1,15 @@
-﻿using MediatR;
-using RentACar.Application.Features.CQRS.Queries.ServiceQueries;
-using RentACar.Application.Features.CQRS.Results.ServiceResults;
-using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
+using RentACar.Application.Features.CQRS.Queries.ServiceQueries;
+using RentACar.Application.Features.CQRS.Results.ServiceResults;
+using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
+// Ignore Spelling: CQRS
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.ServiceReadHandlers
 {
@@ -31,7 +32,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.ServiceReadHandlers
                 Description = s.Description,
                 IconUrl = s.IconUrl,
             }).ToList();
-            if (result.Count>0) return new SuccessDataResult<List<GetAllServiceQueryResult>>(result, "Service list is load successfull!");
+            if (result.Count>0) return new SuccessDataResult<List<GetAllServiceQueryResult>>(result, "Service list is load successfully!");
             else return new ErrorDataResult<List<GetAllServiceQueryResult>>("Service list is not found!");
 
         }

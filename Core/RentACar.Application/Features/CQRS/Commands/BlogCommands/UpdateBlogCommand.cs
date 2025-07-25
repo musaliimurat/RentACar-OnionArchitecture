@@ -1,10 +1,8 @@
 ﻿using MediatR;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Common.Attributes;
+using RentACar.Common.Utilities.Results.Abstract;
 
 namespace RentACar.Application.Features.CQRS.Commands.BlogCommands
 {
-    [WithValidation]
     public class UpdateBlogCommand : IRequest<IResult>
     {
         public Guid Id { get; set; }

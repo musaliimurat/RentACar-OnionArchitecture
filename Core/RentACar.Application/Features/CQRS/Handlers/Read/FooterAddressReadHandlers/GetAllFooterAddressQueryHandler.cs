@@ -2,13 +2,9 @@
 using RentACar.Application.Features.CQRS.Queries.FooterAddressQueries;
 using RentACar.Application.Features.CQRS.Results.FooterAddressResults;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
+// Ignore Spelling: CQRS
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.FooterAddressReadHandlers
 {
@@ -34,7 +30,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.FooterAddressReadHand
             }).ToList();
             if (result.Count > 0)
             {
-                return new SuccessDataResult<List<GetAllFooterAddressQueryResult>>(result, "Footer address list is load successfull!");
+                return new SuccessDataResult<List<GetAllFooterAddressQueryResult>>(result, "Footer address list is load successfully!");
             }
             else return new ErrorDataResult<List<GetAllFooterAddressQueryResult>>("Footer address list is not found!");
         }

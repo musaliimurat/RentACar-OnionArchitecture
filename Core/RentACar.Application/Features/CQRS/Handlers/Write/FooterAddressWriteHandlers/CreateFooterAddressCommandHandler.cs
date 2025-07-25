@@ -1,14 +1,14 @@
-﻿using MediatR;
-using RentACar.Application.Features.CQRS.Commands.FooterAddressCommands;
-using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using RentACar.Domain.Entities.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
+using RentACar.Application.Features.CQRS.Commands.FooterAddressCommands;
+using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
+using RentACar.Domain.Entities.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Write.FooterAddressWriteHandlers
 {
@@ -23,8 +23,6 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.FooterAddressWriteHa
 
         public async Task<IResult> Handle(CreateFooterAddressCommand request, CancellationToken cancellationToken)
         {
-            if (request !=null)
-            {
                 FooterAddress footerAddress = new()
                 {
                     Email = request.Email,
@@ -33,12 +31,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.FooterAddressWriteHa
                     Description = request.Description,
                 };
                 await _footerAddressRepository.CreateAsync(footerAddress);
-                return new SuccessResult("Footer Address is created successfull!");
-            }
-            else
-            {
-                return new ErrorResult("Footer Address is not created!");
-            }
+                return new SuccessResult("Footer Address is created successfully!");
         }
     }
 }

@@ -1,15 +1,15 @@
-﻿using MediatR;
-using RentACar.Application.Features.CQRS.Commands.ServiceCommands;
-using RentACar.Application.Features.CQRS.Queries.ServiceQueries;
-using RentACar.Application.Features.CQRS.Results.ServiceResults;
-using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
+using RentACar.Application.Features.CQRS.Commands.ServiceCommands;
+using RentACar.Application.Features.CQRS.Queries.ServiceQueries;
+using RentACar.Application.Features.CQRS.Results.ServiceResults;
+using RentACar.Application.Interfaces.Services;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.Services
 {

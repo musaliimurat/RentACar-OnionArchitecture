@@ -1,19 +1,16 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using AutoMapper;
+using Castle.DynamicProxy;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using RentACar.Application.Behaviors.Validation.FluentValidation;
-using RentACar.Application.Features.CQRS.Commands.ContactCommands;
-using RentACar.Application.Features.CQRS.Handlers.Read.AboutReadHandlers;
-using RentACar.Application.Features.CQRS.Handlers.Write.ContactWriteHandlers;
 using RentACar.Application.Features.Services;
-using RentACar.Domain.Entities.Concrete;
+using RentACar.Application.Interfaces.Services;
+using RentACar.Common.Interceptors;
 using RentACar.Persistence.Context;
 using RentACar.Persistence.Repositories.EntityFramework.Concrete;
-using System.Reflection;
 
 namespace RentACar.DependencyResolvers.DependencyResolvers
 {
@@ -87,26 +84,21 @@ namespace RentACar.DependencyResolvers.DependencyResolvers
                 return config.CreateMapper(scope.Resolve);
             }).As<IMapper>().InstancePerLifetimeScope();
 
+            // Application qatındakı Manager-lər üçün Assembly
+            var applicationAssembly = typeof(IBrandService).Assembly;
 
-            // For AOP (Aspect Oriented Programming) Interceptor
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            // Aspect-lər üçün Common və ya digər AOP yazdığımiz layihənin assembly-si (məs: RentACar.Common)
+            var commonAssembly = typeof(AspectInterceptorSelector).Assembly;
+
+            // Register edərkən düzgün assembly-ləri ver
+            builder.RegisterAssemblyTypes(applicationAssembly, commonAssembly)
+                .Where(t => t.Name.EndsWith("Manager"))
                 .AsImplementedInterfaces()
-                .EnableInterfaceInterceptors(new Castle.DynamicProxy.ProxyGenerationOptions()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions
                 {
-                    //Selector = new AspectInterceptorSelector()
-                }).InstancePerLifetimeScope();
-
-            // FluentValidation  Validator Register
-            builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-            .Where(t => t.IsClosedTypeOf(typeof(IValidator<>)))
-            .AsImplementedInterfaces()
-            .InstancePerLifetimeScope();
-
-            // MediatR Pipeline Behavior Register
-            builder.RegisterGeneric(typeof(ValidationBehavior<,>))
-             .As(typeof(IPipelineBehavior<,>))
-             .InstancePerLifetimeScope();
-
+                    Selector = new AspectInterceptorSelector()
+                })
+                .InstancePerLifetimeScope();
 
 
         }

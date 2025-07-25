@@ -1,15 +1,15 @@
-﻿using AutoMapper;
-using MediatR;
-using RentACar.Application.Features.CQRS.Queries.FeatureQueries;
-using RentACar.Application.Features.CQRS.Results.FeatureResults;
-using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
+using RentACar.Application.Features.CQRS.Queries.FeatureQueries;
+using RentACar.Application.Features.CQRS.Results.FeatureResults;
+using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.FeatureReadHandlers
 {
@@ -31,7 +31,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.FeatureReadHandlers
 
             if (result !=null)
             {
-                return new SuccessDataResult<GetFeatureByIdQueryResult>(result, "Feature is load successfull!");
+                return new SuccessDataResult<GetFeatureByIdQueryResult>(result, "Feature is load successfully!");
             }
             else return new ErrorDataResult<GetFeatureByIdQueryResult>("Feature is not found!");
         }

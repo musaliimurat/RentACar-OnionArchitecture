@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using RentACar.Application.Features.CQRS.Commands.BannerCommands;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 using RentACar.Domain.Entities.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Write.BannerWriteHandlers
@@ -29,7 +29,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.BannerWriteHandlers
             {
                 await _bannerRepository.CreateAsync(banner);
 
-                return new SuccessResult("Banner added successfull!");
+                return new SuccessResult("Banner added successfully!");
 
             }
             else

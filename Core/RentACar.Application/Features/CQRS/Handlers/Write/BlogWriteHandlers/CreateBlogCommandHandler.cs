@@ -1,14 +1,14 @@
-﻿using MediatR;
-using RentACar.Application.Features.CQRS.Commands.BlogCommands;
-using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using RentACar.Domain.Entities.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
+using RentACar.Application.Features.CQRS.Commands.BlogCommands;
+using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
+using RentACar.Domain.Entities.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Write.BlogWriteHandlers
 {

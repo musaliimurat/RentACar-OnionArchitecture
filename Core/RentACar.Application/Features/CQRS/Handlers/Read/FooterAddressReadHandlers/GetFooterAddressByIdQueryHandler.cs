@@ -2,8 +2,9 @@
 using RentACar.Application.Features.CQRS.Queries.FooterAddressQueries;
 using RentACar.Application.Features.CQRS.Results.FooterAddressResults;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
+// Ignore Spelling: CQRS
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.FooterAddressReadHandlers
 {
@@ -30,7 +31,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.FooterAddressReadHand
                     Address = value.Address,
                     Description = value.Description,
                 };
-                return new SuccessDataResult<GetFooterAddressByIdQueryResult>(result, "Footer address is load successfull!");
+                return new SuccessDataResult<GetFooterAddressByIdQueryResult>(result, "Footer address is load successfully!");
             }
             else return new ErrorDataResult<GetFooterAddressByIdQueryResult>("Footer address is not found!");
         }

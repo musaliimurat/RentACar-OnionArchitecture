@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.DTOs.Concrete.PricingToCarDTOs;
-using RentACar.Application.Features.CQRS.Commands.CarPricingCommands;
 using RentACar.Application.Interfaces.Services;
 
 namespace RentACar.WebApi.Controllers

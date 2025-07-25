@@ -1,4 +1,9 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using RentACar.Application.DTOs.Concrete.CarDto;
 using RentACar.Application.DTOs.Concrete.PricingToCarDTOs;
@@ -6,14 +11,12 @@ using RentACar.Application.Features.CQRS.Commands.CarCommands;
 using RentACar.Application.Features.CQRS.Commands.CarPricingCommands;
 using RentACar.Application.Features.CQRS.Queries.CarPricingQueries;
 using RentACar.Application.Features.CQRS.Results.CarPricingResults;
+using RentACar.Application.Features.Validators.FeatureValidators;
+using RentACar.Application.Features.Validators.PricingToCarValidators;
 using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.Services
 {
@@ -28,6 +31,7 @@ namespace RentACar.Application.Features.Services
             _mapper = mapper;
         }
 
+        [ValidationAspect(typeof(CreatePricingToCarDtoValidator))]
         public async Task<IResult> AddAsync(CreatePricingToCarDto createPricingToCarDto)
         {
             var command = _mapper.Map<CreatePricingToCarCommand>(createPricingToCarDto);
@@ -76,6 +80,7 @@ namespace RentACar.Application.Features.Services
             }
         }
 
+        [ValidationAspect(typeof(UpdatePricingToCarDtoValidator))]
         public async Task<IResult> UpdateAsync(UpdatePricingToCarDto updatePricingToCarDto)
         {
             var command = _mapper.Map<UpdatePricingToCarCommand>(updatePricingToCarDto);

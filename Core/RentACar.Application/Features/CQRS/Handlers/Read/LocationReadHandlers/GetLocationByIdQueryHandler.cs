@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿// Ignore Spelling: CQRS
+
+using MediatR;
 using RentACar.Application.Features.CQRS.Queries.LocationQueries;
 using RentACar.Application.Features.CQRS.Results.LocationResults;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.LocationReadHandlers
 {
@@ -25,7 +27,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.LocationReadHandlers
                 Id = values.Id,
                 Name = values.Name,
             };
-            return new SuccessDataResult<GetLocationByIdQueryResult>(result, "Location is load successfull!");
+            return new SuccessDataResult<GetLocationByIdQueryResult>(result, "Location is load successfully!");
         }
     }
 }

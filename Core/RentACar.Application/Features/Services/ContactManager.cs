@@ -1,15 +1,15 @@
-﻿using MediatR;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MediatR;
 using RentACar.Application.DTOs.Concrete.ContactDto;
 using RentACar.Application.Features.CQRS.Commands.ContactCommands;
 using RentACar.Application.Features.CQRS.Queries.ContactQueries;
 using RentACar.Application.Features.CQRS.Results.ContactResults;
 using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RentACar.Common.Utilities.Results.Abstract;
 
 namespace RentACar.Application.Features.Services
 {

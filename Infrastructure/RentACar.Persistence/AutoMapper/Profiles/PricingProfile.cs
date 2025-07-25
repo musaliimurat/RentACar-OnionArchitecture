@@ -1,13 +1,13 @@
-﻿using AutoMapper;
-using RentACar.Application.DTOs.Concrete.PricingDTOs;
-using RentACar.Application.Features.CQRS.Commands.PricingCommands;
-using RentACar.Application.Features.CQRS.Results.PricingResults;
-using RentACar.Domain.Entities.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using RentACar.Application.DTOs.Concrete.PricingDTOs;
+using RentACar.Application.Features.CQRS.Commands.PricingCommands;
+using RentACar.Application.Features.CQRS.Results.PricingResults;
+using RentACar.Domain.Entities.Concrete;
 
 namespace RentACar.Persistence.AutoMapper.Profiles
 {

@@ -1,15 +1,15 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
 using FluentAssertions;
 using Moq;
 using RentACar.Application.Features.CQRS.Handlers.Read.CarReadHandlers;
 using RentACar.Application.Features.CQRS.Queries.CarQueries;
 using RentACar.Application.Interfaces.Repository.Abstract;
 using RentACar.Application.Tests.UnitTests.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace RentACar.Application.Tests.UnitTests.Features.CQRS.Handlers.Read.CarTestReadHandlers

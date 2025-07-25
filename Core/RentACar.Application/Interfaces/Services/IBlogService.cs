@@ -1,13 +1,13 @@
-﻿using RentACar.Application.DTOs.Concrete.BlogDto;
-using RentACar.Application.DTOs.Concrete.BlogDTOs;
-using RentACar.Application.Features.CQRS.Commands.BlogCommands;
-using RentACar.Application.Pagination;
-using RentACar.Application.Utilities.Results.Abstract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RentACar.Application.DTOs.Concrete.BlogDto;
+using RentACar.Application.DTOs.Concrete.BlogDTOs;
+using RentACar.Application.Features.CQRS.Commands.BlogCommands;
+using RentACar.Application.Pagination;
+using RentACar.Common.Utilities.Results.Abstract;
 
 namespace RentACar.Application.Interfaces.Services
 {

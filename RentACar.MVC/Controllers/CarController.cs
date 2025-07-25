@@ -15,7 +15,8 @@ namespace RentACar.MVC.Controllers
 
         public async Task<IActionResult> Index(int page = 1, int pageSize = 3)
         {
-            ViewBag.MyTitle = "Cars";
+            
+                ViewBag.MyTitle = "Cars";
             ViewBag.Description = "Choose Your Car";
             var result = await _carService.GetAllCarsWithBrandsAsync(page, pageSize);
             if (result.Success)

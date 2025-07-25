@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using RentACar.Common.Exceptions;
-using System.Text.Json;
 
 namespace RentACar.Infrastructure.Middlewares
 {

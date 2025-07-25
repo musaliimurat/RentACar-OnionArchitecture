@@ -1,17 +1,20 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using RentACar.Application.DTOs.Concrete.BannerDTOs;
 using RentACar.Application.Features.CQRS.Commands.BannerCommands;
 using RentACar.Application.Features.CQRS.Queries.BannerQueries;
 using RentACar.Application.Features.CQRS.Results.BannerResults;
+using RentACar.Application.Features.Validators.AuthorValidators;
+using RentACar.Application.Features.Validators.BannerValidators;
 using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.Services
 {
@@ -26,6 +29,7 @@ namespace RentACar.Application.Features.Services
             _mapper = mapper;
         }
 
+        [ValidationAspect(typeof(CreateBannerDtoValidator))]
         public async Task<IResult> CreateBannerAsync(CreateBannerDto createBannerDto)
         {
            var command = _mapper.Map<CreateBannerCommand>(createBannerDto);
@@ -59,6 +63,7 @@ namespace RentACar.Application.Features.Services
             return new SuccessDataResult<GetBannerByIdDto>(mappedData, result.Message);
         }
 
+        [ValidationAspect(typeof(UpdateBannerDtoValidator))]
         public async Task<IResult> UpdateBannerAsync(UpdateBannerDto updateBannerDto)
         {
             var command = _mapper.Map<UpdateBannerCommand>(updateBannerDto);

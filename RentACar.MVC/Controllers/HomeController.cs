@@ -1,8 +1,8 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.Interfaces.Services;
 using RentACar.MVC.Models;
 using RentACar.MVC.ViewModels;
-using System.Diagnostics;
 
 namespace RentACar.MVC.Controllers;
 
