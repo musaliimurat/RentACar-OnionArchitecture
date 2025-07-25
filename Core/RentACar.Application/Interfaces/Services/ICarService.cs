@@ -2,7 +2,7 @@
 using RentACar.Application.Features.CQRS.Commands.CarCommands;
 using RentACar.Application.Features.CQRS.Results.CarResults;
 using RentACar.Application.Pagination;
-using RentACar.Application.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
 
 namespace RentACar.Application.Interfaces.Services
 {

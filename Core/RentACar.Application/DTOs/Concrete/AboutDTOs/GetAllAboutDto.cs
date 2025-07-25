@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RentACar.Application.DTOs.Concrete.AboutDto
+﻿namespace RentACar.Application.DTOs.Concrete.AboutDto
 {
     public class GetAllAboutDto
     {

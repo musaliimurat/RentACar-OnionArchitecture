@@ -1,14 +1,15 @@
-﻿using MediatR;
-using RentACar.Application.Features.CQRS.Queries.TestimonialQueries;
-using RentACar.Application.Features.CQRS.Results.TestimonialResults;
-using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
+using RentACar.Application.Features.CQRS.Queries.TestimonialQueries;
+using RentACar.Application.Features.CQRS.Results.TestimonialResults;
+using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
+// Ignore Spelling: CQRS
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.TestimonialReadHandlers
 {
@@ -34,7 +35,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.TestimonialReadHandle
             }).ToList();
             if (result.Count > 0) 
             {
-                return new SuccessDataResult<List<GetAllTestimonialQueryResult>>(result, "Testimonial list is load successfull!");
+                return new SuccessDataResult<List<GetAllTestimonialQueryResult>>(result, "Testimonial list is load successfully!");
             }
             else return new ErrorDataResult<List<GetAllTestimonialQueryResult>>("Testimonial list is not found!");
         }

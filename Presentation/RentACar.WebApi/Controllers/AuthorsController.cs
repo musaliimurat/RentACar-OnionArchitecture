@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.DTOs.Concrete.AuthorDTOs;
-using RentACar.Application.Features.CQRS.Commands.AuthorCommands;
 using RentACar.Application.Interfaces.Services;
 
 namespace RentACar.WebApi.Controllers

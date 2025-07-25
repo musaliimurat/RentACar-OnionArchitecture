@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.DTOs.Concrete.PricingToCarDTOs;
 using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Concrete;
 using RentACar.MVC.Areas.Admin.ViewModels;
 
 namespace RentACar.MVC.Areas.Admin.Controllers

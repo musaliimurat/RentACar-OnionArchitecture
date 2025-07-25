@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.DTOs.Concrete.BannerDTOs;
-using RentACar.Application.Features.CQRS.Commands.BannerCommands;
 using RentACar.Application.Interfaces.Services;
 
 namespace RentACar.WebApi.Controllers

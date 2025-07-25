@@ -2,8 +2,8 @@
 using RentACar.Application.Features.CQRS.Queries.TestimonialQueries;
 using RentACar.Application.Features.CQRS.Results.TestimonialResults;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 public class GetTestimonialByIdQueryHandler : IRequestHandler<GetTestimonialByIdQuery, IDataResult<GetTestimonialByIdQueryResult>>
 {
@@ -28,7 +28,7 @@ public class GetTestimonialByIdQueryHandler : IRequestHandler<GetTestimonialById
                 Comment = value.Comment,
                 ImageUrl = value.ImageUrl,
             };
-            return new SuccessDataResult<GetTestimonialByIdQueryResult>(result, "Testimonial is load successfull!");
+            return new SuccessDataResult<GetTestimonialByIdQueryResult>(result, "Testimonial is load successfully!");
         }
     }
 }

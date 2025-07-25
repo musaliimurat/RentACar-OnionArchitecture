@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using RentACar.Application.Features.CQRS.Commands.CarDescriptionCommands;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 using RentACar.Domain.Entities.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Write.CarDescriptionWriteHandlers

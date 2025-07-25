@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using RentACar.Application.Features.CQRS.Commands.AuthorCommands;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Write.AuthorWriteHandlers
 {

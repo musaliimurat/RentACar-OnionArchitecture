@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.Features.CQRS.Commands.FooterAddressCommands;
 using RentACar.Application.Features.CQRS.Queries.FooterAddressQueries;

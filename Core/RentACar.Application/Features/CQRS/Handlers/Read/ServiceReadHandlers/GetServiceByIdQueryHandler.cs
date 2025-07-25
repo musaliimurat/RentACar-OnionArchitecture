@@ -3,8 +3,9 @@ using MediatR;
 using RentACar.Application.Features.CQRS.Queries.ServiceQueries;
 using RentACar.Application.Features.CQRS.Results.ServiceResults;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
+// Ignore Spelling: CQRS
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.ServiceReadHandlers
 {
@@ -29,7 +30,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.ServiceReadHandlers
                     Description = value.Description,
                     IconUrl = value.IconUrl,
                 };
-                return new SuccessDataResult<GetServiceByIdQueryResult>(result, "Service is load successfull!");
+                return new SuccessDataResult<GetServiceByIdQueryResult>(result, "Service is load successfully!");
             }
             else return new ErrorDataResult<GetServiceByIdQueryResult>("Service is not found!");
         }

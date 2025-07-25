@@ -1,14 +1,16 @@
-﻿using MediatR;
-using RentACar.Application.Features.CQRS.Queries.LocationQueries;
-using RentACar.Application.Features.CQRS.Results.LocationResults;
-using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+﻿// Ignore Spelling: CQRS
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
+using RentACar.Application.Features.CQRS.Queries.LocationQueries;
+using RentACar.Application.Features.CQRS.Results.LocationResults;
+using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.LocationReadHandlers
 {
@@ -31,7 +33,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.LocationReadHandlers
             }).ToList();
             if (result.Count > 0)
             {
-                return new SuccessDataResult<List<GetAllLocationQueryResult>>(result, "Location list is load successfull!");
+                return new SuccessDataResult<List<GetAllLocationQueryResult>>(result, "Location list is load successfully!");
             }
             else return new ErrorDataResult<List<GetAllLocationQueryResult>>("Location list is not found!");
         }

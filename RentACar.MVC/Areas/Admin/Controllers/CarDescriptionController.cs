@@ -1,11 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.DTOs.Concrete.CarDescriptionDTOs;
 using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Concrete;
 using RentACar.Domain.Entities.Concrete;
 using RentACar.MVC.Areas.Admin.ViewModels;
-using System.Threading.Tasks;
 
 namespace RentACar.MVC.Areas.Admin.Controllers
 {

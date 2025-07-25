@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.DTOs.Concrete.BlogDTOs;
-using RentACar.Application.Features.CQRS.Commands.BlogCommands;
 using RentACar.Application.Interfaces.Services;
 
 namespace RentABlog.WebApi.Controllers

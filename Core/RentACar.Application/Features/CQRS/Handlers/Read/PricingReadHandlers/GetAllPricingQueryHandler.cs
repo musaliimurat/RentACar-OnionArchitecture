@@ -1,15 +1,16 @@
-﻿using AutoMapper;
-using MediatR;
-using RentACar.Application.Features.CQRS.Queries.PricingQueries;
-using RentACar.Application.Features.CQRS.Results.PricingResults;
-using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
+using RentACar.Application.Features.CQRS.Queries.PricingQueries;
+using RentACar.Application.Features.CQRS.Results.PricingResults;
+using RentACar.Application.Interfaces.Repository.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
+// Ignore Spelling: CQRS
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.PricingReadHandlers
 {
@@ -30,7 +31,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.PricingReadHandlers
             var result = _mapper.Map<List<GetAllPricingQueryResult>>(values);
             if (result.Count > 0)
             {
-                return new SuccessDataResult<List<GetAllPricingQueryResult>>(result, "Pricing list is load successfull!");
+                return new SuccessDataResult<List<GetAllPricingQueryResult>>(result, "Pricing list is load successfully!");
             }
             else return new ErrorDataResult<List<GetAllPricingQueryResult>>("Pricing list is not found!");
         }

@@ -1,13 +1,13 @@
-﻿using AutoMapper;
-using RentACar.Application.DTOs.Concrete.AuthorDTOs;
-using RentACar.Application.Features.CQRS.Commands.AuthorCommands;
-using RentACar.Application.Features.CQRS.Results.AuthorResults;
-using RentACar.Domain.Entities.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using RentACar.Application.DTOs.Concrete.AuthorDTOs;
+using RentACar.Application.Features.CQRS.Commands.AuthorCommands;
+using RentACar.Application.Features.CQRS.Results.AuthorResults;
+using RentACar.Domain.Entities.Concrete;
 
 namespace RentACar.Persistence.AutoMapper.Profiles
 {

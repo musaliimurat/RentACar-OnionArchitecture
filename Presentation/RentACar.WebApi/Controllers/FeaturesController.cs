@@ -1,9 +1,5 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.DTOs.Concrete.FeatureDto;
-using RentACar.Application.Features.CQRS.Commands.FeatureCommands;
-using RentACar.Application.Features.CQRS.Queries.FeatureQueries;
 using RentACar.Application.Interfaces.Services;
 
 namespace RentACar.WebApi.Controllers

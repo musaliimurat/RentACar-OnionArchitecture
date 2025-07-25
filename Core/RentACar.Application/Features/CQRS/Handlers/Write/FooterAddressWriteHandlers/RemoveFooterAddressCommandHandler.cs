@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using RentACar.Application.Features.CQRS.Commands.FooterAddressCommands;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Write.FooterAddressWriteHandlers
 {
@@ -21,7 +21,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.FooterAddressWriteHa
             if (value != null)
             {
                 await _footerAddressRepository.RemoveAsync(value);
-                return new SuccessResult("Footer Address is removed successfull!");
+                return new SuccessResult("Footer Address is removed successfully!");
             }
             else return new ErrorResult("Footer Address is not removed!");
         }

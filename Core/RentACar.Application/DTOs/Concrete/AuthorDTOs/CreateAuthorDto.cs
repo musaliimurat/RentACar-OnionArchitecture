@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using RentACar.Application.DTOs.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RentACar.Application.DTOs.Concrete.AuthorDTOs
 {

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using RentACar.Application.Features.CQRS.Results.TestimonialResults;
-using RentACar.Application.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
 
 namespace RentACar.Application.Features.CQRS.Queries.TestimonialQueries
 {

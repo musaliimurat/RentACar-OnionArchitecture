@@ -1,10 +1,27 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using RentACar.DependencyResolvers.DependencyResolvers;
-using RentACar.Infrastructure.Middlewares;
 using FluentValidation.AspNetCore;
+using RentACar.Common.CrossCuttingConcerns.Validation;
+using RentACar.DependencyResolvers.DependencyResolvers;
+using RentACar.Infrastructure.Extensions;
+using RentACar.Infrastructure.IoC;
+using RentACar.Infrastructure.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
+    containerBuilder.RegisterModule(new AutofacBusinessModule());
+});
+
+
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+            {
+
+                new CoreModule(),
+
+            });
 
 
 // Add services to the container.
@@ -18,11 +35,6 @@ builder.Services.AddHttpContextAccessor();
 
 
 
-builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
-{
-    containerBuilder.RegisterModule(new AutofacBusinessModule());
-});
 
 
 
@@ -35,6 +47,9 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+var httpContextAccessor = app.Services.GetRequiredService<IHttpContextAccessor>();
+ValidationTool.Configure(httpContextAccessor);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

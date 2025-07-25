@@ -1,16 +1,19 @@
-﻿using AutoMapper;
-using MediatR;
-using RentACar.Application.DTOs.Concrete.CarDescriptionDTOs;
-using RentACar.Application.Features.CQRS.Commands.CarDescriptionCommands;
-using RentACar.Application.Features.CQRS.Queries.CarDescriptionQueries;
-using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
+using RentACar.Application.DTOs.Concrete.CarDescriptionDTOs;
+using RentACar.Application.Features.CQRS.Commands.CarDescriptionCommands;
+using RentACar.Application.Features.CQRS.Queries.CarDescriptionQueries;
+using RentACar.Application.Features.Validators.AuthorValidators;
+using RentACar.Application.Features.Validators.CarDescriptionValidators;
+using RentACar.Application.Interfaces.Services;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.Services
 {
@@ -25,6 +28,7 @@ namespace RentACar.Application.Features.Services
             _mediator = mediator;
         }
 
+        [ValidationAspect(typeof(CreateCarDescriptionDtoValidator))]
         public async Task<IResult> CreateCarDescriptionAsync(CreateCarDescriptionDto createCarDescriptionDto)
         {
             var command = _mapper.Map<CreateCarDescriptionCommand>(createCarDescriptionDto);
@@ -59,6 +63,7 @@ namespace RentACar.Application.Features.Services
             return new SuccessDataResult<GetCarDescriptionByIdDto>(mappedData, "Car description retrieved successfully.");
         }
 
+        [ValidationAspect(typeof(UpdateCarDescriptionDtoValidator))]
         public async Task<IResult> UpdateCarDescriptionAsync(UpdateCarDescriptionDto updateCarDescriptionDto)
         {
             var command =  _mapper.Map<UpdateCarDescriptionCommand>(updateCarDescriptionDto);

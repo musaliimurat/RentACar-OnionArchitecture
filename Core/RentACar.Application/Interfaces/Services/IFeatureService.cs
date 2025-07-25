@@ -1,7 +1,7 @@
 ﻿using RentACar.Application.DTOs.Concrete.FeatureDto;
 using RentACar.Application.Features.CQRS.Commands.FeatureCommands;
 using RentACar.Application.Features.CQRS.Results.FeatureResults;
-using RentACar.Application.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Abstract;
 
 namespace RentACar.Application.Interfaces.Services
 {

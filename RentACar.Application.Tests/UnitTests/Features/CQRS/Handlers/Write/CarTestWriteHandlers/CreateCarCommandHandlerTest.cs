@@ -1,14 +1,14 @@
-﻿using Moq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Moq;
 using RentACar.Application.Features.CQRS.Commands.CarCommands;
 using RentACar.Application.Features.CQRS.Handlers.Write.CarWriteHandlers;
 using RentACar.Application.Interfaces.Repository.Abstract;
 using RentACar.Application.Tests.UnitTests.Common;
 using RentACar.Domain.Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace RentACar.Application.Tests.UnitTests.Features.CQRS.Handlers.Write.CarTestWriteHandlers

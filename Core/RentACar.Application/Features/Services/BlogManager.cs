@@ -1,19 +1,21 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using RentACar.Application.DTOs.Concrete.BlogDto;
 using RentACar.Application.DTOs.Concrete.BlogDTOs;
 using RentACar.Application.Features.CQRS.Commands.BlogCommands;
 using RentACar.Application.Features.CQRS.Queries.BlogQueries;
+using RentACar.Application.Features.Validators.BlogValidators;
 using RentACar.Application.Interfaces.Services;
 using RentACar.Application.Pagination;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Domain.Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.Results.Abstract;
+
 
 namespace RentACar.Application.Features.Services
 {
@@ -32,6 +34,7 @@ namespace RentACar.Application.Features.Services
             _uploadImageService = uploadImageService;
         }
 
+        [ValidationAspect(typeof(CreateBlogDtoValidator))]
         public async Task<IResult> CreateBlogAsync(CreateBlogDto createBlogDto)
         {
             var blogImagePathList = await _uploadImageService.UploadImagesAsync(
@@ -87,6 +90,7 @@ namespace RentACar.Application.Features.Services
             return await _mediator.Send(new GetBlogByIdQuery(id));
         }
 
+        [ValidationAspect(typeof(UpdateBlogDtoValidator))]
         public async Task<IResult> UpdateBlogAsync(UpdateBlogDto updateBlogDto)
         {
             string? blogImageUrl = updateBlogDto.ImageUrl;

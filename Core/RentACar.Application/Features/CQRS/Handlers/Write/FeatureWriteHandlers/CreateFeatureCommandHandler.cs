@@ -2,8 +2,8 @@
 using MediatR;
 using RentACar.Application.Features.CQRS.Commands.FeatureCommands;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 using RentACar.Domain.Entities.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Write.FeatureWriteHandlers
@@ -31,7 +31,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Write.FeatureWriteHandlers
                 };
                 await _featureRepository.CreateAsync(feature);
 
-                return new SuccessResult("Feature is created successfull!");
+                return new SuccessResult("Feature is created successfully!");
             }
             else
             {

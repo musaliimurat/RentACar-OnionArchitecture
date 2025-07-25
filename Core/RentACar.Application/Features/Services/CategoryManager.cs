@@ -1,16 +1,19 @@
-﻿using AutoMapper;
-using MediatR;
-using RentACar.Application.DTOs.Concrete.CaregoryDTOs;
-using RentACar.Application.Features.CQRS.Commands.CategoryCommands;
-using RentACar.Application.Features.CQRS.Queries.CategoryQueries;
-using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
+using RentACar.Application.DTOs.Concrete.CaregoryDTOs;
+using RentACar.Application.Features.CQRS.Commands.CategoryCommands;
+using RentACar.Application.Features.CQRS.Queries.CategoryQueries;
+using RentACar.Application.Features.Validators.CarDescriptionValidators;
+using RentACar.Application.Features.Validators.CategoryValidators;
+using RentACar.Application.Interfaces.Services;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.Services
 {
@@ -25,6 +28,7 @@ namespace RentACar.Application.Features.Services
             _mapper = mapper;
         }
 
+        [ValidationAspect(typeof(CreateCategoryDtoValidator))]
         public async Task<IResult> CreateCategoryAsync(CreateCategoryDto createCategoryDto)
         {
             var command = _mapper.Map<CreateCategoryCommand>(createCategoryDto);
@@ -57,6 +61,7 @@ namespace RentACar.Application.Features.Services
             return new SuccessDataResult<GetCategoryByIdDto>(mappedData, result.Message);
         }
 
+        [ValidationAspect(typeof(UpdateCategoryDtoValidator))]
         public async Task<IResult> UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto)
         {
             var command = _mapper.Map<UpdateCategoryCommand>(updateCategoryDto);

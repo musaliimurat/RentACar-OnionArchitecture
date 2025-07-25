@@ -1,17 +1,18 @@
-﻿using AutoMapper;
-using MediatR;
-using RentACar.Application.DTOs.Concrete.BrandDto;
-using RentACar.Application.Features.CQRS.Commands.BrandCommands;
-using RentACar.Application.Features.CQRS.Queries.BrandQueries;
-using RentACar.Application.Features.CQRS.Results.BrandResults;
-using RentACar.Application.Interfaces.Services;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
+using RentACar.Application.DTOs.Concrete.BrandDto;
+using RentACar.Application.Features.CQRS.Commands.BrandCommands;
+using RentACar.Application.Features.CQRS.Queries.BrandQueries;
+using RentACar.Application.Features.Validators.BrandValidators;
+using RentACar.Application.Interfaces.Services;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.Services
 {
@@ -26,6 +27,7 @@ namespace RentACar.Application.Features.Services
             _mapper = mapper;
         }
 
+        [ValidationAspect(typeof(CreateBrandDtoValidator))]
         public async Task<IResult> CreateBrandAsync(CreateBrandDto createBrandDto)
         {
             var command = _mapper.Map<CreateBrandCommand>(createBrandDto);
@@ -56,6 +58,7 @@ namespace RentACar.Application.Features.Services
                 : new ErrorDataResult<GetBrandByIdDto>(result.Message);
         }
 
+        [ValidationAspect(typeof(UpdateBrandDtoValidator))]
         public async Task<IResult> UpdateBrandAsync(UpdateBrandDto updateBrandDto)
         {
             var command = _mapper.Map<UpdateBrandCommand>(updateBrandDto);

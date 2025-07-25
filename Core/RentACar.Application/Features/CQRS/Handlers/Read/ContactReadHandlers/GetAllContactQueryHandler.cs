@@ -2,13 +2,8 @@
 using RentACar.Application.Features.CQRS.Queries.ContactQueries;
 using RentACar.Application.Features.CQRS.Results.ContactResults;
 using RentACar.Application.Interfaces.Repository.Abstract;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.CQRS.Handlers.Read.ContactReadHandlers
 {
@@ -24,7 +19,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.ContactReadHandlers
         public async Task<IDataResult<List<GetAllContactQueryResult>>> Handle(GetAllContactQuery request, CancellationToken cancellationToken)
         {
             var values = await _contactRepository.GetAllAsync();
-            var result = values.Select(c=> new GetAllContactQueryResult
+            var result = values.Select(c => new GetAllContactQueryResult
             {
                 Id = c.Id,
                 Name = c.Name,
@@ -33,7 +28,7 @@ namespace RentACar.Application.Features.CQRS.Handlers.Read.ContactReadHandlers
                 Message = c.Message,
                 SendDate = c.SendDate,
             }).ToList();
-            if (result.Count>0)
+            if (result.Count > 0)
             {
                 return new SuccessDataResult<List<GetAllContactQueryResult>>(result, "Contact list is load successfull!");
             }

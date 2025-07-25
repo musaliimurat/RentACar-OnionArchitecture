@@ -1,20 +1,15 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Hosting;
 using RentACar.Application.DTOs.Concrete.CarDto;
 using RentACar.Application.Features.CQRS.Commands.CarCommands;
 using RentACar.Application.Features.CQRS.Queries.CarQueries;
-using RentACar.Application.Features.CQRS.Results.CarResults;
+using RentACar.Application.Features.Validators.CarDescriptionValidators;
+using RentACar.Application.Features.Validators.CarValidators;
 using RentACar.Application.Interfaces.Services;
 using RentACar.Application.Pagination;
-using RentACar.Application.Utilities.Results.Abstract;
-using RentACar.Application.Utilities.Results.Concrete;
-using RentACar.Domain.Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RentACar.Common.Aspects.ValidationAspect;
+using RentACar.Common.Utilities.Results.Abstract;
+using RentACar.Common.Utilities.Results.Concrete;
 
 namespace RentACar.Application.Features.Services
 {
@@ -23,9 +18,9 @@ namespace RentACar.Application.Features.Services
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
         private readonly IUploadImageService _uploadImageService;
-        private readonly IWebHostEnvironment _env;
+        private readonly Microsoft.AspNetCore.Hosting.IWebHostEnvironment _env;
 
-        public CarManager(IMediator mediator, IMapper mapper, IWebHostEnvironment env, IUploadImageService uploadImageService)
+        public CarManager(IMediator mediator, IMapper mapper, Microsoft.AspNetCore.Hosting.IWebHostEnvironment env, IUploadImageService uploadImageService)
         {
             _mediator = mediator;
             _mapper = mapper;
@@ -33,8 +28,10 @@ namespace RentACar.Application.Features.Services
             _uploadImageService = uploadImageService;
         }
 
+        [ValidationAspect(typeof(CreateCarDtoValidator))]
         public async Task<IResult> CreateCarAsync(CreateCarDto createCarDto)
         {
+
             var coverImagePathList = await _uploadImageService.UploadImagesAsync(
                         new Microsoft.AspNetCore.Http.FormFileCollection { createCarDto.CoverImageUpload }, "assets/images/car", _env);
             var coverImageUrl = coverImagePathList.FirstOrDefault();
@@ -121,6 +118,7 @@ namespace RentACar.Application.Features.Services
             return new SuccessDataResult<GetCarByIdDto>(mappedData, result.Message);
         }
 
+        [ValidationAspect(typeof(UpdateCarDtoValidator))]
         public async Task<IResult> UpdateCarAsync(UpdateCarDto updateCarDto)
         {
             string? coverImageUrl = updateCarDto.CoverImageUrl;

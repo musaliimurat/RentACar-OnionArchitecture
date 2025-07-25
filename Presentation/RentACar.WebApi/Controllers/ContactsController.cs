@@ -1,6 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RentACar.Application.DTOs.Concrete.ContactDto;
 using RentACar.Application.Features.CQRS.Commands.ContactCommands;
 using RentACar.Application.Interfaces.Services;
