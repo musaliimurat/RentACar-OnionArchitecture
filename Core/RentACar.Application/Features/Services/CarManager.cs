@@ -7,6 +7,7 @@ using RentACar.Application.Features.Validators.CarDescriptionValidators;
 using RentACar.Application.Features.Validators.CarValidators;
 using RentACar.Application.Interfaces.Services;
 using RentACar.Application.Pagination;
+using RentACar.Common.Aspects.AuthAspect;
 using RentACar.Common.Aspects.ValidationAspect;
 using RentACar.Common.Utilities.Results.Abstract;
 using RentACar.Common.Utilities.Results.Concrete;
@@ -89,6 +90,7 @@ namespace RentACar.Application.Features.Services
                 : new ErrorDataResult<List<GetAllCarsWithBrandNameForAdminDto>>(result.Message);
         }
 
+        //[SecuredAspect(roles:"Admin", permissions:"Car.GetAllIsSlider", Priority =1)]
         public async Task<IDataResult<List<GetAllCarsSliderDto>>> GetAllIsSliderCarsAsync()
         {
             var result = await _mediator.Send(new GetAllCarIsSliderQuery());

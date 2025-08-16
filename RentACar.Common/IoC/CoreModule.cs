@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace RentACar.Infrastructure.IoC
+namespace RentACar.Common.IoC
 {
     public class CoreModule : ICoreModule
     {

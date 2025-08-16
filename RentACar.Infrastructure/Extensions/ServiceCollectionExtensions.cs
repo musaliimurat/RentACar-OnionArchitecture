@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RentACar.Infrastructure.IoC;
+using RentACar.Common.IoC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
