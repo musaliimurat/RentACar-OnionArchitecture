@@ -1,6 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace RentACar.Infrastructure.IoC
+namespace RentACar.Common.IoC
 {
     public static class ServiceTool
     {
@@ -11,6 +16,5 @@ namespace RentACar.Infrastructure.IoC
             ServiceProvider = services.BuildServiceProvider();
             return services;
         }
-       
     }
 }

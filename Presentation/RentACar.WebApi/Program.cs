@@ -1,9 +1,9 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using RentACar.Common.CrossCuttingConcerns.Validation;
+using RentACar.Common.IoC;
 using RentACar.DependencyResolvers.DependencyResolvers;
 using RentACar.Infrastructure.Extensions;
-using RentACar.Infrastructure.IoC;
 using RentACar.Infrastructure.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);

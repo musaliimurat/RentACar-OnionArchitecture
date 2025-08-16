@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace RentACar.Infrastructure.IoC
+namespace RentACar.Common.IoC
 {
     public interface ICoreModule
     {

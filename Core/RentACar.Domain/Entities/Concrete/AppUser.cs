@@ -9,13 +9,16 @@ namespace RentACar.Domain.Entities.Concrete
 {
     public class AppUser : BaseEntity
     {
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        public int PasswordIterations { get; set; }
         public bool IsEmailConfirmed { get; set; }
         public bool Status { get; set; }
         public bool IsLogin { get; set; } = false;
+        public DateTime? LoginDate { get; set; }
         public string? HashedRefreshToken { get; set; }
         public DateTime? HashedRefreshTokenExpiration { get; set; }
         public string? HashedResetPasswordToken { get; set; }
